@@ -21,6 +21,13 @@
             font-size: 18px;
             text-transform: uppercase;
         }
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .logo img {
+            width: 100px;
+        }
         .sub-header {
             text-align: center;
             font-size: 14px;
@@ -73,6 +80,9 @@
 </head>
 <body>
 
+    <div class="logo">
+        <img src="trivandrum-logo.png" alt="Trivandrum Corporation Logo">
+    </div>
     <div class="header">TRIVANDRUM CITY CORPORATION</div>
     <div class="sub-header">Office of the Revenue Department, Thiruvananthapuram, Kerala - 695001</div>
     <div class="contact">📞 +91-471-XXXXXXX | ✉ Email: revenue@trivandrum.gov.in</div>
@@ -83,7 +93,7 @@
     <p><strong>Property Owner:</strong> <span id="owner"></span></p>
     <p><strong>Property Address:</strong> <span id="address"></span></p>
     <p><strong>Ward Number:</strong> <span id="ward"></span></p>
-    <p><strong>Property ID:</strong> <span id="propertyId"></span></p>
+    <p><strong>Property ID: TC</strong> <span id="newpropId"></span></p>
 
     <h2 style="text-align:center; text-decoration:underline;">Subject: Property Tax Demand Notice - <span id="taxYear"></span></h2>
 
@@ -127,6 +137,11 @@
         You are required to clear the outstanding amount on or before <span id="dueDate2"></span> to avoid additional penalties.
     </p>
 
+    <div class="signature">
+        <p><strong>Issuing Authority:</strong></p>
+        <p>Revenue Officer, Trivandrum City Corporation</p>
+    </div>
+
     <div class="button-container">
         <button class="button" onclick="window.print()">🖨 Print Notice</button>
     </div>
@@ -143,7 +158,7 @@
         document.getElementById("address").textContent = getQueryParam("address");
         document.getElementById("address2").textContent = getQueryParam("address");
         document.getElementById("ward").textContent = getQueryParam("ward");
-        document.getElementById("propertyId").textContent = getQueryParam("id");
+        document.getElementById("newpropId").textContent = getQueryParam("id");
         document.getElementById("taxYear").textContent = getQueryParam("tax_year");
         document.getElementById("taxYear2").textContent = getQueryParam("tax_year");
         document.getElementById("propertyType").textContent = getQueryParam("type");

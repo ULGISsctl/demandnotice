@@ -18,7 +18,6 @@
         .header-container {
             display: flex;
             align-items: center;
-            justify-content: space-between;
         }
         .logo {
             width: 80px;
@@ -30,10 +29,6 @@
             text-transform: uppercase;
             flex-grow: 1;
         }
-        .date {
-            text-align: right;
-            font-size: 14px;
-        }
         .sub-header, .contact {
             text-align: center;
             font-size: 14px;
@@ -41,6 +36,10 @@
         }
         .contact {
             font-size: 12px;
+        }
+        .date {
+            font-size: 14px;
+            margin-top: 15px;
         }
         .content {
             font-size: 14px;
@@ -87,17 +86,18 @@
     <div class="header-container">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Seal_of_Thiruvananthapuram.png" alt="Trivandrum Corporation Logo" class="logo">
         <div class="header">TRIVANDRUM CITY CORPORATION</div>
-        <div class="date"><strong>Date:</strong> <span id="currentDate"></span></div>
     </div>
 
     <div class="sub-header">Office of the Revenue Department, Thiruvananthapuram, Kerala - 695001</div>
     <div class="contact">📞 +91-471-XXXXXXX | ✉ Email: revenue@trivandrum.gov.in</div>
     <hr>
 
-    <p><strong>To:</strong></p>
+    <p class="date"><strong>Date:</strong> <span id="currentDate"></span></p>
+
+    <p><strong>To</strong></p>
     <p><strong>Property Owner:</strong> <span id="owner"></span></p>
     <p><strong>Property Address:</strong> <span id="address"></span></p>
-    <p><strong>Ward Number:</strong> <span id="ward"></span></p>
+    <p><strong>Ward Name:</strong> <span id="ward"></span></p>
     <p><strong>Property ID: TC</strong> <span id="newpropId"></span></p>
 
     <h2 style="text-align:center; text-decoration:underline;">Subject: Property Tax Demand Notice - <span id="taxYear"></span></h2>

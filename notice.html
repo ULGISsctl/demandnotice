@@ -1,184 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Tax Demand Notice</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 40px;
-            padding: 20px;
-            border: 2px solid black;
-            max-width: 800px;
-            margin: auto;
-            background-color: #f9f9f9;
-        }
-        .header-container {
-            display: flex;
-            align-items: center;
-        }
-        .logo {
-            width: 50px;
-        }
-        .header {
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            text-transform: uppercase;
-            flex-grow: 1;
-        }
-        .sub-header, .contact {
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        .contact {
-            font-size: 12px;
-        }
-        .date {
-            font-size: 14px;
-            margin-top: 15px;
-        }
-        .content {
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .tax-details {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .tax-details th, .tax-details td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        .tax-details th {
-            background-color: #ddd;
-        }
-        .signature {
-            margin-top: 30px;
-            text-align: left;
-        }
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 5px;
-        }
-        .button:hover {
-            opacity: 0.8;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>റവന്യൂ റിക്കവറി ഡിമാൻഡ് നോട്ടീസ്</title>
+  <style>
+    
+    body { font-family: 'Noto Sans Malayalam', sans-serif; line-height: 1.6; margin: 20px; }
+    h1, h2, h3 { text-align: center; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    td, th { border: 1px solid #000; padding: 8px; text-align: center; }
+    .header, .footer { text-align: center; margin-bottom: 20px; }
+    .signature { margin-top: 50px; text-align: right; padding-right: 30px; }
+  </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Seal_of_Thiruvananthapuram.png" alt="Trivandrum Corporation Logo" class="logo">
-        <div class="header">TRIVANDRUM CITY CORPORATION</div>
-    </div>
+  <div class="header">
+    
+    <h2><img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Seal_of_Thiruvananthapuram.png" alt="Trivandrum Corporation Logo" class="logo"></h2>
+    <h1>റവന്യൂ റിക്കവറി ഡിമാൻഡ് നോട്ടീസ്</h1>
+    <h3>(NAME OF THE CORPORATION)</h3>
+    <p>Phone: 0471-2320821| Email-tvpmcorpn@gmail.com | Website:https://tmc.lsgkerala.gov.in</p>
+    <p>നമ്പർ: <strong>(NOTICE NUMBER)</strong></p>
+  </div>
 
-    <div class="sub-header">Office of the Revenue Department, Thiruvananthapuram, Kerala - 695001</div>
-    <div class="contact">📞 +91-471-XXXXXXX | ✉ Email: revenue@trivandrum.gov.in</div>
-    <hr>
+  <p>
+    2011 ലെ കേരള മുനിസിപ്പാലിറ്റി (വസ്തുനികുതിയും സേവന ഉപനികുതിയും സർചാർജും) ചട്ടങ്ങളിലെ ചട്ടം 19 പ്രകാരം വസ്തുനികുതി ഒടുക്കുന്നതിനു ആവശ്യപ്പെടുന്ന നോട്ടീസ്.
+  </p>
 
-     <div class="address-date-container">
-         <div>
-            <p><strong>Date:</strong> <span id="currentDate"></span></p>
-        </div>
-        <div>
-            <p><strong>To,</strong></p>
-            <p><strong>Property Owner:</strong> <span id="owner"></span></p>
-            <p><strong>Property Address:</strong> <span id="address"></span></p>
-            <p><strong>Ward Name:</strong> <span id="ward"></span></p>
-            <p><strong>Property ID: TC</strong> <span id="newpropId"></span></p>
-        </div>
-        
-    </div>
-    <h2 style="text-align:center; text-decoration:underline;">Subject: Property Tax Demand Notice - <span id="taxYear"></span></h2>
+  <h3>ഉടമയുടെ വിവരങ്ങൾ</h3>
+  <p>ഉടമയുടെ പേര് / വീട്ടുപേര്: <strong>(OWNER NAME)</strong></p>
+  <p>കെട്ടിട ID: <strong>(ID NUMBER OF BUILDING)</strong></p>
+  <p>വാർഡ്: <strong>(WARD NUMBER), (WARD NAME)</strong></p>
+  <p>കെട്ടിട നമ്പർ / സബ് നമ്പർ: <strong>(BUILDING NUMBER / SUB NUMBER)</strong></p>
 
-    <p>Dear <span id="owner2"></span>,</p>
+  <h3>നികുതി വിശദാംശങ്ങൾ</h3>
+  <table>
+  <tr>
+    <th>ക്രമം</th>
+    <th>കാലയളവ്</th>
+    <th>വസ്തുനികുതി (₹)</th>
+    <th>ഗ്രന്ഥശാല വരി (₹)</th>
+    <th>സേവന നികുതി (₹)</th>
+    <th>സർചാർജ് (₹)</th>
+    <th>ആകെ (₹)</th>
+    <th>അവസാന തീയതി</th>
+    <th>പിഴ / പലിശ (₹)</th>
+    <th>റിമാർക്ക്</th>
+  </tr>
 
-    <p class="content">
-        This is to notify you that the Property Tax for the financial year <span id="taxYear2"></span> on your property located at <span id="address2"></span>,
-        under Trivandrum City Corporation, remains unpaid. As per the Kerala Municipality Act, 1994,
-        property tax is mandatory, and non-payment may result in penalties and legal actions.
-    </p>
+  <tr>
+    <td>1</td>
+    <td>2023 - 2024 (First Half)</td>
+    <td>(AMOUNT)</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>(TOTAL)</td>
+    <td>(DUE DATE)</td>
+    <td>(FINE)</td>
+    <td>-</td>
+  </tr>
 
-    <table class="tax-details">
-        <tr>
-            <th>Property Type</th>
-            <td id="propertyType"></td>
-        </tr>
-        <tr>
-            <th>Assessed Property Value</th>
-            <td>₹<span id="assessedValue"></span></td>
-        </tr>
-        <tr>
-            <th>Annual Tax Amount</th>
-            <td>₹<span id="annualTax"></span></td>
-        </tr>
-        <tr>
-            <th>Penalty (if applicable)</th>
-            <td>₹<span id="penalty"></span></td>
-        </tr>
-        <tr>
-            <th><strong>Total Amount Due</strong></th>
-            <td><strong>₹<span id="totalDue"></span></strong></td>
-        </tr>
-        <tr>
-            <th>Due Date</th>
-            <td><span id="dueDate"></span></td>
-        </tr>
-    </table>
+  <tr>
+    <td>2</td>
+    <td>2023 - 2024 (Second Half)</td>
+    <td>(AMOUNT)</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>(TOTAL)</td>
+    <td>(DUE DATE)</td>
+    <td>(FINE)</td>
+    <td>-</td>
+  </tr>
 
-    <p class="content">
-        <strong>Payment Instructions:</strong><br>
-        You are required to clear the outstanding amount on or before <span id="dueDate2"></span> to avoid additional penalties.
-    </p>
+  <tr>
+    <td>3</td>
+    <td>2024 - 2025 (First Half)</td>
+    <td>(AMOUNT)</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>(TOTAL)</td>
+    <td>(DUE DATE)</td>
+    <td>(FINE)</td>
+    <td>-</td>
+  </tr>
 
-    <div class="signature">
-        <p><strong>Issuing Authority:</strong></p>
-        <p>Revenue Officer, Trivandrum City Corporation</p>
-    </div>
+  <tr>
+    <td>4</td>
+    <td>2024 - 2025 (Second Half)</td>
+    <td>(AMOUNT)</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>(TOTAL)</td>
+    <td>(DUE DATE)</td>
+    <td>(FINE)</td>
+    <td>-</td>
+  </tr>
 
-    <div class="button-container">
-        <button class="button" onclick="window.print()">🖨 Print Notice</button>
-    </div>
+  <tr>
+    <td>5</td>
+    <td>2025 - 2026 (First Half)</td>
+    <td>(AMOUNT)</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>(TOTAL)</td>
+    <td>(DUE DATE)</td>
+    <td>(FINE)</td>
+    <td>-</td>
+  </tr>
+</table>
 
-    <script>
-        function getQueryParam(param) {
-            let params = new URLSearchParams(window.location.search);
-            return params.get(param) || "N/A";
-        }
 
-        document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
-        document.getElementById("owner").textContent = getQueryParam("owner");
-        document.getElementById("owner2").textContent = getQueryParam("owner");
-        document.getElementById("address").textContent = getQueryParam("address");
-        document.getElementById("address2").textContent = getQueryParam("address");
-        document.getElementById("ward").textContent = getQueryParam("ward");
-        document.getElementById("newpropId").textContent = getQueryParam("id");
-        document.getElementById("taxYear").textContent = getQueryParam("tax_year");
-        document.getElementById("taxYear2").textContent = getQueryParam("tax_year");
-        document.getElementById("propertyType").textContent = getQueryParam("type");
-        document.getElementById("assessedValue").textContent = getQueryParam("value");
-        document.getElementById("annualTax").textContent = getQueryParam("tax");
-        document.getElementById("penalty").textContent = getQueryParam("penalty");
-        document.getElementById("totalDue").textContent = getQueryParam("total");
-        document.getElementById("dueDate").textContent = getQueryParam("due");
-        document.getElementById("dueDate2").textContent = getQueryParam("due");
-    </script>
+  <p><strong>ആകെ വാർഷിക തുക (രൂപ):</strong> (TOTAL AMOUNT)</p>
+  <p><strong>പിഴ / പലിശ ഉൾപ്പെടെയുള്ള അടവാക്കേണ്ട ആകെ തുക:</strong> (GRAND TOTAL)</p>
+  <p>** ഡിമാൻഡ് നോട്ടീസ് ഫീസ്: ₹10</p>
+  <p>** നോട്ടീസ് നടത്തുന്നതിനുള്ള ചിലവ്: ₹10</p>
+  <p><strong>അടവാക്കേണ്ട ആകെ തുക: ₹(TOTAL WITH CHARGES)</strong></p>
 
-</body>
-</html>
+  <h3>ശ്രദ്ധിക്കുക:</h3>
+  <p>
+    മേൽകാണുന്ന സ്റ്റേറ്റ്മെന്റിൽ വിശദീകരിച്ചിരിക്കുന്ന തരത്തിൽ, ₹(TOTAL) രൂപ ഈ നോട്ടീസ്

@@ -4,138 +4,290 @@
   <meta charset="UTF-8">
   <title>റവന്യൂ റിക്കവറി ഡിമാൻഡ് നോട്ടീസ്</title>
   <style>
-    
-    body { font-family: 'Noto Sans Malayalam', sans-serif; line-height: 1.6; margin: 20px; }
-    h1, h2, h3 { text-align: center; }
-    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    td, th { border: 1px solid #000; padding: 8px; text-align: center; }
-    .header, .footer { text-align: center; margin-bottom: 20px; }
-    .signature { margin-top: 50px; text-align: right; padding-right: 30px; }
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 25mm;
+      }
+    }
+
+    body {
+      font-family: 'Noto Sans Malayalam', sans-serif;
+      line-height: 1.7;
+      margin: 25mm;
+    }
+  .logo
+  {
+    width: 100px;
+    height:100px;
+  }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .header-right h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+    }
+
+    .meta-info {
+      margin-top: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      margin: 30px 0 10px;
+      text-decoration: underline;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      margin-bottom: 25px;
+    }
+
+    .info-table td {
+      border: 1px solid #000;
+      padding: 8px;
+      font-size: 15px;
+    }
+
+    .info-label {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      width: 35%;
+    }
+
+    .tax-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .tax-table th,
+    .tax-table td {
+      border: 1px solid #000;
+      padding: 6px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer, .signature {
+      margin-top: 30px;
+      font-size: 15px;
+    }
+
+    .signature {
+      text-align: right;
+    }
+
+    .footer-note {
+      font-size: 13px;
+      font-style: italic;
+      margin-top: 20px;
+    }
   </style>
 </head>
+<script>
+  // Parse query parameters
+  const params = new URLSearchParams(window.location.search);
+
+  function setText(id, fallback = "") {
+    const el = document.getElementById(id);
+    if (el) el.textContent = params.get(id) || fallback;
+  }
+
+  // Set individual fields
+  setText("ownr_nm");
+  setText("ward_nm");
+  setText("ward_no");
+  setText("new_prop_id");
+  setText("total");
+  setText("tax");
+  setText("address");
+  setText("tax_year");
+  setText("value");
+  setText("type");
+
+  // For concatenated fields or computed values
+  const buildingId = document.getElementById("building_id");
+  if (buildingId) buildingId.textContent = "T" + (params.get("id") || "");
+
+  const wardFull = document.getElementById("ward_full");
+  if (wardFull) wardFull.textContent =
+    (params.get("ward") || "") + " (" + (params.get("ward_no") || "") + ")";
+
+  const noticeDate = document.getElementById("notice_date");
+  if (noticeDate) noticeDate.textContent = new Date().toLocaleDateString("ml-IN");
+
+  const grandTotal = document.getElementById("grand_total");
+  if (grandTotal) {
+    const tax = parseFloat(params.get("tax") || "0");
+    const fine = 10 + 10; // Demand notice fee + processing
+    grandTotal.textContent = "₹" + (tax + fine).toFixed(2);
+  }
+</script>
+
 <body>
 
   <div class="header">
+    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Seal_of_Thiruvananthapuram.png" alt="Trivandrum Corporation Logo" class="logo"></div>
+    <div class="header-right">
+      <h3>തിരുവനന്തപുരം മുനിസിപ്പൽ കോർപ്പറേഷൻ</h3>
+      <div class="meta-info">
+        Phone: 0471-2320821<br>
+        Email-tvpmcorpn@gmail.com<br>
+        Website:https://tmc.lsgkerala.gov.in<br>
+        
+      </div>
     
-    <h2><img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Seal_of_Thiruvananthapuram.png" alt="Trivandrum Corporation Logo" class="logo"></h2>
-    <h1>റവന്യൂ റിക്കവറി ഡിമാൻഡ് നോട്ടീസ്</h1>
-    <h3>(NAME OF THE CORPORATION)</h3>
-    <p>Phone: 0471-2320821| Email-tvpmcorpn@gmail.com | Website:https://tmc.lsgkerala.gov.in</p>
-    <p>നമ്പർ: <strong>(NOTICE NUMBER)</strong></p>
+    
+    </div>
+    
   </div>
+<strong>നോട്ടീസ് നമ്പർ:</strong> (NOTICE NUMBER)
+  <h1>ഡിമാൻഡ് നോട്ടീസ്</h1>
 
-  <p>
-    2011 ലെ കേരള മുനിസിപ്പാലിറ്റി (വസ്തുനികുതിയും സേവന ഉപനികുതിയും സർചാർജും) ചട്ടങ്ങളിലെ ചട്ടം 19 പ്രകാരം വസ്തുനികുതി ഒടുക്കുന്നതിനു ആവശ്യപ്പെടുന്ന നോട്ടീസ്.
+  <p style="justify-content: center;">
+    2011 ലെ കേരള മുനിസിപ്പാലിറ്റി (വസ്തുനികുതിയും സേവന ഉപനികുതിയും സർചാർജും) ചട്ടങ്ങളിലെ ചട്ടം 19 പ്രകാരം
+    വസ്തുനികുതി ഒടുക്കുന്നതിനു ആവശ്യപ്പെടുന്ന നോട്ടീസ്.
   </p>
 
-  <h3>ഉടമയുടെ വിവരങ്ങൾ</h3>
-  <p>ഉടമയുടെ പേര് / വീട്ടുപേര്: <strong>(OWNER NAME)</strong></p>
-  <p>കെട്ടിട ID: <strong>(ID NUMBER OF BUILDING)</strong></p>
-  <p>വാർഡ്: <strong>(WARD NUMBER), (WARD NAME)</strong></p>
-  <p>കെട്ടിട നമ്പർ / സബ് നമ്പർ: <strong>(BUILDING NUMBER / SUB NUMBER)</strong></p>
+  <table class="info-table">
+    <tr>
+      <td class="info-label">ഉടമയുടെ പേര് / വീട്ടുപേര്</td>
+      <td><span id="ownr_nm"></span></td>
+    </tr>
+    <tr>
+      <td class="info-label">Owner Name / House Name</td>
+      <td><span id="ownr_nm"></span></td>
+    </tr>
+    <tr>
+      <td class="info-label">കെട്ടിടത്തിന്റെ ഐഡി</td>
+      <td>"T" + {new_prop_id}</td>
+    </tr>
+    <tr>
+      <td class="info-label">വാർഡ്</td>
+      <td><span id="ward_full"></span></td>
+    </tr>
+    <tr>
+      <td class="info-label">കെട്ടിട നമ്പർ / സബ് നമ്പർ</td>
+      <td><span id="building_id"></span></td>
+    </tr>
+  </table>
 
-  <h3>നികുതി വിശദാംശങ്ങൾ</h3>
-  <table>
-  <tr>
-    <th>ക്രമം</th>
-    <th>കാലയളവ്</th>
-    <th>വസ്തുനികുതി (₹)</th>
-    <th>ഗ്രന്ഥശാല വരി (₹)</th>
-    <th>സേവന നികുതി (₹)</th>
-    <th>സർചാർജ് (₹)</th>
-    <th>ആകെ (₹)</th>
-    <th>അവസാന തീയതി</th>
-    <th>പിഴ / പലിശ (₹)</th>
-    <th>റിമാർക്ക്</th>
-  </tr>
+  <table class="tax-table">
+    <tr>
+      <th>ക്രമം</th>
+      <th>കാലയളവ്</th>
+      <th>വസ്തുനികുതി (₹)</th>
+      <th>ഗ്രന്ഥശാല വരി (₹)</th>
+      <th>സേവന നികുതി (₹)</th>
+      <th>സർചാർജ് (₹)</th>
+      <th>ആകെ (₹)</th>
+      <th>അവസാന തീയതി</th>
+      <th>പിഴ / പലിശ (₹)</th>
+      <th>റിമാർക്ക്</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2023 - 2024 (First Half)</td>
+      <td>(AMOUNT)</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>(TOTAL)</td>
+      <td>(DUE DATE)</td>
+      <td>(FINE)</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>2023 - 2024 (Second Half)</td>
+      <td>(AMOUNT)</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>(TOTAL)</td>
+      <td>(DUE DATE)</td>
+      <td>(FINE)</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>2024 - 2025 (First Half)</td>
+      <td>(AMOUNT)</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>(TOTAL)</td>
+      <td>(DUE DATE)</td>
+      <td>(FINE)</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>2024 - 2025 (Second Half)</td>
+      <td>(AMOUNT)</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>(TOTAL)</td>
+      <td>(DUE DATE)</td>
+      <td>(FINE)</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>2025 - 2026 (First Half)</td>
+      <td>(AMOUNT)</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>(TOTAL)</td>
+      <td>(DUE DATE)</td>
+      <td>(FINE)</td>
+      <td>-</td>
+    </tr>
+  </table>
 
-  <tr>
-    <td>1</td>
-    <td>2023 - 2024 (First Half)</td>
-    <td>(AMOUNT)</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>(TOTAL)</td>
-    <td>(DUE DATE)</td>
-    <td>(FINE)</td>
-    <td>-</td>
-  </tr>
+  <div class="footer">
+    <p><strong>ആകെ തുക (വർഷങ്ങൾക്കായി):</strong> (TOTAL AMOUNT)</p>
+    <p><strong>പിഴ / പലിശ ഉൾപ്പെടെ അടവാക്കേണ്ട തുക:</strong> (AMOUNT + FINE)</p>
+    <p>** ഡിമാൻഡ് നോട്ടീസ് ഫീസ്: ₹10</p>
+    <p>** നോട്ടീസ് നടത്തുന്നതിനുള്ള ചിലവ്: ₹10</p>
+    <p><strong>ആകെ അടവാക്കേണ്ട തുക: ₹(GRAND TOTAL)</strong></p>
 
-  <tr>
-    <td>2</td>
-    <td>2023 - 2024 (Second Half)</td>
-    <td>(AMOUNT)</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>(TOTAL)</td>
-    <td>(DUE DATE)</td>
-    <td>(FINE)</td>
-    <td>-</td>
-  </tr>
-
-  <tr>
-    <td>3</td>
-    <td>2024 - 2025 (First Half)</td>
-    <td>(AMOUNT)</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>(TOTAL)</td>
-    <td>(DUE DATE)</td>
-    <td>(FINE)</td>
-    <td>-</td>
-  </tr>
-
-  <tr>
-    <td>4</td>
-    <td>2024 - 2025 (Second Half)</td>
-    <td>(AMOUNT)</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>(TOTAL)</td>
-    <td>(DUE DATE)</td>
-    <td>(FINE)</td>
-    <td>-</td>
-  </tr>
-
-  <tr>
-    <td>5</td>
-    <td>2025 - 2026 (First Half)</td>
-    <td>(AMOUNT)</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>(TOTAL)</td>
-    <td>(DUE DATE)</td>
-    <td>(FINE)</td>
-    <td>-</td>
-  </tr>
-</table>
-
-
- 
-  <p><strong>ആകെ വാർഷിക തുക (രൂപ):</strong> (TOTAL AMOUNT)</p>
-  <p><strong>പിഴ / പലിശ ഉൾപ്പെടെയുള്ള അടവാക്കേണ്ട ആകെ തുക:</strong> (GRAND TOTAL)</p>
-  <p>** ഡിമാൻഡ് നോട്ടീസ് ഫീസ്: ₹10</p>
-  <p>** നോട്ടീസ് നടത്തുന്നതിനുള്ള ചിലവ്: ₹10</p>
-  <p><strong>അടവാക്കേണ്ട ആകെ തുക: ₹(TOTAL WITH CHARGES)</strong></p>
-
-  <h3>ശ്രദ്ധിക്കുക:</h3>
-  <p>
-    മേൽകാണുന്ന സ്റ്റേറ്റ്മെന്റിൽ വിശദീകരിച്ചിരിക്കുന്ന തരത്തിൽ, ₹(TOTAL) രൂപ ഈ നോട്ടീസ് ലഭിക്കുന്ന തീയതിയിൽനിന്ന് 15 ദിവസത്തിനകം അടയ്ക്കേണ്ടതാണ്. സമയത്ത് അടയ്ക്കാത്ത പക്ഷം, 1994-ലെ കേരള മുനിസിപ്പാലിറ്റി ആക്ട് സെക്ഷൻ 538 പ്രകാരം, ജംഗമവസ്തുക്കളുടെ ജപ്തിയും മറ്റ് നിയമനടപടികളും സ്വീകരിക്കാവുന്നതാണ്.
-  </p>
-  <p>ജപ്തി അസാധ്യമായ പക്ഷത്തിൽ, നിയമപരമായ പ്രോസിക്യൂഷനുകളും തുടരും.</p>
+    <p>
+      മേൽക്കാണിച്ചിരിക്കുന്ന സ്റ്റേറ്റ്മെന്റിൽ വിശദീകരിച്ചിരിക്കുന്ന തരത്തിൽ, ₹(TOTAL AMOUNT) രൂപ ഈ
+      നോട്ടീസ് ലഭിക്കുന്ന തീയതിയിൽ നിന്നും 15 ദിവസത്തിനകം ഈ ഓഫീസിൽ അടയ്ക്കേണ്ടതാണ്. അപ്രകാരം
+      ചെയ്തില്ലെങ്കിൽ, 1994 ലെ കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 538 പ്രകാരം ജപ്തി അടക്കമുള്ള നിയമനടപടികൾ
+      സ്വീകരിക്കപ്പെടും.
+    </p>
+    <p>ജപ്തി അസാധ്യമായ പക്ഷത്തിൽ, താങ്കളെ നിയമപരമായി പ്രോസിക്യൂട്ട് ചെയ്യുന്നതുമാകുന്നു.</p>
+  </div>
 
   <div class="signature">
     <p>നോട്ടീസ് തീയതി: (NOTICE DATE)</p>
     <p><strong>(സെക്രട്ടറി)</strong></p>
   </div>
 
-  <div class="footer">
-    <p>** നോട്ടീസ് തയ്യാറാക്കിയ തീയതിയിലെയും സർക്കാർ സർക്കുലറുകളിലെയും അടിസ്ഥാനത്തിൽ പിഴ പലിശ വ്യത്യാസപ്പെട്ടേക്കാം.</p>
+  <div class="footer-note">
+    ** അതാത് കാലങ്ങളിലെ സർക്കാർ ഉത്തരവുകൾ / സർക്കുലറുകൾ പ്രകാരമുള്ള വ്യത്യാസങ്ങൾ നിലവിൽ വരാം.
   </div>
 
 </body>

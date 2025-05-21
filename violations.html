@@ -133,11 +133,12 @@
     });
 
     // Generate links
-    const baseLink = "https://ulgissctl.github.io/demandnotice/notice.html";
+    const areachange = "https://ulgissctl.github.io/demandnotice/areachange.html";
+    const ownerchange="https://ulgissctl.github.io/demandnotice/ownerchange.html"
     const id = params.get("id") || "";
 
-    document.getElementById("areaNotice").href = baseLink + window.location.search + "&notice=Area Change Notice";
-    document.getElementById("ownerNotice").href = baseLink + window.location.search + "&notice=Owner Change Notice";
+    document.getElementById("areaNotice").href =  areachange;
+    document.getElementById("ownerNotice").href = ownerchange;
   </script>
 </body>
 </html>

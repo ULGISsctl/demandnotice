@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thrissur Corporation - Area Change Notice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f6f9;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #007BFF;
+      padding-bottom: 10px;
+    }
+
+    .header h1 {
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      color: #666;
+      margin-top: 0;
+    }
+
+    .malayalam {
+      font-family: 'Noto Sans Malayalam', Arial, sans-serif;
+    }
+
+    .reference-number {
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .reference-number p {
+      margin: 5px 0;
+    }
+
+    .subject {
+      margin-bottom: 20px;
+    }
+
+    .subject h3 {
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .content {
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .content p {
+      margin: 10px 0;
+      text-align: justify;
+    }
+
+    .property-details {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+
+    .property-details p {
+      margin: 5px 0;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: right;
+    }
+
+    .footer p {
+      margin: 5px 0;
+    }
+
+    .signature {
+      margin-top: 30px;
+    }
+    
+    .bi-language {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .bi-language span {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>തിരുവനന്തപുരം നഗരസഭ / THRISSUR CORPORATION</h1>
+      <p>Area Change Notice - Property Tax Assessment</p>
+    </div>
+
+    <div class="reference-number">
+      <p><strong>No:</strong> <span id="noticeNo">TVM/PTX/2025/AC-242</span></p>
+      <p><strong>Date:</strong> <span id="noticeDate">21/05/2025</span></p>
+    </div>
+
+    <div class="subject">
+      <h3>NOTICE</h3>
+      <p class="malayalam">വിഷയം: തിരുവനന്തപുരം നഗരസഭ - വസ്തു വസ്തുനികുതി വിഭാഗം- കെട്ടിടത്തിന്റ് ഘടനാപരമായ മാറ്റം വരുത്തിയത് സംബന്ധിച്ച്</p>
+      <p>Subject: Thrissur Corporation - Property Tax Department - Regarding structural change in building area</p>
+    </div>
+
+    <div class="content">
+      <p>This is to inform you that as per the records maintained by the Thrissur Corporation, it has been observed that there is a change in the built-up area of your property. According to Section 242 of the Kerala Municipality Act, it is mandatory to submit relevant documents for proper assessment.</p>
+      
+      <p>Therefore, you are hereby directed to submit the necessary documents for reassessment of your property tax based on the actual built-up area.</p>
+
+      <div class="property-details">
+        <h3>Property Details:</h3>
+        <p><strong>Owner:</strong> <span id="owner">Name of the owner</span></p>
+        <p><strong>Address:</strong> <span id="address">Full property address</span></p>
+        <p><strong>Ward No:</strong> <span id="ward">Ward number</span></p>
+        <p><strong>Building Type:</strong> <span id="buildingType">Residential/Commercial</span></p>
+        <p><strong>Door No/Building No:</strong> <span id="doorNo">123/456</span></p>
+        <p><strong>Previous Area:</strong> <span id="previousArea">1200</span> sq.ft</p>
+        <p><strong>Current Area (as observed):</strong> <span id="currentArea">1500</span> sq.ft</p>
+        <p><strong>Area Difference:</strong> <span id="areaDiff">300</span> sq.ft</p>
+        <p><strong>Tax Year:</strong> <span id="taxYear">2025-2026</span></p>
+      </div>
+
+      <p>You are requested to visit the Corporation Engineering Section with the following documents within 15 days from the date of this notice:</p>
+      <ol>
+        <li>Original property ownership documents</li>
+        <li>Building permit/plan approval</li>
+        <li>Previous tax receipts</li>
+        <li>Any other relevant documents supporting the change in area</li>
+      </ol>
+
+      <p>Failure to comply with this notice will result in assessment of property tax as per the Corporation's records and may lead to additional penalties as per the Kerala Municipality Act, Section 242.</p>
+    </div>
+
+    <div class="footer">
+      <div class="signature">
+        <p>Secretary</p>
+        <p>Thrissur Corporation</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // This script would populate the fields with actual data 
+    // If connecting to a database or processing URL parameters
+    
+    // Parse query string if needed
+    const params = new URLSearchParams(window.location.search);
+
+    // Example of how to populate fields from URL parameters
+    if(params.get("owner")) {
+      document.getElementById("owner").textContent = params.get("owner");
+    }
+    if(params.get("address")) {
+      document.getElementById("address").textContent = params.get("address");
+    }
+    if(params.get("ward")) {
+      document.getElementById("ward").textContent = params.get("ward");
+    }
+    if(params.get("type")) {
+      document.getElementById("buildingType").textContent = params.get("type");
+    }
+    if(params.get("doorNo")) {
+      document.getElementById("doorNo").textContent = params.get("doorNo");
+    }
+    if(params.get("prevArea")) {
+      document.getElementById("previousArea").textContent = params.get("prevArea");
+    }
+    if(params.get("currArea")) {
+      document.getElementById("currentArea").textContent = params.get("currArea");
+    }
+    
+    // Calculate area difference if both areas are provided
+    if(params.get("prevArea") && params.get("currArea")) {
+      const prev = parseInt(params.get("prevArea"));
+      const curr = parseInt(params.get("currArea"));
+      if(!isNaN(prev) && !isNaN(curr)) {
+        document.getElementById("areaDiff").textContent = Math.abs(curr - prev);
+      }
+    }
+  </script>
+</body>
+</html>

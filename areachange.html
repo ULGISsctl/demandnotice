@@ -161,43 +161,59 @@
   </div>
 
   <script>
-    // This script would populate the fields with actual data 
-    // If connecting to a database or processing URL parameters
-    
-    // Parse query string if needed
-    const params = new URLSearchParams(window.location.search);
+    // Helper function to get URL parameters
+    function getQueryParam(param) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(param) || '';
+    }
 
-    // Example of how to populate fields from URL parameters
-    if(params.get("owner")) {
-      document.getElementById("owner").textContent = params.get("owner");
+    // Helper function to generate notice number
+    function generateNoticeNumber() {
+      const year = new Date().getFullYear();
+      const month = String(new Date().getMonth() + 1).padStart(2, '0');
+      const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+      return `THR/PTX/${year}/AC-${random}`;
     }
-    if(params.get("address")) {
-      document.getElementById("address").textContent = params.get("address");
-    }
-    if(params.get("ward")) {
-      document.getElementById("ward").textContent = params.get("ward");
-    }
-    if(params.get("type")) {
-      document.getElementById("buildingType").textContent = params.get("type");
-    }
-    if(params.get("doorNo")) {
-      document.getElementById("doorNo").textContent = params.get("doorNo");
-    }
-    if(params.get("prevArea")) {
-      document.getElementById("previousArea").textContent = params.get("prevArea");
-    }
-    if(params.get("currArea")) {
-      document.getElementById("currentArea").textContent = params.get("currArea");
-    }
-    
-    // Calculate area difference if both areas are provided
-    if(params.get("prevArea") && params.get("currArea")) {
-      const prev = parseInt(params.get("prevArea"));
-      const curr = parseInt(params.get("currArea"));
-      if(!isNaN(prev) && !isNaN(curr)) {
-        document.getElementById("areaDiff").textContent = Math.abs(curr - prev);
+
+    // Helper function to set element text safely
+    function setElementText(id, value) {
+      const element = document.getElementById(id);
+      if (element && value) {
+        element.textContent = value;
       }
     }
+
+    // Fill all fields on page load
+    window.onload = function() {
+      // Generate notice details
+      setElementText("noticeNo", generateNoticeNumber());
+      setElementText("noticeDate", new Date().toLocaleDateString('en-IN'));
+      
+      // Property details from URL parameters
+      setElementText("owner", getQueryParam("owner"));
+      setElementText("address", getQueryParam("address"));
+      setElementText("ward", getQueryParam("ward"));
+      setElementText("buildingType", getQueryParam("type"));
+      setElementText("doorNo", getQueryParam("doorNo"));
+      setElementText("previousArea", getQueryParam("prevArea"));
+      setElementText("currentArea", getQueryParam("currArea"));
+      
+      // Calculate and display area difference
+      const prevArea = getQueryParam("prevArea");
+      const currArea = getQueryParam("currArea");
+      
+      if (prevArea && currArea) {
+        const prev = parseInt(prevArea);
+        const curr = parseInt(currArea);
+        if (!isNaN(prev) && !isNaN(curr)) {
+          setElementText("areaDiff", Math.abs(curr - prev));
+        }
+      }
+      
+      // Set current tax year
+      const currentYear = new Date().getFullYear();
+      setElementText("taxYear", `${currentYear}-${currentYear + 1}`);
+    };
   </script>
 </body>
 </html>

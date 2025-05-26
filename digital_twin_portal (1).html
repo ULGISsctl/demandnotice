@@ -120,7 +120,7 @@
         }
 
         .portal-grid {
-            display: grid;
+            display:flex;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             max-width: 1000px;
@@ -139,6 +139,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            
         }
 
         .portal-card::before {
@@ -274,11 +275,15 @@
 </head>
 <body>
     <!-- Video Background -->
-    <video class="video-background" autoplay muted loop>
-        <source src="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4" type="video/mp4">
-        <!-- Fallback for browsers that don't support video -->
-        <div style="background: linear-gradient(45deg, #1e3c72, #2a5298); width: 100%; height: 100vh;"></div>
-    </video>
+    <div class="video-background">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/NCdvJGNGloo?autoplay=1&mute=1&controls=0&loop=1&playlist=NCdvJGNGloo&start=4&modestbranding=1&showinfo=0&rel=0" 
+            frameborder="0" 
+            allow="autoplay; fullscreen" 
+            allowfullscreen 
+            style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+        </iframe>
+    </div>
+
 
     <div class="overlay"></div>
 

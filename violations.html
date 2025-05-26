@@ -136,13 +136,16 @@
     // Generate links
     const baseLink = "https://ulgissctl.github.io/demandnotice/notice.html";
     const id = params.get("id") || "";
-    if (areaChange > 0) {
+   // if (areaChange > 0) {
       document.getElementById("areaNotice").href = "https://ulgissctl.github.io/demandnotice/areachange.html";
-    } else {
-      document.getElementById("areaNotice").style.display = "none"; // Hide the link
-    }
+    //} else {
+    //  document.getElementById("areaNotice").style.display = "none"; // Hide the link
+    //}
     
-    document.getElementById("ownerNotice").href ="https://ulgissctl.github.io/demandnotice/namechange.html";
+    document.getElementById("namechange").href ="https://ulgissctl.github.io/demandnotice/namechange.html";
+    document.getElementById("unauth").href ="https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html";
+    document.getElementById("namechange").href ="https://ulgissctl.github.io/demandnotice/namechange.html";
+    
   </script>
 </body>
 </html>

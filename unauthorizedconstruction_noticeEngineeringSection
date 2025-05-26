@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>തിരുവനന്തപുരം നഗരസഭ - അറിയിപ്പ് ജനറേറ്റർ</title>
+    <style>
+        body {
+            font-family: 'Noto Sans Malayalam', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .form-section, .preview-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-section {
+            position: sticky;
+            top: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .notice-preview {
+            font-family: 'Noto Sans Malayalam', serif;
+            line-height: 1.8;
+            font-size: 16px;
+            color: #2d3748;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e2e8f0;
+        }
+        
+        .notice-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .notice-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .notice-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+        }
+        
+        .notice-subject {
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 18px;
+            color: #2d3748;
+        }
+        
+        .property-details {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .property-details div {
+            margin-bottom: 10px;
+        }
+        
+        .notice-content {
+            margin: 30px 0;
+            text-align: justify;
+            line-height: 2;
+        }
+        
+        .signature-section {
+            text-align: right;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .copy-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .form-section {
+                position: static;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .form-section, .preview-section {
+                padding: 20px;
+            }
+            
+            .notice-preview {
+                padding: 20px;
+                font-size: 14px;
+            }
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .animate-in {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h1>അറിയിപ്പ് ജനറേറ്റർ</h1>
+            <form id="noticeForm">
+                <div class="form-group">
+                    <label for="noticeNumber">നമ്പർ:</label>
+                    <input type="text" id="noticeNumber" name="noticeNumber" placeholder="അറിയിപ്പ് നമ്പർ">
+                </div>
+                
+                <div class="form-group">
+                    <label for="noticeDate">തീയതി:</label>
+                    <input type="date" id="noticeDate" name="noticeDate">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ownerName">ഉടമയുടെ പേര് / വീട്ടുപേര്:</label>
+                    <input type="text" id="ownerName" name="ownerName" placeholder="ഉടമയുടെ പേര്">
+                </div>
+                
+                <div class="form-group">
+                    <label for="wardName">വാർഡിന്റെ പേര് / നമ്പർ:</label>
+                    <input type="text" id="wardName" name="wardName" placeholder="വാർഡ് പേര്/നമ്പർ">
+                </div>
+                
+                <div class="form-group">
+                    <label for="propertyNumber">കെട്ടിട നമ്പർ (ടി.സി നമ്പർ):</label>
+                    <input type="text" id="propertyNumber" name="propertyNumber" placeholder="പ്രോപ്പർട്ടി നമ്പർ">
+                </div>
+                
+                <div class="form-group">
+                    <label for="surveyNumber">സർവ്വേ നമ്പർ:</label>
+                    <input type="text" id="surveyNumber" name="surveyNumber" placeholder="സർവ്വേ നമ്പർ">
+                </div>
+                
+                <div class="form-group">
+                    <label for="referenceNumber1">സൂചന 1:</label>
+                    <input type="text" id="referenceNumber1" name="referenceNumber1" placeholder="ആദ്യ സൂചന നമ്പർ">
+                </div>
+                
+                <div class="form-group">
+                    <label for="referenceNumber2">സൂചന 2:</label>
+                    <input type="text" id="referenceNumber2" name="referenceNumber2" placeholder="രണ്ടാം സൂചന നമ്പർ">
+                </div>
+                
+                <div class="form-group">
+                    <label for="complaintReference">പരാതി സൂചന:</label>
+                    <input type="text" id="complaintReference" name="complaintReference" placeholder="പരാതി സൂചന നമ്പർ">
+                </div>
+                
+                <div class="form-group">
+                    <label for="previousNoticeReference">മുൻ അറിയിപ്പ് സൂചന:</label>
+                    <input type="text" id="previousNoticeReference" name="previousNoticeReference" placeholder="മുൻ അറിയിപ്പ് സൂചന">
+                </div>
+                
+                <div class="form-group">
+                    <label for="copyTo1">പകർപ്പ് 1:</label>
+                    <input type="text" id="copyTo1" name="copyTo1" placeholder="പകർപ്പ് അയക്കുന്നത്">
+                </div>
+                
+                <div class="form-group">
+                    <label for="copyTo2">പകർപ്പ് 2:</label>
+                    <input type="text" id="copyTo2" name="copyTo2" placeholder="പകർപ്പ് അയക്കുന്നത്">
+                </div>
+                
+                <button type="button" class="btn" onclick="generateNotice()">അറിയിപ്പ് ജനറേറ്റ് ചെയ്യുക</button>
+                <button type="button" class="btn" onclick="printNotice()" style="background: linear-gradient(45deg, #2ecc71, #27ae60); margin-top: 10px;">പ്രിന്റ് ചെയ്യുക</button>
+            </form>
+        </div>
+        
+        <div class="preview-section">
+            <div id="noticePreview" class="notice-preview">
+                <div class="notice-header">
+                    <div class="notice-title">** തിരുവനന്തപുരം നഗരസഭ **</div>
+                    
+                    <div class="notice-meta">
+                        <div>നമ്പർ : <span class="highlight" id="previewNumber">______</span></div>
+                        <div>തീയതി : <span class="highlight" id="previewDate">______</span></div>
+                    </div>
+                    
+                    <div style="text-align: center; font-size: 20px; font-weight: bold; margin: 30px 0;">
+                        ** അറിയിപ്പ് **
+                    </div>
+                </div>
+                
+                <div class="notice-subject">
+                    വിഷയം : തിരുവനന്തപുരം നഗരസഭ എഞ്ചിനീയറിംഗ് വിഭാഗം - അനധികൃത നിർമ്മാണം സംബന്ധിച്ച് .
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <div>സൂചന : 1. <span class="highlight" id="previewRef1">______</span></div>
+                    <div style="margin-left: 60px;">2. <span class="highlight" id="previewRef2">______</span></div>
+                </div>
+                
+                <div class="property-details">
+                    <div>ഉടമയുടെ പേര് / വീട്ടുപേര് : <span class="highlight" id="previewOwner">______</span></div>
+                    <div>വാർഡിന്റെ പേര് / നമ്പർ : <span class="highlight" id="previewWard">______</span></div>
+                    <div>കെട്ടിട നമ്പർ ( ടി .സി നമ്പർ ) : <span class="highlight" id="previewProperty">______</span></div>
+                    <div>സർവ്വേ നമ്പർ : <span class="highlight" id="previewSurvey">______</span></div>
+                </div>
+                
+                <div class="notice-content">
+                    സൂചനകളിലേക്കു ശ്രദ്ധ ക്ഷണിക്കുന്നു.
+                    <br><br>
+                    തിരുവനതപുരം നഗരസഭ <span class="highlight" id="previewWardInContent">______</span> വാർഡിലെ താങ്കളുടെ ഉടമസ്ഥാതയിൽ താങ്കൾ നടത്തിയിട്ടുള്ള നിർമ്മാണത്തിനെതിരെ മേൽ സൂചന (<span class="highlight" id="previewComplaintRef">______</span>) പരാതി സമർപ്പിച്ചിട്ടുള്ളതാണ്. ആയതിന്റെ അടിസ്ഥാനത്തിൽ ഈ കാര്യാലയത്തിൽ നിന്നും നടത്തിയ പരിശോധന പ്രകാരം താങ്കളുടെ കെട്ടിടത്തിന്റെ കംപ്ലീഷൻ പ്ലാൻ ഹാജരാക്കാൻ സൂചന (<span class="highlight" id="previewPreviousNotice">______</span>) പ്രകാരം അറിയിപ്പ് നൽകിയിരുന്നെങ്കിലും ആയതു നാളിതുവരെ താങ്കൾ ഈ കാര്യാലയത്തിൽ ഹാജരാക്കിയതായി കാണുന്നില്ല.
+                    <br><br>
+                    ആയത്‌ പരിശോദിച്ചതിൽമേൽ തുടർനടപടികൾ സ്വീകരിക്കുന്നതിനായി താങ്കളുടെ ഉടമസ്ഥാതയിലുള്ള കെട്ടിടത്തിന്റെ പൂർത്തീകരണ പ്ലാൻ ഈ അറിയിപ്പ് കൈപ്പറ്റി <span class="highlight">05 ദിവസത്തിനുള്ളിൽ</span> ഈ കാര്യാലയത്തിൽ ഹാജരാക്കേണ്ടതാണ്. വീഴ്ച വരുത്തുന്ന പക്ഷം ഈ വിഷയത്തിൽ താങ്കൾക്ക് യാതൊന്നും ബോധിപ്പിക്കാനില്ല എന്ന നിഗമനത്തിൽ KM ACT / KMBR എന്നി ചട്ടങ്ങൾ പ്രകാരമുള്ള തുടർനടപടികൾ സ്വീകരിക്കുന്നതാണെന്നു അറിയിക്കുന്നു
+                </div>
+                
+                <div class="signature-section">
+                    <div style="margin-bottom: 20px;">അസിസ്റ്റന്റ് എഞ്ചിനീയർ</div>
+                    <div>തിരുവനതപുരം നഗരസഭ</div>
+                </div>
+                
+                <div style="margin-top: 40px;">
+                    <div style="font-weight: bold;">സ്വീകർത്താവ്</div>
+                </div>
+                
+                <div class="copy-section">
+                    <div style="font-weight: bold; margin-bottom: 10px;">പകർപ്പ് :</div>
+                    <div>1. <span class="highlight" id="previewCopy1">______</span></div>
+                    <div>2. <span class="highlight" id="previewCopy2">______</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default
+        document.getElementById('noticeDate').valueAsDate = new Date();
+        
+        function generateNotice() {
+            const form = document.getElementById('noticeForm');
+            const formData = new FormData(form);
+            
+            // Update preview with form data
+            document.getElementById('previewNumber').textContent = formData.get('noticeNumber') || '______';
+            document.getElementById('previewDate').textContent = formatDate(formData.get('noticeDate')) || '______';
+            document.getElementById('previewOwner').textContent = formData.get('ownerName') || '______';
+            document.getElementById('previewWard').textContent = formData.get('wardName') || '______';
+            document.getElementById('previewWardInContent').textContent = formData.get('wardName') || '......................................................................';
+            document.getElementById('previewProperty').textContent = formData.get('propertyNumber') || '______';
+            document.getElementById('previewSurvey').textContent = formData.get('surveyNumber') || '......';
+            document.getElementById('previewRef1').textContent = formData.get('referenceNumber1') || '______';
+            document.getElementById('previewRef2').textContent = formData.get('referenceNumber2') || '______';
+            document.getElementById('previewComplaintRef').textContent = formData.get('complaintReference') || '........';
+            document.getElementById('previewPreviousNotice').textContent = formData.get('previousNoticeReference') || '.........';
+            document.getElementById('previewCopy1').textContent = formData.get('copyTo1') || '______';
+            document.getElementById('previewCopy2').textContent = formData.get('copyTo2') || '______';
+            
+            // Add animation
+            const preview = document.getElementById('noticePreview');
+            preview.classList.remove('animate-in');
+            setTimeout(() => {
+                preview.classList.add('animate-in');
+            }, 10);
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-GB'); // DD/MM/YYYY format
+        }
+        
+        function printNotice() {
+            const printWindow = window.open('', '_blank');
+            const noticeContent = document.getElementById('noticePreview').innerHTML;
+            
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>തിരുവനന്തപുരം നഗരസഭ - അറിയിപ്പ്</title>
+                    <meta charset="UTF-8">
+                    <style>
+                        body {
+                            font-family: 'Noto Sans Malayalam', Arial, sans-serif;
+                            line-height: 1.8;
+                            padding: 40px;
+                            color: #000;
+                        }
+                        .highlight {
+                            background: none;
+                            font-weight: bold;
+                            text-decoration: underline;
+                        }
+                        @media print {
+                            body { margin: 0; padding: 20px; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${noticeContent}
+                </body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            setTimeout(() => {
+                printWindow.print();
+            }, 250);
+        }
+        
+        // Real-time updates
+        document.getElementById('noticeForm').addEventListener('input', generateNotice);
+        
+        // Generate initial preview
+        generateNotice();
+    </script>
+</body>
+</html>

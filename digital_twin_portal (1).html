@@ -15,6 +15,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             background: #000;
+             width: 100%;
+            height: 100%;
         }
 
         .video-background {
@@ -96,6 +98,7 @@
         }
 
         .main-title {
+            font-style: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
             font-size: 2.2rem;
             font-weight: 700;
@@ -139,6 +142,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            width: 100%;
+            height: 100%;
             
         }
 
@@ -275,14 +280,7 @@
 </head>
 <body>
     <!-- Video Background -->
-    <div class="video-background">
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/NCdvJGNGloo?autoplay=1&mute=1&controls=0&loop=1&playlist=NCdvJGNGloo&start=4&modestbranding=1&showinfo=0&rel=0" 
-            frameborder="0" 
-            allow="autoplay; fullscreen" 
-            allowfullscreen 
-            style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
-        </iframe>
-    </div>
+   
 
 
     <div class="overlay"></div>
@@ -291,13 +289,12 @@
         <div class="header">
             <div class="logos-container">
                 <div class="organization-logo">
-                    Smart City<br>Trivandrum
+                     <img src="https://apacnewsnetwork.com/wp-content/uploads/2021/02/SCTL-Logo.jpg" style="width: 100px; height: auto;"> 
                 </div>
-                   <h1 class="main-title">Corporation of Trivananthapuram</h1><br>
-                    <p class="subtitle">Smart City Portal</p><br>
-
+                   <h1 class="main-title">Corporation of Trivananthapuram</h1>
                 <div class="organization-logo">
-                    Corporation<br>Trivandrum
+                   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Seal_of_Thiruvananthapuram.png" style="width: 100px; height: auto;">
+
                 </div>
             </div>
             
@@ -308,7 +305,7 @@
                 <div class="status-indicator"></div>
                 <div class="portal-icon">🏢</div>
                 <h3 class="portal-title">Property Portal</h3>
-                <p class="portal-description">Access comprehensive property information, cadastral data, and real estate analytics for the Trivandrum region.</p>
+                <p class="portal-description">Access comprehensive property information, tax amount information and Violation Notices for the Trivandrum region.</p>
                 <button class="portal-button">Access Portal</button>
             </div>
 
@@ -332,14 +329,14 @@
                 <div class="status-indicator"></div>
                 <div class="portal-icon">⚡</div>
                 <h3 class="portal-title">Utilities Portal</h3>
-                <p class="portal-description">Monitor and manage city utilities including water, electricity, telecommunications, and waste management systems.</p>
+                <p class="portal-description">Monitor and manage Thiruvananthapuram city's utilities including water, electricity and transport.</p>
                 <button class="portal-button">Access Utilities</button>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        <p>© 2025 Trivandrum Smart City Initiative | Powered by ESRI ArcGIS</p>
+        <p>© 2025 Smart City Trivandrum Limited  | Developed by ULTS</p>
     </div>
 
     <script>
@@ -359,19 +356,20 @@
                     case 'property':
                         console.log('Navigating to Property Portal');
                         // Navigate to the actual property portal
-                        window.open('https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=Property-portal', '_blank');
+                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=Property-portal';
                         break;
                     case '3d':
                         console.log('Navigating to 3D Portal');
-                        alert('3D Visualization Portal - Integration with ESRI CityEngine/Scene Viewer');
+                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=3D-portal';
+
                         break;
                     case '2d3d':
                         console.log('Navigating to 2D-3D Portal');
-                        alert('2D-3D Portal - Integration with ESRI Web AppBuilder');
+                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=2d-3d';
                         break;
                     case 'utilities':
                         console.log('Navigating to Utilities Portal');
-                        alert('Utilities Portal - Integration with ESRI Utility Network');
+                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=Utility-portal';
                         break;
                 }
                 

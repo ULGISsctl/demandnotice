@@ -71,6 +71,39 @@
             font-size: 2rem;
         }
 
+        .logos-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .organization-logo {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .main-title {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
         h1 {
             color: white;
             font-size: 3rem;
@@ -149,17 +182,17 @@
 
         .portal-title {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
         }
 
         .portal-description {
             color: rgba(255,255,255,0.8);
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 1.2rem;
         }
 
         .portal-button {
@@ -211,7 +244,7 @@
                 gap: 1.5rem;
             }
             .portal-card {
-                padding: 1.5rem;
+                padding: 1.2rem;
             }
         }
 
@@ -251,8 +284,17 @@
 
     <div class="container">
         <div class="header">
-            <div class="logo"></div>
-            <h1>Trivandrum Digital Twin</h1>
+            <div class="logos-container">
+                <div class="organization-logo">
+                    Smart City<br>Trivandrum
+                </div>
+                <div class="logo"></div>
+                <div class="organization-logo">
+                    Corporation<br>Trivandrum
+                </div>
+            </div>
+            <h1 class="main-title">Corporation of Trivandrum</h1>
+            <h2 style="color: rgba(255,255,255,0.95); font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; text-shadow: 1px 1px 8px rgba(0,0,0,0.5);">Trivandrum Digital Twin</h2>
             <p class="subtitle">Smart City Intelligence Portal</p>
         </div>
 
@@ -311,8 +353,8 @@
                 switch(portalType) {
                     case 'property':
                         console.log('Navigating to Property Portal');
-                        // In a real implementation, you would navigate to the property portal
-                        alert('Property Portal - Integration with ESRI property management system');
+                        // Navigate to the actual property portal
+                        window.open('https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=Property-portal', '_blank');
                         break;
                     case '3d':
                         console.log('Navigating to 3D Portal');

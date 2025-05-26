@@ -97,8 +97,7 @@
       <h2>Generate Notices</h2>
       <div class="notice-links">
         <a href="#" id="areaNotice">📄 Area Change Notice</a>
-        <a href="#" id="ownerNotice">📄 Owner Change Notice (Jama Mattam)</a>
-        <a href="#" id="ownerNotice">📄 Unauthorized Construction Notice</a>
+        <a href="#" id="ownerNotice">📄 Owner Change Notice</a>
       </div>
     </div>
 
@@ -120,7 +119,7 @@
 
     // Simulated violations array (can be dynamic later)
     const sampleViolations = [
-      "Sample:"
+      "sample::"
       "Unauthorized construction of 3rd floor",
       "Change in building usage without permit",
       "Increase in built-up area beyond sanctioned plan"
@@ -135,12 +134,15 @@
     });
 
     // Generate links
-    const areachange = "https://ulgissctl.github.io/demandnotice/areachange.html";
-    const ownerchange="https://ulgissctl.github.io/demandnotice/namechange.html"
+    const baseLink = "https://ulgissctl.github.io/demandnotice/notice.html";
     const id = params.get("id") || "";
-
-    document.getElementById("areaNotice").href =  areachange;
-    document.getElementById("ownerNotice").href = ownerchange;
+    if (areaChange > 0) {
+      document.getElementById("areaNotice").href = "https://ulgissctl.github.io/demandnotice/areachange.html";
+    } else {
+      document.getElementById("areaNotice").style.display = "none"; // Hide the link
+    }
+    
+    document.getElementById("ownerNotice").href ="https://ulgissctl.github.io/demandnotice/namechange.html";
   </script>
 </body>
 </html>

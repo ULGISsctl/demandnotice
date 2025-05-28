@@ -11,6 +11,69 @@
             box-sizing: border-box;
         }
 
+        /* Background Slideshow */
+        .slideshow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide.fade-out {
+            opacity: 0;
+        }
+
+        /* Background images */
+        .slide:nth-child(1) {
+            background-image: url('https://images.unsplash.com/photo-1614090699960-b4c81be49f3c?w=1920&h=1080&fit=crop&crop=center');
+        }
+        
+        .slide:nth-child(2) {
+            background-image: url('https://images.unsplash.com/photo-1615133005831-ef94ee2ceb16?w=1920&h=1080&fit=crop&crop=center');
+        }
+        
+        .slide:nth-child(3) {
+            background-image: url('https://t4.ftcdn.net/jpg/10/25/07/99/360_F_1025079947_pyyWJOWS9qQNpvYebX2xh9CZKAStLRmQ.jpg?w=1920&h=1080&fit=crop&crop=center');
+        }
+        
+        .slide:nth-child(4) {
+            background-image: url('https://www.dtpcthiruvananthapuram.com/images/Trivandrum-video.webp?w=1920&h=1080&fit=crop&crop=center');
+        }
+        
+        .slide:nth-child(5) {
+            background-image: url('https://cdn.pixabay.com/photo/2014/09/19/18/19/veli-452834_1280.jpg?w=1920&h=1080&fit=crop&crop=center');
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,123,255,0.4));
+            z-index: -1;
+        }
+
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
@@ -129,7 +192,7 @@
         }
 
         .portal-card {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.404);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255,255,255,0.2);
             border-radius: 15px;
@@ -276,7 +339,14 @@
     </style>
 </head>
 <body>
-    <!-- Video Background -->
+    <!-- Background Slideshow -->
+    <div class="slideshow-container">
+        <div class="slide active"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
    
 
 
@@ -331,12 +401,53 @@
             </div>
         </div>
     </div>
-
+    <!-- Slideshow Navigation -->
+    <div class="slideshow-nav">
+        <div class="nav-dot active" onclick="currentSlide(1)"></div>
+        <div class="nav-dot" onclick="currentSlide(2)"></div>
+        <div class="nav-dot" onclick="currentSlide(3)"></div>
+        <div class="nav-dot" onclick="currentSlide(4)"></div>
+        <div class="nav-dot" onclick="currentSlide(5)"></div>
+    </div>
     <div class="footer">
         <p>© 2025 Smart City Trivandrum Limited  | Developed by ULTS</p>
     </div>
 
     <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const navDots = document.querySelectorAll('.nav-dot');
+        const totalSlides = slides.length;
+        // Auto slideshow function
+        function showSlides() {
+            // Remove active class from all slides and nav dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            navDots.forEach(dot => dot.classList.remove('active'));
+            
+            // Increment slide index
+            slideIndex++;
+            if (slideIndex >= totalSlides) {
+                slideIndex = 0;
+            }
+            
+            // Show current slide and activate corresponding nav dot
+            slides[slideIndex].classList.add('active');
+            navDots[slideIndex].classList.add('active');
+        }
+
+        // Manual slide navigation
+        function currentSlide(n) {
+            slideIndex = n - 1;
+            slides.forEach(slide => slide.classList.remove('active'));
+            navDots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[slideIndex].classList.add('active');
+            navDots[slideIndex].classList.add('active');
+        }
+
+        // Start auto slideshow
+        setInterval(showSlides, 3000); // Change slide every 5 seconds
+
         // Portal navigation function
         function navigateToPortal(portalType) {
             // Add loading animation
@@ -386,12 +497,7 @@
                 });
             });
 
-            // Video error handling
-            const video = document.querySelector('.video-background');
-            video.addEventListener('error', function() {
-                // Fallback to gradient background if video fails
-                document.body.style.background = 'linear-gradient(45deg, #1e3c72, #2a5298)';
-            });
+           
 
             // Add particle effect (optional enhancement)
             createParticles();

@@ -137,7 +137,7 @@
         <p><strong>Door No/Building No:T</strong> <span id="doorNo"></span></p>
         <p><strong>Previous Area:</strong> <span id="previousArea"></span> sq.m</p>
         <p><strong>Current Area (as observed):</strong> <span id="currentArea"></span> sq.ft</p>
-        <p><strong>Area Difference:</strong> <span id="areaDiff"></span> sq.ft</p>
+        <p><strong>Area Difference:</strong> <span id="areachng"></span> sq.ft</p>
         <p><strong>Tax Year:</strong> <span id="taxYear">2025-2026</span></p>
       </div>
 
@@ -202,11 +202,7 @@
       const prevArea = getQueryParam("prevArea");
       const currArea = getQueryParam("currArea");
       
-      if (prevArea && currArea) {
-        const prev = parseInt(prevArea);
-        const curr = parseInt(currArea);
-        if (!isNaN(prev) && !isNaN(curr)) {
-          setElementText("areaDiff", Math.abs(curr - prev));
+      
         }
       }
       

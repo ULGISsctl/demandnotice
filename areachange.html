@@ -130,14 +130,14 @@
 
       <div class="property-details">
         <h3>Property Details:</h3>
-        <p><strong>Owner:</strong> <span id="owner">Name of the owner</span></p>
-        <p><strong>Address:</strong> <span id="address">Full property address</span></p>
+        <p><strong>Owner:</strong> <span id="owner"></span></p>
+        <p><strong>Address:</strong> <span id="address"</span></p>
         <p><strong>Ward No:</strong> <span id="wardno"></span></p> <p><strong>Ward Name :</strong> <span id="wardname"></span></p>
         <p><strong>Building Type:</strong> <span id="bldgsubty"></span></p>
         <p><strong>Door No/Building No:T</strong> <span id="doorNo"></span></p>
         <p><strong>Previous Area:</strong> <span id="previousArea"></span> sq.m</p>
-        <p><strong>Current Area (as observed):</strong> <span id="currentArea"></span> sq.ft</p>
-        <p><strong>Area Difference:</strong> <span id="areachng"></span> sq.ft</p>
+        <p><strong>Current Area (as observed):</strong> <span id="currentArea"></span> sq.m</p>
+        <p><strong>Area Difference:</strong> <span id="areachng"></span> sq.m</p>
         <p><strong>Tax Year:</strong> <span id="taxYear">2025-2026</span></p>
       </div>
 
@@ -192,8 +192,9 @@
       // Property details from URL parameters
       setElementText("owner", getQueryParam("owner"));
       setElementText("address", getQueryParam("address"));
-      setElementText("ward", getQueryParam("ward"));
-      setElementText("buildingType", getQueryParam("type"));
+      setElementText("wardno", getQueryParam("wardno"));
+      setElementText("wardname", getQueryParam("wardname"));
+      setElementText("bldgsubty", getQueryParam("bldgsubty));
       setElementText("doorNo", getQueryParam("doorNo"));
       setElementText("previousArea", getQueryParam("prevArea"));
       setElementText("currentArea", getQueryParam("currArea"));

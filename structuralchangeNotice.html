@@ -164,8 +164,8 @@
       return {
         NOTICE_NO: params.get("noticeNo") ,
         NOTICE_DATE: params.get("date") ,
-        WARD_NO: params.get("ward") ,
-        WARD_NAME: params.get("wardName"),
+        WARD_NO: params.get("wardno") ,
+        WARD_NAME: params.get("ward"),
         DOOR_NO: params.get("doorNo") ,
         OWNER_NAME: params.get("owner") ,
 
@@ -180,7 +180,7 @@
 
       document.getElementById("noticeNo").textContent = evaluateArcadeExpression(feature, "$feature.NOTICE_NO");
       document.getElementById("noticeDate").textContent = evaluateArcadeExpression(feature, "$feature.NOTICE_DATE");
-      document.getElementById("ward").textContent = evaluateArcadeExpression(feature, "$feature.wardname") + " / " + evaluateArcadeExpression(feature, "$feature.wardno");
+      document.getElementById("ward").textContent = evaluateArcadeExpression(feature, "$feature.ward") + " / " + evaluateArcadeExpression(feature, "$feature.wardno");
       document.getElementById("doorNo").textContent = evaluateArcadeExpression(feature, "$feature.DOOR_NO");
       document.getElementById("owner").textContent = evaluateArcadeExpression(
         feature, 

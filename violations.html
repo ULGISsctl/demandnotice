@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Property Violation Notice</title>
+  <title>View Property Violation Notices here</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -139,12 +139,7 @@
     <div class="section details">
       <h2>Property Details</h2>
       <p><strong>Owner:</strong> <span id="owner"></span></p>
-      <p><strong>Address:</strong> <span id="address"></span></p>
-      <p><strong>Ward:</strong> <span id="ward"></span></p>
-      <p><strong>Building Type:</strong> <span id="type"></span></p>
-      <p><strong>Tax Year:</strong> <span id="taxYear">2025</span></p>
-      <p><strong>Floor Area:</strong> <span id="area"></span> sq.ft</p>
-      <p><strong>Total Tax:</strong> ₹<span id="tax"></span></p>
+       <p><strong>Property Id:T</strong> <span id="propertyId"></span></p>
     </div>
 
     <!-- Section: Violation Detection -->
@@ -196,13 +191,7 @@
 
     // Populate property details
     document.getElementById("owner").textContent = params.get("owner") || "N/A";
-    document.getElementById("address").textContent = params.get("address") || "N/A";
-    document.getElementById("ward").textContent = params.get("ward") || "N/A";
-    document.getElementById("type").textContent = params.get("type") || "N/A";
-    document.getElementById("area").textContent = params.get("value") || params.get("area") || "N/A";
-    document.getElementById("tax").textContent = params.get("tax") || params.get("total") || "N/A";
-    document.getElementById("taxYear").textContent = params.get("tax_year") || "2025";
-
+    
     // Get violation-related parameters from your arcade expression
     const areaChange = parseFloat(params.get("areachange")) || 0; // Note: lowercase 'areachange' from your URL
     const propertyId = params.get("id") || "";
@@ -215,11 +204,11 @@
 
     // Define notice URLs with property parameters passed through
     const noticeUrls = {
-      occupancy: `https://ulgissctl.github.io/demandnotice/occupancychange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}`,
-      area: `https://ulgissctl.github.io/demandnotice/areachange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&areachange=${areaChange}`,
-      unauthorized: `https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}`,
-      owner: `https://ulgissctl.github.io/demandnotice/namechange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}`,
-      general: `https://ulgissctl.github.io/demandnotice/notice.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&due=${dueAmount}`
+      occupancy: `https://ulgissctl.github.io/demandnotice/occupancychange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
+      area: `https://ulgissctl.github.io/demandnotice/areachange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&areachange=${areaChange}&ward=${encodeURIComponent(params.get("ward") || "")}`,
+      unauthorized: `https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
+      owner: `https://ulgissctl.github.io/demandnotice/namechange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
+      general: `https://ulgissctl.github.io/demandnotice/notice.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&due=${dueAmount}&ward=${encodeURIComponent(params.get("ward") || "")}`
     };
 
     // Detect violations automatically based on your arcade parameters

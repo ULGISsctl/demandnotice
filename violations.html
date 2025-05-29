@@ -40,24 +40,79 @@
       color: #555;
     }
 
+    .violation-dropdown {
+      margin: 15px 0;
+    }
+
+    .violation-dropdown label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .violation-dropdown select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      background-color: white;
+    }
+
+    .violation-dropdown select:focus {
+      border-color: #007BFF;
+      outline: none;
+    }
+
+    .notice-links {
+      margin-top: 20px;
+    }
+
     .notice-links a {
       display: inline-block;
       margin: 10px 8px 0 0;
       background-color: #007BFF;
       color: white;
-      padding: 10px 15px;
+      padding: 12px 18px;
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      opacity: 0.7;
+      pointer-events: none;
     }
 
-    .notice-links a:hover {
+    .notice-links a.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .notice-links a.active:hover {
       background-color: #0056b3;
+      transform: translateY(-2px);
     }
 
     .violation-list {
       padding-left: 20px;
+    }
+
+    .violation-detected {
+      background-color: #fff3cd;
+      border: 1px solid #ffeaa7;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 10px 0;
+      color: #856404;
+    }
+
+    .no-violations {
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 10px 0;
+      color: #155724;
     }
 
     .footer {
@@ -66,11 +121,19 @@
       font-size: 0.9em;
       color: #999;
     }
+
+    .violation-info {
+      background-color: #e7f3ff;
+      border-left: 4px solid #007BFF;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 0 6px 6px 0;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Property Violation Notice</h1>
+    <h1>Property Violation Notice System</h1>
 
     <!-- Section: Property Info -->
     <div class="section details">
@@ -84,20 +147,41 @@
       <p><strong>Total Tax:</strong> ₹<span id="tax"></span></p>
     </div>
 
-    <!-- Section: Violations -->
+    <!-- Section: Violation Detection -->
     <div class="section">
-      <h2>Violations</h2>
-      <ul class="violation-list" id="violations">
-        <!-- Violations will be populated here -->
-      </ul>
+      <h2>Violation Status</h2>
+      <div id="violationStatus"></div>
+    </div>
+
+    <!-- Section: Manual Violation Selection -->
+    <div class="section">
+      <h2>Manual Violation Selection</h2>
+      <div class="violation-dropdown">
+        <label for="violationType">Select Violation Type:</label>
+        <select id="violationType">
+          <option value="">-- Select a Violation --</option>
+          <option value="occupancy">Occupancy Change Notice</option>
+          <option value="area">Area Change Notice</option>
+          <option value="unauthorized">Unauthorized Construction Notice</option>
+          <option value="owner">Owner Change Notice (Jama Mattam)</option>
+          <option value="general">General Notice to Building Owners</option>
+        </select>
+      </div>
+      
+      <div class="violation-info">
+        <p><strong>Instructions:</strong> Select a violation type from the dropdown above to generate the appropriate notice. The system will automatically detect certain violations based on property data, but you can also manually select any violation type.</p>
+      </div>
     </div>
 
     <!-- Section: Generate Notices -->
     <div class="section">
-      <h2>Generate Notices</h2>
+      <h2>Generate Violation Notices</h2>
       <div class="notice-links">
-        <a href="#" id="areaNotice">📄 Area Change Notice</a>
-        <a href="#" id="ownerNotice">📄 Owner Change Notice</a>
+        <a href="#" id="occupancyNotice">📋 Occupancy Change Notice</a>
+        <a href="#" id="areaNotice">📐 Area Change Notice</a>
+        <a href="#" id="unauthorizedNotice">🏗️ Unauthorized Construction Notice</a>
+        <a href="#" id="ownerNotice">👤 Owner Change Notice</a>
+        <a href="#" id="generalNotice">📄 General Notice</a>
       </div>
     </div>
 
@@ -107,45 +191,142 @@
   </div>
 
   <script>
-    // Parse query string
+    // Parse query string parameters
     const params = new URLSearchParams(window.location.search);
 
+    // Populate property details
     document.getElementById("owner").textContent = params.get("owner") || "N/A";
     document.getElementById("address").textContent = params.get("address") || "N/A";
     document.getElementById("ward").textContent = params.get("ward") || "N/A";
     document.getElementById("type").textContent = params.get("type") || "N/A";
-    document.getElementById("area").textContent = params.get("value") || "N/A";
+    document.getElementById("area").textContent = params.get("value") || params.get("area") || "N/A";
     document.getElementById("tax").textContent = params.get("tax") || "N/A";
 
-    // Simulated violations array (can be dynamic later)
-    const sampleViolations = [
-      "sample::",
-      "Unauthorized construction of 3rd floor",
-      "Change in building usage without permit",
-      "Increase in built-up area beyond sanctioned plan"
-    ];
+    // Get violation-related parameters
+    const areaChange = parseFloat(params.get("areaChange")) || 0;
+    const ownerChange = params.get("ownerChange") === "true";
+    const occupancyChange = params.get("occupancyChange") === "true";
+    const unauthorizedConstruction = params.get("unauthorized") === "true";
 
-    const violationList = document.getElementById("violations");
-    sampleViolations.forEach(v => {
-      const li = document.createElement("li");
-      li.className = "violation-item";
-      li.textContent = v;
-      violationList.appendChild(li);
+    // Define notice URLs
+    const noticeUrls = {
+      occupancy: "https://ulgissctl.github.io/demandnotice/occupancychange.html",
+      area: "https://ulgissctl.github.io/demandnotice/areachange.html",
+      unauthorized: "https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html",
+      owner: "https://ulgissctl.github.io/demandnotice/namechange.html",
+      general: "https://ulgissctl.github.io/demandnotice/notice.html"
+    };
+
+    // Detect violations automatically
+    const detectedViolations = [];
+    
+    if (areaChange > 0) {
+      detectedViolations.push({
+        type: "area",
+        description: `Area change detected: +${areaChange} sq.ft increase`
+      });
+    } else if (areaChange < 0) {
+      detectedViolations.push({
+        type: "area", 
+        description: `Area change detected: ${Math.abs(areaChange)} sq.ft decrease`
+      });
+    }
+
+    if (ownerChange) {
+      detectedViolations.push({
+        type: "owner",
+        description: "Ownership change detected - requires Jama Mattam notice"
+      });
+    }
+
+    if (occupancyChange) {
+      detectedViolations.push({
+        type: "occupancy",
+        description: "Building occupancy/usage change detected"
+      });
+    }
+
+    if (unauthorizedConstruction) {
+      detectedViolations.push({
+        type: "unauthorized",
+        description: "Unauthorized construction detected"
+      });
+    }
+
+    // Display violation status
+    const violationStatus = document.getElementById("violationStatus");
+    
+    if (detectedViolations.length > 0) {
+      violationStatus.innerHTML = `
+        <div class="violation-detected">
+          <strong>⚠️ Violations Detected (${detectedViolations.length}):</strong>
+          <ul style="margin: 10px 0 0 20px;">
+            ${detectedViolations.map(v => `<li>${v.description}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+      
+      // Enable corresponding notice links
+      detectedViolations.forEach(violation => {
+        const linkId = violation.type + "Notice";
+        const linkElement = document.getElementById(linkId);
+        if (linkElement) {
+          linkElement.classList.add("active");
+          linkElement.href = noticeUrls[violation.type];
+        }
+      });
+    } else {
+      violationStatus.innerHTML = `
+        <div class="no-violations">
+          <strong>✅ No automatic violations detected</strong>
+          <p>Use the dropdown below to manually select and generate violation notices if needed.</p>
+        </div>
+      `;
+    }
+
+    // Handle manual violation selection
+    const violationTypeSelect = document.getElementById("violationType");
+    const allNoticeLinks = document.querySelectorAll(".notice-links a");
+
+    violationTypeSelect.addEventListener("change", function() {
+      const selectedType = this.value;
+      
+      // Reset all links to inactive state
+      allNoticeLinks.forEach(link => {
+        link.classList.remove("active");
+        link.href = "#";
+      });
+      
+      // Activate selected violation link
+      if (selectedType && noticeUrls[selectedType]) {
+        const linkId = selectedType + "Notice";
+        const selectedLink = document.getElementById(linkId);
+        if (selectedLink) {
+          selectedLink.classList.add("active");
+          selectedLink.href = noticeUrls[selectedType];
+        }
+      }
+      
+      // Keep auto-detected violations active
+      detectedViolations.forEach(violation => {
+        const linkId = violation.type + "Notice";
+        const linkElement = document.getElementById(linkId);
+        if (linkElement) {
+          linkElement.classList.add("active");
+          linkElement.href = noticeUrls[violation.type];
+        }
+      });
     });
 
-    // Generate links
-    const baseLink = "https://ulgissctl.github.io/demandnotice/notice.html";
-    const id = params.get("id") || "";
-   // if (areaChange > 0) {
-      document.getElementById("areaNotice").href = "https://ulgissctl.github.io/demandnotice/areachange.html";
-    //} else {
-    //  document.getElementById("areaNotice").style.display = "none"; // Hide the link
-    //}
-    
-    document.getElementById("namechange").href ="https://ulgissctl.github.io/demandnotice/namechange.html";
-    document.getElementById("unauth").href ="https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html";
-    document.getElementById("namechange").href ="https://ulgissctl.github.io/demandnotice/namechange.html";
-    
+    // Initialize with detected violations
+    detectedViolations.forEach(violation => {
+      const linkId = violation.type + "Notice";
+      const linkElement = document.getElementById(linkId);
+      if (linkElement) {
+        linkElement.classList.add("active");
+        linkElement.href = noticeUrls[violation.type];
+      }
+    });
   </script>
 </body>
 </html>

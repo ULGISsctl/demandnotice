@@ -203,9 +203,9 @@
     document.getElementById("tax").textContent = params.get("tax") || "N/A";
 
     // Get violation-related parameters
-    const areaChange = parseFloat(params.get("areaChange")) || 0;
-    const ownerChange = params.get("ownerChange") === "true";
-    const occupancyChange = params.get("occupancyChange") === "true";
+    const areaChange = parseFloat(params.get("areachange")) || 0;
+    const ownerChange = params.get("ownerchange") === "true";
+    const occupancyChange = params.get("occupancychange") === "true";
     const unauthorizedConstruction = params.get("unauthorized") === "true";
 
     // Define notice URLs

@@ -87,9 +87,10 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg/600px-Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg.png?20180901020657" 
              style="width: 100px; height: auto;" 
              alt="Seal of Thiruvananthapuram Corporation">
+        <h1>തിരുവനന്തപുരം നഗരസഭ</h1>
       </div>
 
-      <h1>തിരുവനന്തപുരം നഗരസഭ</h1>
+      
   
 
     <div class="reference-line">
@@ -161,16 +162,16 @@
     function getFeatureFromParams() {
       const params = new URLSearchParams(window.location.search);
       return {
-        NOTICE_NO: params.get("noticeNo") || "NA",
-        NOTICE_DATE: params.get("date") ||"NA",
-        WARD_NO: params.get("ward") ||"NA",
-        WARD_NAME: params.get("wardName") || "NA",
-        DOOR_NO: params.get("doorNo") || "NA",
-        OWNER_NAME: params.get("owner") || "NA",
+        NOTICE_NO: params.get("noticeNo") ,
+        NOTICE_DATE: params.get("date") ,
+        WARD_NO: params.get("ward") ,
+        WARD_NAME: params.get("wardName"),
+        DOOR_NO: params.get("doorNo") ,
+        OWNER_NAME: params.get("owner") ,
 
-        BUILDING_NO: params.get("buildingNo") || "NA",
-        LOCATION: params.get("location") || "NA",
-        SURVEY_NO: params.get("surveyNo") ||"NA",
+        BUILDING_NO: params.get("buildingNo") ,
+        LOCATION: params.get("location") ,
+        SURVEY_NO: params.get("surveyNo") ,
       };
     }
 
@@ -179,7 +180,7 @@
 
       document.getElementById("noticeNo").textContent = evaluateArcadeExpression(feature, "$feature.NOTICE_NO");
       document.getElementById("noticeDate").textContent = evaluateArcadeExpression(feature, "$feature.NOTICE_DATE");
-      document.getElementById("ward").textContent = evaluateArcadeExpression(feature, "$feature.WARD_NAME") + " / " + evaluateArcadeExpression(feature, "$feature.WARD_NO");
+      document.getElementById("ward").textContent = evaluateArcadeExpression(feature, "$feature.wardname") + " / " + evaluateArcadeExpression(feature, "$feature.wardno");
       document.getElementById("doorNo").textContent = evaluateArcadeExpression(feature, "$feature.DOOR_NO");
       document.getElementById("owner").textContent = evaluateArcadeExpression(
         feature, 

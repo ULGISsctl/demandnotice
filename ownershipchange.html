@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+  <meta charset="UTF-8">
+  <title>തിരുവന്തപുരം നഗരസഭ അറിയിപ്പ്</title>
+  <style>
+    body {
+      font-family: "Noto Sans Malayalam", sans-serif;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.8;
+      background-color: #f9f9f9;
+      color: #222;
+    }
+    .center {
+      text-align: center;
+    }
+    .section {
+      margin-top: 30px;
+    }
+    .box {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .bold {
+      font-weight: bold;
+    }
+    .underline {
+      text-decoration: underline;
+    }
+    .right {
+      text-align: right;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 class="center">തിരുവന്തപുരം നഗരസഭ</h2>
+
+  <div class="section box">
+    <p><span class="bold">നമ്പർ:</span> {$feature.notice_number}</p>
+    <p><span class="bold">തീയതി:</span> {$feature.notice_date}</p>
+  </div>
+
+  <h3 class="center underline">അറിയിപ്പ്</h3>
+
+  <div class="section">
+    <p><span class="bold">വിഷയം:</span> തിരുവനന്തപുരം നഗരസഭ റവന്യു വസ്തുനികുതി വിഭാഗം - കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നത് സംബന്ധിച്ച്.</p>
+  </div>
+
+  <div class="section box">
+    <p><span class="bold">ഉടമയുടെ പേര് / വീട്ടുപേര്:</span> {$feature.owner_name}</p>
+    <p><span class="bold">വാർഡിന്റെ പേര് / നമ്പർ:</span> {$feature.ward_name} / {$feature.ward_number}</p>
+    <p><span class="bold">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ):</span> {$feature.property_number}</p>
+    <p><span class="bold">സർവ്വേ നമ്പർ:</span> {$feature.survey_number}</p>
+  </div>
+
+  <div class="section">
+    <p>
+      തിരുവനന്തപുരം നഗരസഭയിലെ {$feature.ward_name} വാർഡിൽ {$feature.property_number} നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചുവരുന്നതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെടുന്നു.
+      എന്നാല്‍ കോര്‍പറേഷന്‍ രേഖകളില്‍ മേല്‍പറഞ്ഞ കെട്ടിടം {$feature.current_recorded_owner} എന്നയാളുടെ ഉടമസ്ഥാതയിലാണ് കാണുന്നത്.
+      ആയതിനാൽ ഇ അറിയിപ്പ് കൈപ്പറ്റി <strong>15 ദിവസത്തിനകം</strong> കേരള മുനിസിപ്പൽ ആക്ട് 240-(o) വകുപ്പ് പ്രകാരം
+      കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നതിന് ആവശ്യമായ രേഖകൾ സഹിതം നഗരസഭയിൽ ഹാജരായി അപേക്ഷ സമർപ്പിക്കേണ്ടതാണ്.
+    </p>
+  </div>
+
+  <p class="right bold">സെക്രട്ടറി</p>
+
+</body>
+</html>

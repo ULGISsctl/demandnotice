@@ -82,6 +82,7 @@
       opacity: 0.7;
       pointer-events: none;
     }
+    
 
     .notice-links a.active {
       opacity: 1;
@@ -129,7 +130,29 @@
       margin: 15px 0;
       border-radius: 0 6px 6px 0;
     }
-  </style>
+    /* Color-coded styles */
+    .notice-links a.occupancy {
+      background-color: #17a2b8; /* Cyan */
+    }
+    .notice-links a.area {
+      background-color: #ffc107; /* Amber */
+    }
+    .notice-links a.unauthorized {
+      background-color: #dc3545; /* Red */
+    }
+    .notice-links a.owner {
+      background-color: #28a745; /* Green */
+    }
+    .notice-links a.general {
+      background-color: #6c757d; /* Gray */
+    }
+    /* Darker hover variants for color-coded */
+    .notice-links a.occupancy:hover { background-color: #117a8b; }
+    .notice-links a.area:hover { background-color: #e0a800; }
+    .notice-links a.unauthorized:hover { background-color: #bd2130; }
+    .notice-links a.owner:hover { background-color: #218838; }
+    .notice-links a.general:hover { background-color: #5a6268; }
+    </style>
 </head>
 <body>
   <div class="container">
@@ -211,7 +234,7 @@
       owner: `https://ulgissctl.github.io/demandnotice/namechange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       general: `https://ulgissctl.github.io/demandnotice/notice.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&due=${dueAmount}&ward=${encodeURIComponent(params.get("ward") || "")}`
     };
-
+    
     // Detect violations automatically based on your arcade parameters
     const detectedViolations = [];
     
@@ -276,7 +299,7 @@
         const linkId = violation.type + "Notice";
         const linkElement = document.getElementById(linkId);
         if (linkElement) {
-          linkElement.classList.add("active");
+          linkElement.classList.add("active", violation.type);
           linkElement.href = noticeUrls[violation.type];
         }
       });
@@ -307,7 +330,7 @@
         const linkId = selectedType + "Notice";
         const selectedLink = document.getElementById(linkId);
         if (selectedLink) {
-          selectedLink.classList.add("active");
+          selectedLink.classList.add("active", selectedType);
           selectedLink.href = noticeUrls[selectedType];
         }
       }

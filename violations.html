@@ -200,56 +200,71 @@
     document.getElementById("ward").textContent = params.get("ward") || "N/A";
     document.getElementById("type").textContent = params.get("type") || "N/A";
     document.getElementById("area").textContent = params.get("value") || params.get("area") || "N/A";
-    document.getElementById("tax").textContent = params.get("tax") || "N/A";
+    document.getElementById("tax").textContent = params.get("tax") || params.get("total") || "N/A";
+    document.getElementById("taxYear").textContent = params.get("tax_year") || "2025";
 
-    // Get violation-related parameters
-    const areaChange = parseFloat(params.get("areachange")) || 0;
-    const ownerChange = params.get("ownerchange") === "true";
-    const occupancyChange = params.get("occupancychange") === "true";
-    const unauthorizedConstruction = params.get("unauthorized") === "true";
+    // Get violation-related parameters from your arcade expression
+    const areaChange = parseFloat(params.get("areachange")) || 0; // Note: lowercase 'areachange' from your URL
+    const propertyId = params.get("id") || "";
+    const dueAmount = params.get("due") || "";
+    
+    // Additional violation detection logic
+    const ownerChange = params.get("ownerchange") === "true" || params.get("ownr_change") === "true";
+    const occupancyChange = params.get("occupancychange") === "true" || params.get("usage_change") === "true";
+    const unauthorizedConstruction = params.get("unauthorized") === "true" || params.get("unauth_const") === "true";
 
-    // Define notice URLs
+    // Define notice URLs with property parameters passed through
     const noticeUrls = {
-      occupancy: "https://ulgissctl.github.io/demandnotice/occupancychange.html",
-      area: "https://ulgissctl.github.io/demandnotice/areachange.html",
-      unauthorized: "https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html",
-      owner: "https://ulgissctl.github.io/demandnotice/namechange.html",
-      general: "https://ulgissctl.github.io/demandnotice/notice.html"
+      occupancy: `https://ulgissctl.github.io/demandnotice/occupancychange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}`,
+      area: `https://ulgissctl.github.io/demandnotice/areachange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&areachange=${areaChange}`,
+      unauthorized: `https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}`,
+      owner: `https://ulgissctl.github.io/demandnotice/namechange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}`,
+      general: `https://ulgissctl.github.io/demandnotice/notice.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&due=${dueAmount}`
     };
 
-    // Detect violations automatically
+    // Detect violations automatically based on your arcade parameters
     const detectedViolations = [];
     
-    if (areaChange > 0) {
+    // Area change violation - based on your areachng field
+    if (areaChange !== 0) {
+      const changeType = areaChange > 0 ? "increase" : "decrease";
+      const changeAmount = Math.abs(areaChange);
       detectedViolations.push({
         type: "area",
-        description: `Increase in Floor Area detected: +${areachange} sq.m`,
-        area: "https://ulgissctl.github.io/demandnotice/areachange.html",
+        description: `Area change violation: ${changeAmount} sq.ft ${changeType} detected (Property ID: ${propertyId})`
       });
-    
+    }
 
+    // Owner change violation
     if (ownerChange) {
       detectedViolations.push({
         type: "owner",
-        description: "Ownership change detected - requires Jama Mattam notice",
-        owner: "https://ulgissctl.github.io/demandnotice/namechange.html",
-        
+        description: "Ownership change detected - Jama Mattam notice required"
       });
     }
 
+    // Occupancy change violation
     if (occupancyChange) {
       detectedViolations.push({
         type: "occupancy",
-        description: "Building occupancy/usage change detected",
-        occupancy: "https://ulgissctl.github.io/demandnotice/occupancychange.html",
+        description: "Building occupancy/usage change detected"
       });
     }
 
+    // Unauthorized construction violation
     if (unauthorizedConstruction) {
       detectedViolations.push({
         type: "unauthorized",
-        description: "Unauthorized construction detected",
-        unauthorized: "https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html",
+        description: "Unauthorized construction activities detected"
+      });
+    }
+
+    // Additional logic: Check if due amount suggests violations
+    if (dueAmount && parseFloat(dueAmount) > 0) {
+      // This could indicate pending tax due to violations
+      detectedViolations.push({
+        type: "general",
+        description: `Outstanding dues detected: ₹${dueAmount} - General notice may be required`
       });
     }
 

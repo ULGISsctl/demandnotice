@@ -223,33 +223,33 @@
     if (areaChange > 0) {
       detectedViolations.push({
         type: "area",
-        description: `Area change detected: +${areaChange} sq.ft increase`
+        description: `Area change detected: +${areaChange} sq.m increase`,
+        area: "https://ulgissctl.github.io/demandnotice/areachange.html",
       });
-    } else if (areaChange < 0) {
-      detectedViolations.push({
-        type: "area", 
-        description: `Area change detected: ${Math.abs(areaChange)} sq.ft decrease`
-      });
-    }
+    
 
     if (ownerChange) {
       detectedViolations.push({
         type: "owner",
-        description: "Ownership change detected - requires Jama Mattam notice"
+        description: "Ownership change detected - requires Jama Mattam notice",
+        owner: "https://ulgissctl.github.io/demandnotice/namechange.html",
+        
       });
     }
 
     if (occupancyChange) {
       detectedViolations.push({
         type: "occupancy",
-        description: "Building occupancy/usage change detected"
+        description: "Building occupancy/usage change detected",
+        occupancy: "https://ulgissctl.github.io/demandnotice/occupancychange.html",
       });
     }
 
     if (unauthorizedConstruction) {
       detectedViolations.push({
         type: "unauthorized",
-        description: "Unauthorized construction detected"
+        description: "Unauthorized construction detected",
+        unauthorized: "https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html",
       });
     }
 

@@ -2,7 +2,7 @@
 <html lang="ml">
 <head>
   <meta charset="UTF-8">
-  <title>തിരുവനന്തപുരം നഗരസഭ അറിയിപ്പ്</title>
+  <title>തിരുവന്തപുരം നഗരസഭ അറിയിപ്പ്</title>
   <style>
     body {
       font-family: "Noto Sans Malayalam", sans-serif;
@@ -30,6 +30,10 @@
       padding: 10px;
       margin: 10px 0;
     }
+    .right {
+      text-align: right;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
@@ -37,8 +41,8 @@
   <h2 class="center">തിരുവന്തപുരം നഗരസഭ</h2>
 
   <div class="section box">
-    <p><span class="bold">നമ്പർ:</span> <span id="number">{$feature.notice_number}</span></p>
-    <p><span class="bold">തീയതി:</span> <span id="date">{$feature.notice_date}</span></p>
+    <p><span class="bold">നമ്പർ:</span> <span id="number"></span></p>
+    <p><span class="bold">തീയതി:</span> <span id="date"></span></p>
   </div>
 
   <h3 class="center underline">അറിയിപ്പ്</h3>
@@ -48,21 +52,46 @@
   </div>
 
   <div class="section box">
-    <p><span class="bold">ഉടമയുടെ പേര് / വീട്ടുപേര്:</span> {$feature.owner_name}</p>
-    <p><span class="bold">വാർഡിന്റെ പേര് / നമ്പർ:</span> {$feature.ward_name} / {$feature.ward_number}</p>
-    <p><span class="bold">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ):</span> {$feature.property_number}</p>
-    <p><span class="bold">സർവ്വേ നമ്പർ:</span> {$feature.survey_number}</p>
+    <p><span class="bold">ഉടമയുടെ പേര് / വീട്ടുപേര്:</span> <span id="owner_name"></span></p>
+    <p><span class="bold">വാർഡിന്റെ പേര് / നമ്പർ:</span> <span id="ward_name"></span> / <span id="ward_number"></span></p>
+    <p><span class="bold">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ):</span> <span id="property_number"></span></p>
+    <p><span class="bold">സർവ്വേ നമ്പർ:</span> <span id="survey_number"></span></p>
   </div>
 
   <div class="section">
-    <p>
-      തിരുവനന്തപുരം നഗരസഭയിലെ {$feature.ward_name} വാർഡിൽ {$feature.property_location} താങ്കളുടെ ഉടമസ്ഥാതയിലുള്ള {$feature.property_number} നമ്പർ കെട്ടിടം / കെട്ടിടത്തിന് സമീപം നഗരസഭ രേഖകളിൽ നിന്നും വ്യത്യസ്‌തമായി നിർമ്മാണം നടത്തിയതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെട്ടിരുന്നു. 
-      ആയതിനാൽ നഗരസഭ എഞ്ചിനീയറിംഗ് വിഭാഗവുമായി ബന്ധപ്പെട്ടു ആവശ്യമായ രേഖകൾ സമർപ്പിച്ചു പ്രസ്തുത നിർമ്മാണം / ഘടനമാറ്റം ക്രമവത്കരിക്കേണ്ടതാണെന്ന് അറിയിക്കുന്നു. 
-      അല്ലാത്തപക്ഷം പ്രസ്തുത നിർമ്മാണം / ഘടനമാറ്റം അനധികൃത നിർമ്മാണവുമായി കണക്കാക്കി കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 242-(o) വകുപ്പ് പ്രകാരം അധികനികുതി ചുമത്തുന്നതാണെന്ന വിവരവും ഇതിനാൽ അറിയിക്കുന്നു.
+    <p id="main_paragraph">
+      <!-- This will be populated by JavaScript -->
     </p>
   </div>
 
   <p class="right bold">സെക്രട്ടറി</p>
+
+  <!-- Script to read URL params and populate content -->
+  <script>
+    function getParam(key) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(key) || '';
+    }
+
+    // Fill in values
+    document.getElementById('number').textContent = getParam('notice_number');
+    document.getElementById('date').textContent = getParam('notice_date');
+    document.getElementById('owner_name').textContent = getParam('owner');
+    document.getElementById('ward_name').textContent = getParam('ward');
+    document.getElementById('ward_number').textContent = getParam('ward_number');
+    document.getElementById('property_number').textContent = getParam('id');
+    document.getElementById('survey_number').textContent = getParam('survey_number');
+
+    const ward = getParam('ward_name');
+    const location = getParam('property_location');
+    const propertyNo = getParam('property_number');
+
+    document.getElementById('main_paragraph').innerHTML = `
+      തിരുവനന്തപുരം നഗരസഭയിലെ ${ward} വാർഡിൽ ${location} താങ്കളുടെ ഉടമസ്ഥതയിലുള്ള ${propertyNo} നമ്പർ കെട്ടിടം / കെട്ടിടത്തിന് സമീപം നഗരസഭ രേഖകളിൽ നിന്നും വ്യത്യസ്‌തമായി നിർമ്മാണം നടത്തിയതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെട്ടിരുന്നു. 
+      ആയതിനാൽ നഗരസഭ എഞ്ചിനീയറിംഗ് വിഭാഗവുമായി ബന്ധപ്പെട്ടു ആവശ്യമായ രേഖകൾ സമർപ്പിച്ചു പ്രസ്തുത നിർമ്മാണം / ഘടനമാറ്റം ക്രമവത്കരിക്കേണ്ടതാണെന്ന് അറിയിക്കുന്നു. 
+      അല്ലാത്തപക്ഷം പ്രസ്തുത നിർമ്മാണം / ഘടനമാറ്റം അനധികൃത നിർമ്മാണവുമായി കണക്കാക്കി കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 242-(o) വകുപ്പ് പ്രകാരം അധികനികുതി ചുമത്തുന്നതാണെന്ന വിവരവും ഇതിനാൽ അറിയിക്കുന്നു.
+    `;
+  </script>
 
 </body>
 </html>

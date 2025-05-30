@@ -108,7 +108,7 @@
 
     <div class="content">
       <p>ഉടമയുടെ പേര് / വീട്ടുപേര്: <span class="blank-space" id="owner"></span></p>
-      <p>വാർഡിന്റെ പേര് / നമ്പർ: <span class="blank-space" id="wardFull"></span></p>
+      <p>വാർഡിന്റെ പേര് / നമ്പർ: <span class="blank-space" id="ward"></span></p>
       <p>കെട്ടിട നമ്പർ (ടി.സി നമ്പർ):T <span class="blank-space" id="doorNo"></span></p>
       <p>സർവ്വേ നമ്പർ: <span class="blank-space" id="surveyNo">....</span></p>
 
@@ -163,7 +163,7 @@
       const params = new URLSearchParams(window.location.search);
       return {
         WARD_NAME: params.get("ward"),
-        DOOR_NO: params.get("doorNo") ,
+        DOOR_NO: params.get("id") ,
         OWNER_NAME: params.get("owner") ,
         SURVEY_NO: params.get("surveyNo") ,
       };
@@ -174,11 +174,11 @@
 
       document.getElementById("noticeNo").textContent = generateNoticeNumber();
       document.getElementById("noticeDate").textContent =  new Date().toLocaleDateString('en-IN');
-      document.getElementById("ward").textContent = evaluateArcadeExpression(feature, "$feature.ward") + " / " + evaluateArcadeExpression(feature, "$feature.wardno");
-      document.getElementById("doorNo").textContent = evaluateArcadeExpression(feature, "$feature.id");
+      document.getElementById("ward").textContent = evaluateArcadeExpression(feature, "$feature.WARD_NAME");
+      document.getElementById("doorNo").textContent = evaluateArcadeExpression(feature, "$feature.DOOR_NO");
       document.getElementById("owner").textContent = evaluateArcadeExpression(feature, "$feature.OWNER_NAME");
       document.getElementById("surveyNo").textContent = evaluateArcadeExpression(feature, "$feature.SURVEY_NO");
-      document.getElementById("wardFull").textContent = evaluateArcadeExpression(feature, "$feature.WARD_NAME");
+     
      
     }
      function generateNoticeNumber() {

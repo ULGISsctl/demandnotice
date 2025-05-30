@@ -110,11 +110,11 @@
       <p>ഉടമയുടെ പേര് / വീട്ടുപേര്: <span class="blank-space" id="owner"></span></p>
       <p>വാർഡിന്റെ പേര് / നമ്പർ: <span class="blank-space" id="wardFull"></span></p>
       <p>കെട്ടിട നമ്പർ (ടി.സി നമ്പർ):T <span class="blank-space" id="doorNo"></span></p>
-      <p>സർവ്വേ നമ്പർ: <span class="blank-space" id="surveyNo">......</span></p>
+      <p>സർവ്വേ നമ്പർ: <span class="blank-space" id="surveyNo">....</span></p>
 
       <br/>
 
-      <p style="text-align: justify;">തിരുവനന്തപുരം നഗരസഭയിലെ <span class="blank-space" id="ward"></span> വാർഡിൽ <span class="blank-space" id="location"></span> താങ്കളുടെ ഉടമസ്ഥതയിലുള്ള T<span class="blank-space" id="buildingNo"></span> നമ്പർ കെട്ടിടം / കെട്ടിടത്തിന് സമീപം നഗരസഭ രേഖകളിൽ നിന്നും വ്യത്യസ്‌തമായി നിർമ്മാണം നടത്തിയതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെട്ടിട്ടുണ്ട്. ആയതിനാൽ നഗരസഭ എഞ്ചിനീയറിംഗ് വിഭാഗവുമായി ബന്ധപ്പെട്ടു ആവശ്യമായ രേഖകൾ സമർപ്പിച്ചു പ്രസ്തുത നിർമ്മാണം / ഘടനമാറ്റം ക്രമവത്കരിക്കേണ്ടതാണെന്ന് അറിയിക്കുന്നു. അല്ലാത്തപക്ഷം പ്രസ്തുത നിർമ്മാണം / ഘടനമാറ്റം അനധികൃത നിർമ്മാണമായി കണക്കാക്കി കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 242-ാം വകുപ്പ് പ്രകാരം അധിക നികുതി ചുമത്തുന്നതാണ് എന്ന വിവരവും ഇതിനാൽ അറിയിക്കുന്നു.</p>
+      <p style="text-align: justify;">തിരുവനന്തപുരം നഗരസഭയിലെ <span class="blank-space" id="ward"></span> വാർഡിൽ <span class="blank-space" id="owner"></span> താങ്കളുടെ ഉടമസ്ഥതയിലുള്ള T<span class="blank-space" id="doorNo"></span> നമ്പർ കെട്ടിടം / കെട്ടിടത്തിന് സമീപം നഗരസഭ രേഖകളിൽ നിന്നും വ്യത്യസ്‌തമായി നിർമ്മാണം നടത്തിയതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെട്ടിട്ടുണ്ട്. ആയതിനാൽ നഗരസഭ എഞ്ചിനീയറിംഗ് വിഭാഗവുമായി ബന്ധപ്പെട്ടു ആവശ്യമായ രേഖകൾ സമർപ്പിച്ചു പ്രസ്തുത നിർമ്മാണം / ഘടനമാറ്റം ക്രമവത്കരിക്കേണ്ടതാണെന്ന് അറിയിക്കുന്നു. അല്ലാത്തപക്ഷം പ്രസ്തുത നിർമ്മാണം / ഘടനമാറ്റം അനധികൃത നിർമ്മാണമായി കണക്കാക്കി കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 242-ാം വകുപ്പ് പ്രകാരം അധിക നികുതി ചുമത്തുന്നതാണ് എന്ന വിവരവും ഇതിനാൽ അറിയിക്കുന്നു.</p>
     </div>
 
     <div class="footer">
@@ -162,15 +162,9 @@
     function getFeatureFromParams() {
       const params = new URLSearchParams(window.location.search);
       return {
-        NOTICE_NO: params.get("noticeNo") ,
-        NOTICE_DATE: params.get("date") ,
-        WARD_NO: params.get("wardno") ,
         WARD_NAME: params.get("ward"),
         DOOR_NO: params.get("doorNo") ,
         OWNER_NAME: params.get("owner") ,
-
-        BUILDING_NO: params.get("buildingNo") ,
-        LOCATION: params.get("location") ,
         SURVEY_NO: params.get("surveyNo") ,
       };
     }
@@ -178,19 +172,24 @@
     function applyArcadeExpressions() {
       const feature = getFeatureFromParams();
 
-      document.getElementById("noticeNo").textContent = evaluateArcadeExpression(feature, "$feature.NOTICE_NO");
-      document.getElementById("noticeDate").textContent = evaluateArcadeExpression(feature, "$feature.NOTICE_DATE");
+      document.getElementById("noticeNo").textContent = generateNoticeNumber();
+      document.getElementById("noticeDate").textContent =  new Date().toLocaleDateString('en-IN');
       document.getElementById("ward").textContent = evaluateArcadeExpression(feature, "$feature.ward") + " / " + evaluateArcadeExpression(feature, "$feature.wardno");
-      document.getElementById("doorNo").textContent = evaluateArcadeExpression(feature, "$feature.DOOR_NO");
-      document.getElementById("owner").textContent = evaluateArcadeExpression(
-        feature, 
-        "IIF($feature.OWNER_TYPE == 'Individual', $feature.OWNER_NAME, $feature.COMPANY_NAME)"
-      );
+      document.getElementById("doorNo").textContent = evaluateArcadeExpression(feature, "$feature.id");
+      document.getElementById("owner").textContent = evaluateArcadeExpression(feature, "$feature.OWNER_NAME");
       document.getElementById("surveyNo").textContent = evaluateArcadeExpression(feature, "$feature.SURVEY_NO");
       document.getElementById("wardFull").textContent = evaluateArcadeExpression(feature, "$feature.WARD_NAME");
-      document.getElementById("location").textContent = evaluateArcadeExpression(feature, "$feature.LOCATION");
-      document.getElementById("buildingNo").textContent = evaluateArcadeExpression(feature, "$feature.BUILDING_NO");
+     
     }
+     function generateNoticeNumber() {
+      // Generate a random notice number format: TMC/RRN/YYYY-MM/XXXXX
+      const year = new Date().getFullYear();
+      const month = String(new Date().getMonth() + 1).padStart(2, '0');
+      const random = Math.floor(10000 + Math.random() * 90000); // 5-digit number
+      return `TMC/RRN/${year}-${month}/${random}`;
+    }
+
+    
 
     function adjustBlankSpaces() {
       const blankSpaces = document.querySelectorAll('.blank-space');

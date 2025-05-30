@@ -175,16 +175,21 @@
     
 
     <!-- Section: Generate Notices -->
-    <div class="section">
-      <h2>Generate Violation Notices</h2>
+   <div class="section">
+  <h2>Generate Violation Notices</h2>
+
+      <h3>🏛️ Revenue Division</h3>
       <div class="notice-links">
-        <a href="#" id="occupancyNotice">📋 Occupancy Change Notice</a>
-        <a href="#" id="areaNotice">📐 Area Change Notice</a>
-        <a href="#" id="unauthorizedNotice">🏗️ Unauthorized Construction Notice</a>
-        <a href="#" id="ownerNotice">👤 Owner Change Notice</a>
-        <a href="#" id="generalNotice">📄 General Notice</a>
+        <a href="#" id="ownerNotice">👤 Ownership Change Notice</a>
+        <a href="#" id="areaNotice">📐 Structural Change Notice</a>
       </div>
-    </div>
+    
+      <h3>🏗️ Engineering Division</h3>
+      <div class="notice-links">
+        <a href="#" id="generalNotice">📄 General Notice – Engineering Section</a>
+        <a href="#" id="unauthorizedNotice">🚧 Unauthorized Construction Notice</a>
+      </div>
+</div>
 
        
 
@@ -195,11 +200,11 @@
         <label for="violationType">Select Violation Type:</label>
         <select id="violationType">
           <option value="">-- Select a Violation --</option>
-          <option value="occupancy">Occupancy Change Notice</option>
-          <option value="area">Area Change Notice</option>
-          <option value="unauthorized">Unauthorized Construction Notice</option>
-          <option value="owner">Owner Change Notice (Jama Mattam)</option>
-          <option value="general">General Notice to Building Owners</option>
+          <option value="owner">👤 Ownership Change Notice</option>
+          <option value="area">📐 Structural Change Notice</option>
+          <option value="general">📄 General Notice – Engineering Section</option>
+          <option value="unauthorized">🚧 Unauthorized Construction Notice</option>
+          
         </select>
       </div>
       
@@ -232,7 +237,7 @@
 
     // Define notice URLs with property parameters passed through
     const noticeUrls = {
-      occupancy: `https://ulgissctl.github.io/demandnotice/occupancychange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
+     
       area: `https://ulgissctl.github.io/demandnotice/structuralchangeNotice.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&areachange=${areaChange}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       unauthorized: `https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       owner: `https://ulgissctl.github.io/demandnotice/namechange.html?id=${propertyId}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,

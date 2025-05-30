@@ -6,39 +6,45 @@
   <title>View Property Violation Notices here</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f4f6f9;
-      padding: 20px;
-    }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f6f9;
+  padding: 10px;
+  font-size: 14px;
+}
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
+.container {
+  max-width: 680px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+h1 {
+  font-size: 20px;
+}
 
-    h1, h2 {
-      color: #333;
-    }
+h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
 
-    .section {
-      margin-bottom: 25px;
-    }
-
+.section {
+  margin-bottom: 20px;
+}
     .section h2 {
-      margin-bottom: 10px;
-      border-bottom: 2px solid #007BFF;
-      padding-bottom: 5px;
-    }
+  border-bottom: 1px solid #007BFF;
+  padding-bottom: 4px;
+}
 
-    .details p, .violation-item {
-      margin: 6px 0;
-      color: #555;
-    }
+.details p,
+.violation-item {
+  margin: 4px 0;
+  color: #555;
+  font-size: 13px;
+}
 
     .violation-dropdown {
       margin: 15px 0;
@@ -51,14 +57,11 @@
       color: #333;
     }
 
-    .violation-dropdown select {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid #ddd;
-      border-radius: 6px;
-      font-size: 16px;
-      background-color: white;
-    }
+  
+.violation-dropdown select {
+  font-size: 14px;
+  padding: 8px;
+}
 
     .violation-dropdown select:focus {
       border-color: #007BFF;
@@ -118,9 +121,9 @@
 
     .footer {
       text-align: center;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #999;
+     margin-top: 20px;
+  font-size: 0.8em;
+  color: #999;
     }
 
     .violation-info {

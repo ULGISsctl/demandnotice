@@ -117,11 +117,6 @@
   </div>
 
   <script>
-    // This script integrates ArcGIS Arcade expressions with the web application
-    
-    // Function to evaluate Arcade expressions
-    function evaluateArcadeExpression(feature, expression) {
-      try {
        // Helper function to get URL parameters
     function getQueryParam(param) {
       const params = new URLSearchParams(window.location.search);
@@ -135,58 +130,7 @@
       const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
       return `THR/PTX/${year}/AC-${random}`;
     }
-        // Example expressions:
-        // $feature.WARD_NO
-        // $feature.DOOR_NO
-        // $feature.OWNER_NAME
-        // IIF($feature.OWNER_TYPE == 'Individual', $feature.OWNER_NAME, $feature.COMPANY_NAME)
-        
-        if (!expression || !feature) return "";
-        
-        // Handle basic feature property access
-        if (expression.startsWith('$feature.')) {
-          const fieldName = expression.replace('$feature.', '').trim();
-          return feature[fieldName] || "";
-        }
-        
-        // Handle IIF() function (simplified)
-        if (expression.startsWith('IIF(')) {
-          // Extract the condition, trueValue, and falseValue from the IIF function
-          const regex = /IIF\(\$feature\.(\w+)\s*==\s*['"](.*?)['"],\s*\$feature\.(\w+),\s*\$feature\.(\w+)\)/;
-          const match = expression.match(regex);
-          
-          if (match) {
-            const [_, fieldName, compareValue, trueField, falseField] = match;
-            return feature[fieldName] === compareValue ? feature[trueField] : feature[falseField];
-          }
-        }
-        
-        // Handle concatenation (simplified)
-        if (expression.includes('+')) {
-          const parts = expression.split('+');
-          return parts.map(part => {
-            part = part.trim();
-            if (part.startsWith('$feature.')) {
-              const fieldName = part.replace('$feature.', '').trim();
-              return feature[fieldName] || "";
-            } else {
-              // Handle string literals by removing quotes
-              return part.replace(/['"]/g, '');
-            }
-          }).join('');
-        }
-        
-        return expression; // Return the expression itself if not parsed
-      } catch (error) {
-        console.error("Error evaluating Arcade expression:", error);
-        return "";
-      }
-    }
-    
-    // Simulate a feature from URL parameters or use sample data
-    function getFeatureFromParams() {
-      const params = new URLSearchParams(window.location.search);
-      
+
     // Helper function to set element text safely
     function setElementText(id, value) {
       const element = document.getElementById(id);
@@ -205,59 +149,10 @@
       setElementText("owner", getQueryParam("owner"));
       setElementText("ward", getQueryParam("ward"));
       setElementText("id", getQueryParam(id"));
-      // Create a feature object from URL parameters or defaults
-      const feature = {
-        NOTICE_NO: params.get("noticeNo") ||  "N/A",
-        NOTICE_DATE: params.get("date") ||  "N/A"",
-        WARD_NO: params.get("ward") || "N/A",
-        DOOR_NO: params.get("doorNo") ||  "N/A",
-        OWNER_NAME: params.get("owner") ||  "N/A",
-        OWNER_TYPE: params.get("ownerType") ||  "N/A",
-        COMPANY_NAME: params.get("company") || "N/A",
-        AREA_PREV: params.get("areaPrev") ||  "N/A"
-        AREA_CURRENT: params.get("areaCurrent") ||  "N/A"
-      };
-      
-      return feature;
+     
     }
     
-    // Apply Arcade expressions to the document
-    function applyArcadeExpressions() {
-      const feature = getFeatureFromParams();
-      
-      // Set values using Arcade expressions
-      document.getElementById("noticeNo").textContent = evaluateArcadeExpression(feature, "$feature.NOTICE_NO");
-      document.getElementById("noticeDate").textContent = evaluateArcadeExpression(feature, "$feature.NOTICE_DATE");
-      
-      // Ward number with Arcade expression
-      document.getElementById("ward").textContent = evaluateArcadeExpression(feature, "$feature.WARD_NO");
-      
-      // Door number with Arcade expression
-      document.getElementById("doorNo").textContent = evaluateArcadeExpression(feature, "$feature.DOOR_NO");
-      
-      // Owner name with conditional Arcade expression
-      document.getElementById("owner").textContent = evaluateArcadeExpression(
-        feature, 
-        "IIF($feature.OWNER_TYPE == 'Individual', $feature.OWNER_NAME, $feature.COMPANY_NAME)"
-      );
-    }
-    
-    // Function to auto-adjust blank spaces based on content
-    function adjustBlankSpaces() {
-      const blankSpaces = document.querySelectorAll('.blank-space');
-      blankSpaces.forEach(space => {
-        const content = space.textContent.trim();
-        if (content) {
-          space.style.minWidth = content.length * 10 + 'px';
-        }
-      });
-    }
-    
-    // Run both functions after the page loads
-    window.onload = function() {
-      applyArcadeExpressions();
-      adjustBlankSpaces();
-    };
+  
   </script>
 </body>
 </html>

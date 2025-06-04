@@ -39,9 +39,10 @@
   <div class="notice-container">
     <!-- Centered Logo and Heading -->
     <div style="text-align: center;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg/600px-Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg.png?20180901020657" 
-       style="width: 100px; height: auto; display: block; margin: auto;" alt="Seal">
-        <h2><strong>തിരുവനന്തപുരം നഗരസഭ</strong></h2>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg/600px-Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg.png?20180901020657" 
+           style="width: 100px; height: auto; display: block; margin: auto;" 
+           alt="Seal of Thiruvananthapuram Corporation">
+      <h2><strong>തിരുവനന്തപുരം നഗരസഭ</strong></h2>
     </div>
 
     <!-- Horizontal Line ABOVE -->
@@ -67,16 +68,16 @@
     </div>
 
     <div class="section">
-      <p><strong>ഉടമയുടെ പേര് / വീട്ടുപേര് :</strong> <span id="owner"></span></p>
-      <p><strong>വാർഡിന്റെ പേര് / നമ്പർ :</strong> <span id="ward"></span> / <span id="wardnum"></span></p>
-      <p><strong>കെട്ടിട നമ്പർ (ടി.സി നമ്പർ) :</strong> <span id="tc"></span></p>
-      <p><strong>സർവ്വേ നമ്പർ :</strong> <span id="survey"></span></p>
+      <p><strong>ഉടമയുടെ പേര് / വീട്ടുപേര് :</strong> <span id="owner">....................</span></p>
+      <p><strong>വാർഡിന്റെ പേര് / നമ്പർ :</strong> <span id="ward">....................</span> / <span id="wardnum">....</span></p>
+      <p><strong>കെട്ടിട നമ്പർ (ടി.സി നമ്പർ) :</strong> <span id="tc">....................</span></p>
+      <p><strong>സർവ്വേ നമ്പർ :</strong> <span id="survey">....................</span></p>
     </div>
 
     <div class="section">
       <p>സൂചനകളിലേക്കു ശ്രദ്ധ ക്ഷണിക്കുന്നു.</p>
 
-      <p>തിരുവനന്തപുരം നഗരസഭ <span id="wardRepeat"></span> വാർഡിലെ താങ്കളുടെ ഉടമസ്ഥതയിൽ താങ്കൾ നടത്തിയിട്ടുള്ള നിർമ്മാണത്തിനെതിരെ മേൽ സൂചന (...) പരാതികൾ സമർപ്പിച്ചിട്ടുള്ളതാണ്. ആയതിന്റെ അടിസ്ഥാനത്തിൽ ഈ കാര്യാലയത്തിൽ നിന്നും നടത്തിയ പരിശോധന പ്രകാരം താങ്കളുടെ കെട്ടിടത്തിന്റെ കംപ്ലീഷൻ പ്ലാൻ ഹാജരാക്കാൻ സൂചന (...) പ്രകാരം അറിയിപ്പ് നൽകിയിരുന്നെങ്കിലും ആയതു നാളിതുവരെ താങ്കൾ ഹാജരാക്കിയതായി കാണുന്നില്ല.</p>
+      <p>തിരുവനന്തപുരം നഗരസഭ <span id="ward-repeat">....................</span> വാർഡിലെ താങ്കളുടെ ഉടമസ്ഥതയിൽ താങ്കൾ നടത്തിയിട്ടുള്ള നിർമ്മാണത്തിനെതിരെ മേൽ സൂചന (...) പരാതികൾ സമർപ്പിച്ചിട്ടുള്ളതാണ്. ആയതിന്റെ അടിസ്ഥാനത്തിൽ ഈ കാര്യാലയത്തിൽ നിന്നും നടത്തിയ പരിശോധന പ്രകാരം താങ്കളുടെ കെട്ടിടത്തിന്റെ കംപ്ലീഷൻ പ്ലാൻ ഹാജരാക്കാൻ സൂചന (...) പ്രകാരം അറിയിപ്പ് നൽകിയിരുന്നെങ്കിലും ആയതു നാളിതുവരെ താങ്കൾ ഹാജരാക്കിയതായി കാണുന്നില്ല.</p>
 
       <p>അതിനാൽ മേൽ തുടർനടപടികൾ സ്വീകരിക്കുന്നതിനായി താങ്കളുടെ കെട്ടിടത്തിന്റെ പൂർത്തീകരണ പ്ലാൻ ഈ അറിയിപ്പ് കൈപ്പറ്റിയതിൽ നിന്ന് 05 ദിവസത്തിനുള്ളിൽ ഹാജരാക്കേണ്ടതാണ്.</p>
 
@@ -97,19 +98,20 @@
   </div>
 
   <script>
-    // Helper: Decode and get URL param
-    function getParam(key) {
-      const val = new URLSearchParams(window.location.search).get(key);
-      return val ? decodeURIComponent(val) : "....................";
+    const params = new URLSearchParams(window.location.search);
+
+    function fillText(id, key, fallback = "....................") {
+      const value = decodeURIComponent(params.get(key) || fallback);
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
     }
 
-    // Populate fields
-    document.getElementById("owner").textContent = getParam("owner");
-    document.getElementById("ward").textContent = getParam("ward");
-    document.getElementById("wardRepeat").textContent = getParam("ward");
-    document.getElementById("wardnum").textContent = getParam("wardnum") || "....";
-    document.getElementById("tc").textContent = getParam("tc");
-    document.getElementById("survey").textContent = getParam("survey");
+    fillText("owner", "owner");
+    fillText("ward", "ward");
+    fillText("wardnum", "wardnum", "....");
+    fillText("tc", "tc");
+    fillText("survey", "survey");
+    fillText("ward-repeat", "ward"); // second appearance
   </script>
-</body>
+</body> 
 </html>

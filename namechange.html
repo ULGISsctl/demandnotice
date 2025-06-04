@@ -179,15 +179,15 @@
       
       // Create a feature object from URL parameters or defaults
       const feature = {
-        NOTICE_NO: params.get("noticeNo") || "TVM/PTX/2025/OC-240",
-        NOTICE_DATE: params.get("date") || "21/05/2025",
-        WARD_NO: params.get("ward") || "32",
-        DOOR_NO: params.get("doorNo") || "KTC/178/2025",
-        OWNER_NAME: params.get("owner") || "രാജേഷ് കുമാർ",
-        OWNER_TYPE: params.get("ownerType") || "Individual",
+        NOTICE_NO: params.get("noticeNo") ||  "N/A",
+        NOTICE_DATE: params.get("date") ||  "N/A"",
+        WARD_NO: params.get("ward") || "N/A",
+        DOOR_NO: params.get("doorNo") ||  "N/A",
+        OWNER_NAME: params.get("owner") ||  "N/A",
+        OWNER_TYPE: params.get("ownerType") ||  "N/A",
         COMPANY_NAME: params.get("company") || "N/A",
-        AREA_PREV: params.get("areaPrev") || "1200",
-        AREA_CURRENT: params.get("areaCurrent") || "1450"
+        AREA_PREV: params.get("areaPrev") ||  "N/A"
+        AREA_CURRENT: params.get("areaCurrent") ||  "N/A"
       };
       
       return feature;

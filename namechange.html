@@ -106,7 +106,7 @@
     </div>
 
     <div class="content">
-      <p>തിരുവനന്തപുരം നഗരസഭയിലെ <span class="blank-space" id="ward"></span> വാർഡിൽ T<span class="blank-space" id="doorNo"></span> നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചു വരുന്നതായി ബോധ്യപ്പെടുന്നു. എന്നാൽ കോർപ്പറേഷൻ രേഖകളിൽ ഈ കെട്ടിടം <span class="blank-space" id="owner"></span> എന്നയാളുടെ ഉടമസ്ഥതയിലാണെന്ന് കാണുന്നു. ആയതിനാൽ ഈ അറിയിപ്പ് കൈപ്പറ്റി 15 ദിവസത്തിനകം കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 240-ാാം വകുപ്പ് പ്രകാരം കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നതിന്, ആവശ്യമായ രേഖകൾ സഹിതം നഗരസഭയിൽ അപേക്ഷ സമർപ്പിക്കേണ്ടതാണ്.</p>
+      <p>തിരുവനന്തപുരം നഗരസഭയിലെ <span class="blank-space" id="ward"></span> വാർഡിൽ T<span class="blank-space" id="id"></span> നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചു വരുന്നതായി ബോധ്യപ്പെടുന്നു. എന്നാൽ കോർപ്പറേഷൻ രേഖകളിൽ ഈ കെട്ടിടം <span id="owner"></span> എന്നയാളുടെ ഉടമസ്ഥതയിലാണെന്ന് കാണുന്നു. ആയതിനാൽ ഈ അറിയിപ്പ് കൈപ്പറ്റി 15 ദിവസത്തിനകം കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 240-ാാം വകുപ്പ് പ്രകാരം കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നതിന്, ആവശ്യമായ രേഖകൾ സഹിതം നഗരസഭയിൽ അപേക്ഷ സമർപ്പിക്കേണ്ടതാണ്.</p>
     </div>
 
     <div class="footer">
@@ -122,9 +122,19 @@
     // Function to evaluate Arcade expressions
     function evaluateArcadeExpression(feature, expression) {
       try {
-        // Simulate Arcade expression evaluation by parsing common patterns
-        // In a real implementation, this would connect to the ArcGIS API
-        
+       // Helper function to get URL parameters
+    function getQueryParam(param) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(param) || '';
+    }
+
+    // Helper function to generate notice number
+    function generateNoticeNumber() {
+      const year = new Date().getFullYear();
+      const month = String(new Date().getMonth() + 1).padStart(2, '0');
+      const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+      return `THR/PTX/${year}/AC-${random}`;
+    }
         // Example expressions:
         // $feature.WARD_NO
         // $feature.DOOR_NO
@@ -177,6 +187,24 @@
     function getFeatureFromParams() {
       const params = new URLSearchParams(window.location.search);
       
+    // Helper function to set element text safely
+    function setElementText(id, value) {
+      const element = document.getElementById(id);
+      if (element && value) {
+        element.textContent = value;
+      }
+    }
+
+    // Fill all fields on page load
+    window.onload = function() {
+      // Generate notice details
+      setElementText("noticeNo", generateNoticeNumber());
+      setElementText("noticeDate", new Date().toLocaleDateString('en-IN'));
+      
+      // Property details from URL parameters
+      setElementText("owner", getQueryParam("owner"));
+      setElementText("ward", getQueryParam("ward"));
+      setElementText("id", getQueryParam(id"));
       // Create a feature object from URL parameters or defaults
       const feature = {
         NOTICE_NO: params.get("noticeNo") ||  "N/A",

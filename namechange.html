@@ -61,7 +61,7 @@
     }
 
     .content {
-      text-align:justify;
+      text-align: justify;
       margin-bottom: 30px;
     }
 
@@ -85,42 +85,43 @@
 <body>
   <div class="container">
     <div class="header">
-       <div style="text-align: center; margin-bottom: 20px;">
+      <div style="text-align: center; margin-bottom: 20px;">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg/600px-Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg.png?20180901020657" 
              style="width: 100px; height: auto;" 
              alt="Seal of Thiruvananthapuram Corporation">
-      <h1>തിരുവനന്തപുരം നഗരസഭ</h1>
-    </div>
+        <h1>തിരുവനന്തപുരം നഗരസഭ</h1>
+      </div>
 
-    <div class="reference-line">
-      <p>നമ്പർ: <span id="noticeNo"></span></p>
-      <p>തീയതി: <span id="noticeDate"></span></p>
-    </div>
+      <div class="reference-line">
+        <p>നമ്പർ: <span id="noticeNo"></span></p>
+        <p>തീയതി: <span id="noticeDate"></span></p>
+      </div>
 
-    <div class="notice-title">
-      <p>അറിയിപ്പ്</p>
-    </div>
+      <div class="notice-title">
+        <p>അറിയിപ്പ്</p>
+      </div>
 
-    <div class="subject">
-      <p>വിഷയം: തിരുവനന്തപുരം നഗരസഭ- വസ്തു വസ്തുനികുതി വിഭാഗം- കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നത് സംബന്ധിച്ച്</p>
-    </div>
+      <div class="subject">
+        <p>വിഷയം: തിരുവനന്തപുരം നഗരസഭ- വസ്തു വസ്തുനികുതി വിഭാഗം- കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നത് സംബന്ധിച്ച്</p>
+      </div>
 
-    <div class="content">
-      <p>തിരുവനന്തപുരം നഗരസഭയിലെ <span class="blank-space" id="ward"></span> വാർഡിൽ T<span class="blank-space" id="id"></span> നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചു വരുന്നതായി ബോധ്യപ്പെടുന്നു. എന്നാൽ കോർപ്പറേഷൻ രേഖകളിൽ ഈ കെട്ടിടം <span class="blank-space" id="owner"></span> എന്നയാളുടെ ഉടമസ്ഥതയിലാണെന്ന് കാണുന്നു. ആയതിനാൽ ഈ അറിയിപ്പ് കൈപ്പറ്റി 15 ദിവസത്തിനകം കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 240-ാാം വകുപ്പ് പ്രകാരം കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നതിന്, ആവശ്യമായ രേഖകൾ സഹിതം നഗരസഭയിൽ അപേക്ഷ സമർപ്പിക്കേണ്ടതാണ്.</p>
-    </div>
+      <div class="content">
+        <p>തിരുവനന്തപുരം നഗരസഭയിലെ <span class="blank-space" id="ward"></span> വാർഡിൽ T<span class="blank-space" id="id"></span> നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചു വരുന്നതായി ബോധ്യപ്പെടുന്നു. എന്നാൽ കോർപ്പറേഷൻ രേഖകളിൽ ഈ കെട്ടിടം <span class="blank-space" id="owner"></span> എന്നയാളുടെ ഉടമസ്ഥതയിലാണെന്ന് കാണുന്നു. ആയതിനാൽ ഈ അറിയിപ്പ് കൈപ്പറ്റി 15 ദിവസത്തിനകം കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 240-ാാം വകുപ്പ് പ്രകാരം കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നതിനായി ആവശ്യമായ രേഖകൾ സഹിതം നഗരസഭയിൽ അപേക്ഷ സമർപ്പിക്കേണ്ടതാണ്.</p>
+      </div>
 
-    <div class="footer">
-      <div class="signature">
-        <p>സെക്രട്ടറി</p>
+      <div class="footer">
+        <div class="signature">
+          <p>സെക്രട്ടറി</p>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-       // Helper function to get URL parameters
+    // Helper function to get URL parameters
     function getQueryParam(param) {
       const params = new URLSearchParams(window.location.search);
-      return params.get(param) || '';
+      return decodeURIComponent(params.get(param) || '');
     }
 
     // Helper function to generate notice number
@@ -141,18 +142,13 @@
 
     // Fill all fields on page load
     window.onload = function() {
-      // Generate notice details
       setElementText("noticeNo", generateNoticeNumber());
       setElementText("noticeDate", new Date().toLocaleDateString('en-IN'));
-      
-      // Property details from URL parameters
+
       setElementText("owner", getQueryParam("owner"));
       setElementText("ward", getQueryParam("ward"));
-      setElementText("id", getQueryParam(id"));
-     
+      setElementText("id", getQueryParam("id"));
     }
-    
-  
   </script>
 </body>
 </html>

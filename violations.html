@@ -186,6 +186,7 @@ h2 {
     
      
       <div class="notice-links">
+        <a href="#" id="owner">Ownership change</a>
         <a href="#" id="generalNotice">📄 General Notice – Engineering Section</a>
         <a href="#" id="unauthorizedNotice">🚧 Unauthorized Construction Notice</a>
       </div>
@@ -215,7 +216,7 @@ h2 {
      
       area: `https://ulgissctl.github.io/demandnotice/structuralchangeNotice.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&areachange=${areaChange}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       unauthorized: `https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html?id=${propertyId}${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
-      owner: `https://ulgissctl.github.io/demandnotice/namechange.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
+      owner: `https://ulgissctl.github.io/demandnotice/ownershipchange.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       general: `https://ulgissctl.github.io/demandnotice/Generalnotice.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&due=${dueAmount}&ward=${encodeURIComponent(params.get("ward") || "")}`
     };
     

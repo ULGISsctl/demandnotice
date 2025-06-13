@@ -203,7 +203,7 @@ h2 {
     // Get violation-related parameters from your arcade expression
     const areaChange = parseFloat(params.get("areachange")) || 0; // Note: lowercase 'areachange' from your URL
     const propertyIdParam = params.get("id") || "";
-    const dueAmount = params.get("due") || "";
+    const ownernew = params.get("ownernew") || "";
     
     // Define violation flags (these need to be defined based on your parameters)
     const ownerChange = params.get("ownernew") && params.get("ownernew") !== params.get("owner");

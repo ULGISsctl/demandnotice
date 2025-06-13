@@ -395,6 +395,16 @@ function checkAndShowWorkflow() {
 }
 checkAndShowWorkflow();
 
+    // Always enable specific notices
+["owner", "general", "unauthorized"].forEach(type => {
+  const link = document.getElementById(type + "Notice");
+  if (link) {
+    link.classList.add("active", type);
+    link.href = noticeUrls[type];
+  }
+});
+
+
   </script>
 </body>
 </html>

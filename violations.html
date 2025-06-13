@@ -184,7 +184,7 @@ h2 {
         <a href="#" id="ownerNotice">🏠 Ownership Change Notice</a>
         <a href="#" id="generalNotice">📄 General Notice – Engineering Section</a>
         <a href="#" id="unauthorizedNotice">🚧 Unauthorized Construction Notice</a>
-        <a href="#" id="occupancyNotice">🏢 Occupancy Change Notice</a>
+        
       </div>
 
   </div>
@@ -213,7 +213,7 @@ h2 {
       unauthorized: `https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html?id=${propertyId}${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       owner: `https://ulgissctl.github.io/demandnotice/ownershipchange.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       general: `https://ulgissctl.github.io/demandnotice/Generalnotice.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&due=${dueAmount}&ward=${encodeURIComponent(params.get("ward") || "")}`,
-      occupancy: `https://ulgissctl.github.io/demandnotice/occupancychange.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`
+     
     };
     
     // Detect violations automatically based on your arcade parameters

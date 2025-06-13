@@ -41,8 +41,8 @@
   <h2 class="center">തിരുവന്തപുരം നഗരസഭ</h2>
 
   <div class="section box">
-    <p><span class="bold">നമ്പർ:</span> {$feature.notice_number}</p>
-    <p><span class="bold">തീയതി:</span> {$feature.notice_date}</p>
+    <p><span class="bold">നമ്പർ:</span> <span id="notice_number"></span></p>
+    <p><span class="bold">തീയതി:</span> <span id="notice_date"></span></p>
   </div>
 
   <h3 class="center underline">അറിയിപ്പ്</h3>
@@ -52,22 +52,62 @@
   </div>
 
   <div class="section box">
-    <p><span class="bold">ഉടമയുടെ പേര് / വീട്ടുപേര്:</span> {$feature.owner_name}</p>
-    <p><span class="bold">വാർഡിന്റെ പേര് / നമ്പർ:</span> {$feature.ward_name} / {$feature.ward_number}</p>
-    <p><span class="bold">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ):</span> {$feature.property_number}</p>
-    <p><span class="bold">സർവ്വേ നമ്പർ:</span> {$feature.survey_number}</p>
+    <p><span class="bold">ഉടമയുടെ പേര് / വീട്ടുപേര്:</span> <span id="owner_name"></span></p>
+    <p><span class="bold">വാർഡിന്റെ പേര് / നമ്പർ:</span> <span id="ward_name"></span> / <span id="ward_number"></span></p>
+    <p><span class="bold">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ):</span> <span id="property_number"></span></p>
+    <p><span class="bold">സർവ്വേ നമ്പർ:</span> <span id="survey_number"></span></p>
   </div>
 
   <div class="section">
     <p>
-      തിരുവനന്തപുരം നഗരസഭയിലെ {$feature.ward_name} വാർഡിൽ {$feature.property_number} നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചുവരുന്നതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെടുന്നു.
-      എന്നാല്‍ കോര്‍പറേഷന്‍ രേഖകളില്‍ മേല്‍പറഞ്ഞ കെട്ടിടം {$feature.ownernew} എന്നയാളുടെ ഉടമസ്ഥാതയിലാണ് കാണുന്നത്.
+      തിരുവനന്തപുരം നഗരസഭയിലെ <span id="ward_name2"></span> വാർഡിൽ <span id="property_number2"></span> നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചുവരുന്നതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെടുന്നു.
+      എന്നാല്‍ കോര്‍പറേഷന്‍ രേഖകളില്‍ മേല്‍പറഞ്ഞ കെട്ടിടം <span id="owner_new"></span> എന്നയാളുടെ ഉടമസ്ഥാതയിലാണ് കാണുന്നത്.
       ആയതിനാൽ ഇ അറിയിപ്പ് കൈപ്പറ്റി <strong>15 ദിവസത്തിനകം</strong> കേരള മുനിസിപ്പൽ ആക്ട് 240-(o) വകുപ്പ് പ്രകാരം
       കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നതിന് ആവശ്യമായ രേഖകൾ സഹിതം നഗരസഭയിൽ ഹാജരായി അപേക്ഷ സമർപ്പിക്കേണ്ടതാണ്.
     </p>
   </div>
 
   <p class="right bold">സെക്രട്ടറി</p>
+
+  <script>
+    function getParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        notice_number: generateNoticeNumber(),
+        notice_date: new Date().toLocaleDateString('en-IN'),
+        owner_name: params.get("owner"),
+        owner_new: params.get("ownernew"),
+        ward_name: params.get("ward"),
+        ward_number: params.get("wardno"),
+        property_number: params.get("propertyno"),
+        survey_number: params.get("survey")
+      };
+    }
+
+    function populateFields() {
+      const data = getParams();
+
+      document.getElementById("notice_number").textContent = data.notice_number;
+      document.getElementById("notice_date").textContent = data.notice_date;
+      document.getElementById("owner_name").textContent = data.owner_name;
+      document.getElementById("owner_new").textContent = data.owner_new;
+      document.getElementById("ward_name").textContent = data.ward_name;
+      document.getElementById("ward_number").textContent = data.ward_number;
+      document.getElementById("property_number").textContent = data.property_number;
+      document.getElementById("property_number2").textContent = data.property_number;
+      document.getElementById("ward_name2").textContent = data.ward_name;
+      document.getElementById("survey_number").textContent = data.survey_number;
+    }
+
+    function generateNoticeNumber() {
+      const year = new Date().getFullYear();
+      const month = String(new Date().getMonth() + 1).padStart(2, '0');
+      const random = Math.floor(10000 + Math.random() * 90000);
+      return `TMC/OWN/${year}-${month}/${random}`;
+    }
+
+    window.onload = populateFields;
+  </script>
 
 </body>
 </html>

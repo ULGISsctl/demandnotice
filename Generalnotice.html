@@ -92,7 +92,7 @@
     <div class="section">
       <p style="text-align: justify">സൂചനകളിലേക്കു ശ്രദ്ധ ക്ഷണിക്കുന്നു. മേൽ സൂചിത <span class="blank-space" id="noticeType">..................</span> അറിയിപ്പ് / പരാതി - യുടെ അടിസ്ഥാനത്തിൽ നടത്തിയ സ്ഥല പരിശോധനയിൽ ചുവടെ സൂചിപ്പിച്ചിരിക്കുന്ന വസ്തുതകൾ / ന്യൂനതകൾ കണ്ടെത്തിയിരിക്കുന്നു.</p>
       <ol>
-        <li style="margin-bottom: 60px;"><span id="fact1">Structural change noticed <span id="areachange"></span> sq.m</span></li>
+        <li style="margin-bottom: 60px;">Structural change noticed <span id="areachange"></span> sq.m</li>
         <li style="margin-bottom: 60px;"><span id="fact2"></span></li>
         <li style="margin-bottom: 60px;"><span id="fact3"></span></li>
         <li style="margin-bottom: 60px;"><span id="fact4"></span></li>
@@ -151,9 +151,7 @@
       const doorNo = evaluateArcadeExpression(feature, "$feature.DOOR_NO");
       const surveyNo = evaluateArcadeExpression(feature, "$feature.SURVEY_NO");
       const noticeType = evaluateArcadeExpression(feature, "$feature.NOTICE_TYPE");
-      const areachange = evaluateArcadeExpression(feature, "$feature.AREA_CHANGE");
-      const fact1 = evaluateArcadeExpression(feature, "$feature.FACT1");
-      const fact2 = evaluateArcadeExpression(feature, "$feature.FACT2");
+      const areachange = evaluateArcadeExpression(feature, "$feature.AREA");
       const fact3 = evaluateArcadeExpression(feature, "$feature.FACT3");
       const fact4 = evaluateArcadeExpression(feature, "$feature.FACT4");
       const days = evaluateArcadeExpression(feature, "$feature.DAYS");

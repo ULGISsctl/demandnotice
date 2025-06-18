@@ -185,7 +185,7 @@ h2 {
         <a href="#" id="generalNotice" class="general">📄 General Notice – Engineering Section</a></br>
         <div id="noticesContainer"></div></br>
         <a href="#" id="ownerNotice" class="owner">🏠 Ownership Change Notice</a></br>  
-        <a href="#" id="stopmemo" class="memo">🏠 Stop Memo </a></br>  
+        <a href="#" id="stopmemo" class="memo">🚫 Stop Memo </a></br>  
       </div>
 
   </div>
@@ -276,7 +276,7 @@ h2 {
     }
 
     // Enable ALL notices by default (except owner and structural change which are conditional)
-    const alwaysActiveNotices = ["general","owner"];
+    const alwaysActiveNotices = ["general","owner","stopmemo"];
     
     alwaysActiveNotices.forEach(type => {
       const link = document.getElementById(type + "Notice");

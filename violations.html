@@ -185,6 +185,7 @@ h2 {
         <a href="#" id="generalNotice" class="general">📄 General Notice – Engineering Section</a></br>
         <div id="noticesContainer"></div></br>
         <a href="#" id="ownerNotice" class="owner">🏠 Ownership Change Notice</a></br>  
+        <a href="#" id="stopmemo" class="memo">🏠 Stop Memo </a></br>  
       </div>
 
   </div>
@@ -205,7 +206,7 @@ h2 {
     
     // Define violation flags (these need to be defined based on your parameters)
     const ownerChange = params.get("ownernew") && params.get("ownernew") !== params.get("owner");
-    const occupancyChange = params.get("occupancychange") === "true"; // You'll need to add this parameter
+   
    
 
     // Define notice URLs with property parameters passed through
@@ -213,7 +214,7 @@ h2 {
       area: `https://ulgissctl.github.io/demandnotice/structuralchangeNotice.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ownernew=${encodeURIComponent(params.get("ownernew") || "")}&areachange=${areaChange}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       owner: `https://ulgissctl.github.io/demandnotice/ownershipchange.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ownernew=${encodeURIComponent(params.get("ownernew") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       general: `https://ulgissctl.github.io/demandnotice/Generalnotice.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ownernew=${encodeURIComponent(params.get("ownernew") || "")}&areachange=${areaChange}&ward=${encodeURIComponent(params.get("ward") || "")}`,
-     
+      stopmemo: `https://ulgissctl.github.io/demandnotice/stopmemo.html?id=${encodeURIComponent(params.get("id") || "")}`
     };
     
     // Detect violations automatically based on your arcade parameters

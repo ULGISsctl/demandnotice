@@ -184,9 +184,7 @@ h2 {
       <div class="notice-links">
         <a href="#" id="generalNotice" class="general">📄 General Notice – Engineering Section</a></br>
         <div id="noticesContainer"></div></br>
-        <a href="#" id="ownerNotice" class="owner">🏠 Ownership Change Notice</a></br>
-        <a href="#" id="unauthorizedNotice" class="unauthorized">🚧 Unauthorized Construction Notice</a>
-        
+        <a href="#" id="ownerNotice" class="owner">🏠 Ownership Change Notice</a></br>  
       </div>
 
   </div>
@@ -208,12 +206,11 @@ h2 {
     // Define violation flags (these need to be defined based on your parameters)
     const ownerChange = params.get("ownernew") && params.get("ownernew") !== params.get("owner");
     const occupancyChange = params.get("occupancychange") === "true"; // You'll need to add this parameter
-    const unauthorizedConstruction = params.get("unauthorized") === "true"; // You'll need to add this parameter
+   
 
     // Define notice URLs with property parameters passed through
     const noticeUrls = {
       area: `https://ulgissctl.github.io/demandnotice/structuralchangeNotice.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ownernew=${encodeURIComponent(params.get("ownernew") || "")}&areachange=${areaChange}&ward=${encodeURIComponent(params.get("ward") || "")}`,
-      unauthorized: `https://ulgissctl.github.io/demandnotice/unauthorizedconstruction_noticeEngineeringSection.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ownernew=${encodeURIComponent(params.get("ownernew") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       owner: `https://ulgissctl.github.io/demandnotice/ownershipchange.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ownernew=${encodeURIComponent(params.get("ownernew") || "")}&ward=${encodeURIComponent(params.get("ward") || "")}`,
       general: `https://ulgissctl.github.io/demandnotice/Generalnotice.html?id=${encodeURIComponent(params.get("id") || "")}&owner=${encodeURIComponent(params.get("owner") || "")}&ownernew=${encodeURIComponent(params.get("ownernew") || "")}&areachange=${areaChange}&ward=${encodeURIComponent(params.get("ward") || "")}`,
      
@@ -254,21 +251,7 @@ h2 {
       });
     }
 
-    // Occupancy change violation
-    if (occupancyChange) {
-      detectedViolations.push({
-        type: "occupancy",
-        description: "Building occupancy/usage change detected"
-      });
-    }
-
-    // Unauthorized construction violation
-    if (unauthorizedConstruction) {
-      detectedViolations.push({
-        type: "unauthorized",
-        description: "Unauthorized construction activities detected"
-      });
-    }
+   
 
     
     // Display violation status
@@ -292,7 +275,7 @@ h2 {
     }
 
     // Enable ALL notices by default (except owner and structural change which are conditional)
-    const alwaysActiveNotices = ["general", "unauthorized", "owner"];
+    const alwaysActiveNotices = ["general","owner"];
     
     alwaysActiveNotices.forEach(type => {
       const link = document.getElementById(type + "Notice");

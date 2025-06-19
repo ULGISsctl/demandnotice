@@ -203,9 +203,10 @@ h2 {
     const areaChange = parseFloat(params.get("areachange")) || 0; // Note: lowercase 'areachange' from your URL
     const propertyIdParam = params.get("id") || "";
     const ownernew = params.get("ownernew") || "";
+    const ownerChangeValue = parseFloat(params.get("ownerchange")) || 0; // Get ownerchange parameter
     
     // Define violation flags (these need to be defined based on your parameters)
-    const ownerChange = params.get("ownernew") && params.get("ownernew") !== params.get("owner");
+    const ownerChange = ownerChangeValue === 2; // Only true when ownerchange equals 2
    
    
 
@@ -227,7 +228,7 @@ h2 {
 
       detectedViolations.push({
         type: "area",
-        description: `Area change violation: ${changeAmount} sq.m ${changeType} detected (Property ID: ${propertyIdParam})`
+        description: `Area change violation: ${changeAmount} sq.m ${changeType} detected T(Property ID: ${propertyIdParam})`
       });
 
       // Inject the structural change notice link only if areaChange is not 0
@@ -244,11 +245,11 @@ h2 {
       }
     }
 
-    // Owner change violation - conditional
+    // Owner change violation - conditional (only when ownerchange = 2)
     if (ownerChange) {
       detectedViolations.push({
         type: "owner",
-        description: "Ownership change detected - Jama Mattam notice required"
+        description: "Ownership change detected"
       });
     }
 
@@ -275,9 +276,10 @@ h2 {
       `;
     }
 
-    // Enable ALL notices by default (except owner and structural change which are conditional)
-    const alwaysActiveNotices = ["general","owner","stopmemo"];
+    // Enable notices based on conditions
+    const alwaysActiveNotices = ["general", "stopmemo"]; // Removed "owner" from always active
     
+    // Always activate general and stopmemo
     alwaysActiveNotices.forEach(type => {
       const link = document.getElementById(type + "Notice");
       if (link) {
@@ -285,6 +287,15 @@ h2 {
         link.href = noticeUrls[type];
       }
     });
+
+    // Only activate owner notice if ownerchange = 2
+    if (ownerChange) {
+      const ownerLink = document.getElementById("ownerNotice");
+      if (ownerLink) {
+        ownerLink.classList.add("active");
+        ownerLink.href = noticeUrls.owner;
+      }
+    }
 
     
 

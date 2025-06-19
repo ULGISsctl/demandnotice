@@ -25,6 +25,7 @@
       line-height: 1.6;
       box-sizing: border-box;
       background: white;
+      font-size: 18px; 
     }
     
     .header {
@@ -52,10 +53,14 @@
       font-size: 14px;
       font-weight: bold;
     }
-    .line {
-    border-top: 1px solid #000;
-    margin: 10px 0;
+     .line {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #000;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
     }
+
     .memo-title {
       text-align: center;
       margin: 30px 0;
@@ -120,8 +125,8 @@
 <div class="meta-container">
   <div class="line"></div>
   <div class="meta">
-    <div>NUMBER: <span class="number"></span></div>
-    <div>DATE: <span class="date"></span></div>
+    <div>NUMBER: ><span id="noticeNo"></span></div>
+    <div>DATE:><span id="noticeDate"></span></div>
   </div>
   <div class="line"></div>
 </div>
@@ -131,10 +136,10 @@
   <div class="content">
    <p style="white-space: nowrap;">
   <strong>Subject: Construction/Reconstruction</strong>
-  <span class="dots" style: "text-align:justify;">...........................................................................................................................</span>
+  <span class="dots" style: "text-align:justify;">......................................................................................................................</span>
 </p>
 <p>
-  <span class="dots"  style: "text-align:justify;">........................................................................................................................................................................................................</span>
+  <span class="dots"  style: "text-align:justify;">.................................................................................................................................................................................................</span>
 </p>
 
     <p><strong>License and Approved plan called for reference -</strong></p>

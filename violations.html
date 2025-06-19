@@ -184,7 +184,7 @@ h2 {
       <div class="notice-links">
         <a href="#" id="generalNotice" class="general">📄 General Notice – Engineering Section</a></br>
         <div id="noticesContainer"></div></br>
-        <a href="#" id="ownerNotice" class="owner">🏠 Ownership Change Notice</a></br>  
+        <div id="ownerNoticesContainer"></div></br>
         <a href="#" id="stopmemo" class="stopmemo">🚫 Stop Memo </a></br>  
       </div>
 
@@ -228,7 +228,7 @@ h2 {
 
       detectedViolations.push({
         type: "area",
-        description: `Area change violation: ${changeAmount} sq.m ${changeType} detected T(Property ID: ${propertyIdParam})`
+        description: `Area change violation: ${changeAmount} sq.m ${changeType} detected (Property ID: ${propertyIdParam})`
       });
 
       // Inject the structural change notice link only if areaChange is not 0
@@ -249,8 +249,21 @@ h2 {
     if (ownerChange) {
       detectedViolations.push({
         type: "owner",
-        description: "Ownership change detected"
+        description: "Ownership change detected - Jama Mattam notice required (ownerchange = 2)"
       });
+
+      // Inject the owner notice link only if ownerchange = 2
+      const ownerNoticesContainer = document.getElementById('ownerNoticesContainer');
+      const ownerNoticeLinksDiv = document.createElement('div');
+      ownerNoticeLinksDiv.className = 'notice-links';
+      ownerNoticeLinksDiv.innerHTML = `<a href="#" id="ownerNotice" class="active owner">🏠 Ownership Change Notice</a>`;
+      ownerNoticesContainer.appendChild(ownerNoticeLinksDiv);
+      
+      // Set the URL for the owner notice
+      const ownerNoticeLink = document.getElementById('ownerNotice');
+      if (ownerNoticeLink) {
+        ownerNoticeLink.href = noticeUrls.owner;
+      }
     }
 
    
@@ -277,7 +290,7 @@ h2 {
     }
 
     // Enable notices based on conditions
-    const alwaysActiveNotices = ["general", "stopmemo"]; // Removed "owner" from always active
+    const alwaysActiveNotices = ["general", "stopmemo"];
     
     // Always activate general and stopmemo
     alwaysActiveNotices.forEach(type => {
@@ -287,15 +300,6 @@ h2 {
         link.href = noticeUrls[type];
       }
     });
-
-    // Only activate owner notice if ownerchange = 2
-    if (ownerChange) {
-      const ownerLink = document.getElementById("ownerNotice");
-      if (ownerLink) {
-        ownerLink.classList.add("active");
-        ownerLink.href = noticeUrls.owner;
-      }
-    }
 
     
 

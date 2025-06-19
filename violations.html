@@ -185,7 +185,7 @@ h2 {
         <a href="#" id="generalNotice" class="general">📄 General Notice – Engineering Section</a></br>
         <div id="noticesContainer"></div></br>
         <div id="ownerNoticesContainer"></div></br>
-        <a href="#" id="stopmemoNotice" class="stopmemo">🚫 Stop Memo </a></br>  
+        <a href="#" id="stopmemo" class="stopmemo">🚫 Stop Memo </a></br>  
       </div>
 
   </div>
@@ -205,8 +205,21 @@ h2 {
     const ownernew = params.get("ownernew") || "";
     const ownerChangeValue = parseFloat(params.get("ownerchange")) || 0; // Get ownerchange parameter
     
+    // Get additional structural change parameters
+    const floorCountChange = params.get("Floortych") || "";
+    const floorTypeChange = params.get("floortych") || "";
+    const roofTypeChange = params.get("rooftych") || "";
+    const areaViolation = params.get("areavoilation") || "";
+    
     // Define violation flags (these need to be defined based on your parameters)
     const ownerChange = ownerChangeValue === 2; // Only true when ownerchange equals 2
+    
+    // Check for structural changes - any of these conditions trigger structural notice
+    const hasStructuralChange = areaChange !== 0 || 
+                               floorCountChange === "FLOOR COUNT CHANGE" || 
+                               floorTypeChange === "FLOOR TYPE CHANGE" || 
+                               roofTypeChange === "ROOF TYPE CHANGE" || 
+                               areaViolation === "YES";
    
    
 
@@ -221,17 +234,38 @@ h2 {
     // Detect violations automatically based on your arcade parameters
     const detectedViolations = [];
     
-    // Area change violation - conditional
-    if (areaChange !== 0) {
-      const changeType = areaChange > 0 ? "increase" : "decrease";
-      const changeAmount = Math.abs(areaChange);
+    // Structural change violations - check multiple conditions
+    if (hasStructuralChange) {
+      const violations = [];
+      
+      if (areaChange !== 0) {
+        const changeType = areaChange > 0 ? "increase" : "decrease";
+        const changeAmount = Math.abs(areaChange);
+        violations.push(`Area change: ${changeAmount} sq.m ${changeType}`);
+      }
+      
+      if (floorCountChange === "FLOOR COUNT CHANGE") {
+        violations.push("Floor count change detected");
+      }
+      
+      if (floorTypeChange === "FLOOR TYPE CHANGE") {
+        violations.push("Floor type change detected");
+      }
+      
+      if (roofTypeChange === "ROOF TYPE CHANGE") {
+        violations.push("Roof type change detected");
+      }
+      
+      if (areaViolation === "YES") {
+        violations.push("Area violation detected");
+      }
 
       detectedViolations.push({
-        type: "area",
-        description: `Area change violation: ${changeAmount} sq.m ${changeType} detected (Property ID: ${propertyIdParam})`
+        type: "structural",
+        description: `Structural violations detected: ${violations.join(", ")} (Property ID: ${propertyIdParam})`
       });
 
-      // Inject the structural change notice link only if areaChange is not 0
+      // Inject the structural change notice link if any structural change is detected
       const noticesContainer = document.getElementById('noticesContainer');
       const noticeLinksDiv = document.createElement('div');
       noticeLinksDiv.className = 'notice-links';

@@ -82,7 +82,6 @@
         <span style="display: block; margin-bottom: 60px;">2.</span>
       </p>
 
-
       <p>ഉടമയുടെ പേര് / വീട്ടുപേര്: <span class="blank-space" id="owner1"></span></p>
       <p>വാർഡിന്റെ പേര് / നമ്പർ: <span class="blank-space" id="ward1"></span></p>
       <p>കെട്ടിട നമ്പർ (ടി.സി നമ്പർ): <span class="blank-space" id="doorNo1"></span></p>
@@ -91,12 +90,7 @@
 
     <div class="section">
       <p style="text-align: justify">സൂചനകളിലേക്കു ശ്രദ്ധ ക്ഷണിക്കുന്നു. മേൽ സൂചിത <span class="blank-space" id="noticeType">..................</span> അറിയിപ്പ് / പരാതി - യുടെ അടിസ്ഥാനത്തിൽ നടത്തിയ സ്ഥല പരിശോധനയിൽ ചുവടെ സൂചിപ്പിച്ചിരിക്കുന്ന വസ്തുതകൾ / ന്യൂനതകൾ കണ്ടെത്തിയിരിക്കുന്നു.</p>
-      <ol>
-        <li style="margin-bottom: 60px;">Structural change noticed <span id="areachange"></span> sq.m</li>
-        <li style="margin-bottom: 60px;"><span id="fact2"></span></li>
-        <li style="margin-bottom: 60px;"><span id="fact3"></span></li>
-        <li style="margin-bottom: 60px;"><span id="fact4"></span></li>
-      </ol>
+      <div id="factsList"></div>
 
       <p style="text-align: justify">അതിനാൽ ഈ നോട്ടീസ് കൈപ്പറ്റി <span class="blank-space" id="daysLimit">........</span> ദിവസത്തിനകം പ്രസ്തുത നിർമ്മാണം സംബന്ധിച്ചുള്ള വിശദീകരണം ലഭ്യമായ അനുമതിയുടെയും മറ്റും രേഖകൾ സഹിതം ഈ കാര്യാലയത്തിൽ ഹാജരാകേണ്ടതാകുന്നു. ആയതിൽ വീഴ്ച വരുത്തുന്ന പക്ഷം താങ്കൾക്ക് ഇ വിഷയത്തിൽ ഏതൊന്നും ബോധിപ്പിക്കാനില്ല എന്ന നിഗമനത്തിൽ കേരള മുനിസിപ്പാലിറ്റി ആക്ട് 1995 ആൻഡ് KMBR 19 എന്നിവയുടെ ചട്ടങ്ങൾ പ്രകാരം തുടർ നടപടികൾ സ്വീകരിക്കുന്നതാണ്.</p>
     </div>
@@ -112,64 +106,99 @@
   </div>
 
   <script>
-    function evaluateArcadeExpression(feature, expression) {
-      try {
-        if (!expression || !feature) return "";
-        if (expression.startsWith('$feature.')) {
-          const fieldName = expression.replace('$feature.', '').trim();
-          return feature[fieldName] || "";
-        }
-        return expression;
-      } catch (error) {
-        console.error("Arcade evaluation error:", error);
-        return "";
-      }
-    }
-
     function getFeatureFromParams() {
       const params = new URLSearchParams(window.location.search);
       return {
         WARD_NAME: params.get("ward"),
         DOOR_NO: params.get("id"),
         OWNER_NAME: params.get("owner"),
+        OWNERNEW: params.get("ownernew"),
         SURVEY_NO: params.get("surveyNo"),
         NOTICE_TYPE: params.get("noticeType"),
-        AREA:params.get("areachange"),
-        FACT1: params.get("fact1"),
-        FACT2: params.get("fact2"),
-        FACT3: params.get("fact3"),
-        FACT4: params.get("fact4"),
+        AREA_CHANGE: params.get("areachange"),
+        AREA_VIOLATION: params.get("areavoilation"),
+        FLOOR_TYPE_CHANGE: params.get("Floortych"),
+        FLOOR_COUNT_CHANGE: params.get("Floorcountch"),
+        ROOF_TYPE_CHANGE: params.get("rooftypechange"),
+        OWNER_CHANGE: params.get("ownerchange"),
+        TYPE: params.get("type"),
         DAYS: params.get("days")
       };
+    }
+
+    function generateViolationFacts(feature) {
+      const facts = [];
+      let factNumber = 1;
+
+      // Area change/violation
+      if (feature.AREA_CHANGE && feature.AREA_CHANGE !== "" && feature.AREA_CHANGE !== "0") {
+        facts.push(`Structural change noticed ${feature.AREA_CHANGE} sq.m`);
+        factNumber++;
+      } else if (feature.AREA_VIOLATION && feature.AREA_VIOLATION !== "" && feature.AREA_VIOLATION !== "0") {
+        facts.push(`Area violation noticed ${feature.AREA_VIOLATION} sq.m`);
+        factNumber++;
+      }
+
+      // Floor type change
+      if (feature.FLOOR_TYPE_CHANGE && feature.FLOOR_TYPE_CHANGE !== "" && feature.FLOOR_TYPE_CHANGE !== "0") {
+        facts.push(`Floor type change noticed - ${feature.FLOOR_TYPE_CHANGE}`);
+        factNumber++;
+      }
+
+      // Floor count change
+      if (feature.FLOOR_COUNT_CHANGE && feature.FLOOR_COUNT_CHANGE !== "" && feature.FLOOR_COUNT_CHANGE !== "0") {
+        facts.push(`Floor count change noticed - ${feature.FLOOR_COUNT_CHANGE}`);
+        factNumber++;
+      }
+
+      // Roof type change
+      if (feature.ROOF_TYPE_CHANGE && feature.ROOF_TYPE_CHANGE !== "" && feature.ROOF_TYPE_CHANGE !== "0") {
+        facts.push(`Roof type change noticed - ${feature.ROOF_TYPE_CHANGE}`);
+        factNumber++;
+      }
+
+      // Owner change
+      if (feature.OWNER_CHANGE && feature.OWNER_CHANGE === "1") {
+        const ownerText = feature.OWNERNEW ? `Owner change noticed - New owner: ${feature.OWNERNEW}` : "Owner change noticed";
+        facts.push(ownerText);
+        factNumber++;
+      }
+
+      
+      return facts;
+    }
+
+    function renderFactsList(facts) {
+      const factsContainer = document.getElementById("factsList");
+      
+      let factsHTML = '<ol>';
+      for (let i = 1; i <= 4; i++) {
+        const fact = facts[i - 1] || ""; // Get fact or empty string
+        factsHTML += `<li style="margin-bottom: 60px;">${fact}</li>`;
+      }
+      factsHTML += '</ol>';
+      
+      factsContainer.innerHTML = factsHTML;
     }
 
     function applyArcadeData() {
       const feature = getFeatureFromParams();
 
-      const owner = evaluateArcadeExpression(feature, "$feature.OWNER_NAME");
-      const ward = evaluateArcadeExpression(feature, "$feature.WARD_NAME");
-      const doorNo = evaluateArcadeExpression(feature, "$feature.DOOR_NO");
-      const surveyNo = evaluateArcadeExpression(feature, "$feature.SURVEY_NO");
-      const noticeType = evaluateArcadeExpression(feature, "$feature.NOTICE_TYPE");
-      const areachange = evaluateArcadeExpression(feature, "$feature.AREA");
-      const fact3 = evaluateArcadeExpression(feature, "$feature.FACT3");
-      const fact4 = evaluateArcadeExpression(feature, "$feature.FACT4");
-      const days = evaluateArcadeExpression(feature, "$feature.DAYS");
-
+      // Generate notice details
       document.getElementById("noticeNo").textContent = generateNoticeNumber();
       document.getElementById("noticeDate").textContent = new Date().toLocaleDateString('en-IN');
 
-      document.getElementById("owner1").textContent = owner;
-      document.getElementById("ward1").textContent = ward;
-      document.getElementById("doorNo1").textContent = doorNo;
-      document.getElementById("surveyNo1").textContent = surveyNo;
-      document.getElementById("areachange").textContent = areachange;
-      document.getElementById("noticeType").textContent = noticeType || "....";
-      document.getElementById("fact1").textContent = fact1 || "";
-      document.getElementById("fact2").textContent = fact2 || "";
-      document.getElementById("fact3").textContent = fact3 || "";
-      document.getElementById("fact4").textContent = fact4 || "";
-      document.getElementById("daysLimit").textContent = days || "........";
+      // Fill basic information
+      document.getElementById("owner1").textContent = feature.OWNER_NAME || "";
+      document.getElementById("ward1").textContent = feature.WARD_NAME || "";
+      document.getElementById("doorNo1").textContent = feature.DOOR_NO || "";
+      document.getElementById("surveyNo1").textContent = feature.SURVEY_NO || "......";
+      document.getElementById("noticeType").textContent = feature.NOTICE_TYPE || "....";
+      document.getElementById("daysLimit").textContent = feature.DAYS || "........";
+
+      // Generate and display violation facts
+      const facts = generateViolationFacts(feature);
+      renderFactsList(facts);
     }
 
     function generateNoticeNumber() {

@@ -52,10 +52,12 @@
       font-size: 14px;
       font-weight: bold;
     }
+
     .line {
-    border-top: 1px solid #000;
-    margin: 10px 0;
+      border-top: 1px solid #000;
+      margin: 10px 0;
     }
+
     .memo-title {
       text-align: center;
       margin: 30px 0;
@@ -64,24 +66,25 @@
       font-size: 16px;
       letter-spacing: 2px;
     }
-    
+
     .content {
-      text-align: justify;
       font-size: 14px;
       line-height: 1.8;
+      text-align: justify;
     }
-    
+
     .content p {
       margin-bottom: 15px;
+      text-align: justify;
     }
-    
+
     .signature {
       margin-top: 80px;
       text-align: right;
       font-weight: bold;
       font-size: 14px;
     }
-    
+
     .section-title {
       font-weight: bold;
       margin-top: 30px;
@@ -90,22 +93,24 @@
       text-align: center;
       font-size: 14px;
     }
-    
+
     .dots {
+      font-family: monospace;
       color: #333;
-      
     }
-    
+
     .tab-indent {
       text-indent: 2em;
     }
-    
+
     .spaced-paragraph {
       margin-top: 25px;
     }
-    
+
     .subject-line {
       margin-bottom: 20px;
+      white-space: nowrap;
+      text-align: justify;
     }
   </style>
 </head>
@@ -117,42 +122,45 @@
     <h3>THIRUVANANTHAPURAM CORPORATION</h3>
   </div>
   
-<div class="meta-container">
-  <div class="line"></div>
-  <div class="meta">
-    <div>NUMBER: <span class="number"></span></div>
-    <div>DATE: <span class="date"></span></div>
+  <div class="meta-container">
+    <div class="line"></div>
+    <div class="meta">
+      <div>NUMBER: <span class="number"></span></div>
+      <div>DATE: <span class="date"></span></div>
+    </div>
+    <div class="line"></div>
   </div>
-  <div class="line"></div>
-</div>
 
   <div class="memo-title">MEMO</div>
   
   <div class="content">
-   <p style="white-space: nowrap;">
-  <strong>Subject: Construction/Reconstruction</strong>
-  <span class="dots">...........................................................................................................................</span>
-</p>
-<p>
-  <span class="dots">........................................................................................................................................................................................................</span>
-</p>
+    <p class="subject-line">
+      <strong>Subject: Construction/Reconstruction</strong>
+      <span class="dots">...........................................................................................................................</span>
+    </p>
+    <p>
+      <span class="dots">........................................................................................................................................................................................................</span>
+    </p>
 
     <p><strong>License and Approved plan called for reference -</strong></p>
-    
+
     <div class="spaced-paragraph">
-      <p class="tab-indent">It has been reported to the undersigned that Sri/Smt. .....................................................................................
-.....................................................................................................................................................................................
-has commenced/completed the construction of a ......................................................................................................
-....................................................................................................................................................................................... .</p>
-      
-      <p class="tab-indent">There for .............................................................. is hereby directed to stop the work immediately and produce the license and approved plan, if any, obtained from this office within three days of receiving this memo for verification. Failing to do so will result in action being initiated as per the relevant rules.</p>
+      <p class="tab-indent">
+        It has been reported to the undersigned that Sri/Smt. .....................................................................................
+        .....................................................................................................................................................................................
+        has commenced/completed the construction of a ......................................................................................................
+        ....................................................................................................................................................................................... .
+      </p>
+      <p class="tab-indent">
+        Therefore, .............................................................. is hereby directed to stop the work immediately and produce the license and approved plan, if any, obtained from this office within three days of receiving this memo for verification. Failing to do so will result in action being initiated as per the relevant rules.
+      </p>
     </div>
     
     <p class="section-title">Details of Unauthorized Construction</p>
-    
-    <div style="height: 100px; border-bottom: 1px dotted #ccc; margin-bottom: 20px;"></div>
-    <div style="height: 100px; border-bottom: 1px dotted #ccc; margin-bottom: 20px;"></div>
-    <div style="height: 100px; border-bottom: 1px dotted #ccc; margin-bottom: 20px;"></div>
+
+    <div style="height: 100px; margin-bottom: 20px;"></div>
+    <div style="height: 100px; margin-bottom: 20px;"></div>
+    <div style="height: 100px; margin-bottom: 20px;"></div>
   </div>
   
   <div class="signature">
@@ -161,5 +169,3 @@ has commenced/completed the construction of a ..................................
   </div>
 </body>
 </html>
-
- 

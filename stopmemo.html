@@ -162,24 +162,27 @@ has commenced/completed the construction of a ..................................
   </div>
 </body>
   <script>
+  function generateNoticeNumber() {
+    // Generate a random notice number format: TMC/RRN/YYYY-MM/XXXXX
+    const year = new Date().getFullYear();
+    const month = String(new Date().getMonth() + 1).padStart(2, '0');
+    const random = Math.floor(10000 + Math.random() * 90000); // 5-digit number
+    return `TMC/RRN/${year}-${month}/${random}`;
+  }
 
-    
-
-     function apply() {
+  function apply() {
     const noticeNo = generateNoticeNumber();
-    const noticeDate = new Date().toLocaleDateString('en-IN');}
-    
-     function generateNoticeNumber() {
-      // Generate a random notice number format: TMC/RRN/YYYY-MM/XXXXX
-      const year = new Date().getFullYear();
-      const month = String(new Date().getMonth() + 1).padStart(2, '0');
-      const random = Math.floor(10000 + Math.random() * 90000); // 5-digit number
-      return `TMC/RRN/${year}-${month}/${random}`;
-    }
+    const noticeDate = new Date().toLocaleDateString('en-IN');
 
-     window.onload = function() {
-      apply();
-    };
-  </script>
+    // Injecting values into the HTML
+    document.getElementById("noticeNo").textContent = noticeNo;
+    document.getElementById("noticeDate").textContent = noticeDate;
+  }
+
+  window.onload = function () {
+    apply();
+  };
+</script>
+
 
 </html>

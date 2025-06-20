@@ -30,6 +30,23 @@
       text-align: right;
       margin-top: 50px;
     }
+     .info-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .info-row {
+    display: table-row;
+  }
+
+  .info-cell {
+    display: table-cell;
+    padding: 8px;
+    vertical-align: top;
+  }
+
+ 
   </style>
 </head>
 <body>
@@ -47,11 +64,23 @@
   <p><span class="bold">വിഷയം:</span> തിരുവനന്തപുരം നഗരസഭ റവന്യു വസ്തുനികുതി വിഭാഗം - കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നത് സംബന്ധിച്ച്.</p>
 </div>
 
-<div class="section">
-  <p><span class="bold">ഉടമയുടെ പേര് / വീട്ടുപേര്:</span> <span id="owner_new"></span></p>
-  <p><span class="bold">വാർഡിന്റെ പേര് / നമ്പർ:</span> <span id="ward_name"></span></p>
-  <p><span class="bold">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ):</span> <span id="property_number"></span></p>
-  <p><span class="bold">സർവ്വേ നമ്പർ:</span> <span id="survey_number">......</span></p>
+<div class="info-table">
+  <div class="info-row">
+    <div class="info-cell">ഉടമയുടെ പേര് / വീട്ടുപേര്:</div>
+    <div class="info-cell"><span id="owner_new"></span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-cell">വാർഡിന്റെ പേര് / നമ്പർ:</div>
+    <div class="info-cell"><span id="ward_name"></span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-cell">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ):</div>
+    <div class="info-cell"><span id="property_number"></span></div>
+  </div>
+  <div class="info-row">
+    <div class="info-cell">സർവ്വേ നമ്പർ:</div>
+    <div class="info-cell"><span id="survey_number">......</span></div>
+  </div>
 </div>
 
 <div class="section">

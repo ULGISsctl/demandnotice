@@ -30,22 +30,35 @@
       text-align: right;
       margin-top: 50px;
     }
-     .info-table {
+   .info-table {
     display: table;
-    width: 100%;
-    border-collapse: collapse;
+    width: auto;
+    font-family: 'Noto Sans Malayalam', sans-serif; /* Optional for better Malayalam rendering */
   }
 
   .info-row {
     display: table-row;
   }
 
-  .info-cell {
+  .info-label, .info-colon, .info-value {
     display: table-cell;
-    padding: 8px;
+    padding: 2px 5px;
     vertical-align: top;
   }
 
+  .info-label {
+    white-space: nowrap;
+    font-weight: normal;
+  }
+
+  .info-colon {
+    width: 10px;
+    text-align: center;
+  }
+
+  .info-value {
+    white-space: nowrap;
+  }
  
   </style>
 </head>
@@ -66,20 +79,24 @@
 
 <div class="info-table">
   <div class="info-row">
-    <div class="info-cell">ഉടമയുടെ പേര് / വീട്ടുപേര്:</div>
-    <div class="info-cell"><span id="owner_new"></span></div>
+    <div class="info-label">ഉടമയുടെ പേര് / വീട്ടുപേര്</div>
+    <div class="info-colon">:</div>
+    <div class="info-value" id="owner_new">(Owner Name/House Name)</div>
   </div>
   <div class="info-row">
-    <div class="info-cell">വാർഡിന്റെ പേര് / നമ്പർ:</div>
-    <div class="info-cell"><span id="ward_name"></span></div>
+    <div class="info-label">വാർഡിന്റെ പേര് / നമ്പർ</div>
+    <div class="info-colon">:</div>
+    <div class="info-value" id="ward_name">(Ward Name / WardNumber)</div>
   </div>
   <div class="info-row">
-    <div class="info-cell">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ):</div>
-    <div class="info-cell"><span id="property_number"></span></div>
+    <div class="info-label">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ)</div>
+    <div class="info-colon">:</div>
+    <div class="info-value" id="property_number">(Property Number)</div>
   </div>
   <div class="info-row">
-    <div class="info-cell">സർവ്വേ നമ്പർ:</div>
-    <div class="info-cell"><span id="survey_number">......</span></div>
+    <div class="info-label">സർവ്വേ നമ്പർ</div>
+    <div class="info-colon">:</div>
+    <div class="info-value" id="survey_number">......</div>
   </div>
 </div>
 

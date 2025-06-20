@@ -39,6 +39,9 @@
       border-bottom: 1px solid #000;
       padding-bottom: 5px;
       margin-bottom: 20px;
+      border-top: 1px solid #000;
+      padding-top: 5px;
+      margin-top: 20px;
     }
 
     .reference-line p {
@@ -79,6 +82,36 @@
       min-width: 150px;
       margin: 0 5px;
     }
+
+     .info-table {
+    display: table;
+    width: auto;
+    font-family: 'Noto Sans Malayalam', sans-serif; /* Optional for better Malayalam rendering */
+  }
+
+  .info-row {
+    display: table-row;
+  }
+
+  .info-label, .info-colon, .info-value {
+    display: table-cell;
+    padding: 2px 5px;
+    vertical-align: top;
+  }
+
+  .info-label {
+    white-space: nowrap;
+    font-weight: normal;
+  }
+
+  .info-colon {
+    width: 10px;
+    text-align: center;
+  }
+
+  .info-value {
+    white-space: nowrap;
+  }
   </style>
 </head>
 <body>
@@ -87,7 +120,7 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg/600px-Seal_of_Corporation_of_Thiruvananthapuram_by_dhevilal.svg.png?20180901020657" 
              style="width: 100px; height: auto;" 
              alt="Seal of Thiruvananthapuram Corporation">
-        <h1>തിരുവനന്തപുരം നഗരസഭ</h1>
+        <h3>തിരുവനന്തപുരം നഗരസഭ</h3>
       </div>
 
       
@@ -106,11 +139,28 @@
       <p>വിഷയം: തിരുവനന്തപുരം നഗരസഭ റവന്യു വസ്തുനികുതി വിഭാഗം - കെട്ടിടത്തിന് ഘടനാപരമായ മാറ്റം വരുത്തിയത് സംബന്ധിച്ച്.</p>
     </div>
 
-    <div class="content">
-      <p>ഉടമയുടെ പേര് / വീട്ടുപേര്: <span class="blank-space" id="owner1"></span></p>
-      <p>വാർഡിന്റെ പേര് / നമ്പർ: <span class="blank-space" id="ward1"></span></p>
-      <p>കെട്ടിട നമ്പർ (ടി.സി നമ്പർ):<span class="blank-space" id="doorNo1"></span></p>
-      <p>സർവ്വേ നമ്പർ: <span class="blank-space" id="surveyNo1">....</span></p>
+    <div class="info-table">
+  <div class="info-row">
+    <div class="info-label">ഉടമയുടെ പേര് / വീട്ടുപേര്</div>
+    <div class="info-colon">:</div>
+    <div class="info-value" id="owner_new">(Owner Name/House Name)</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">വാർഡിന്റെ പേര് / നമ്പർ</div>
+    <div class="info-colon">:</div>
+    <div class="info-value" id="ward_name">(Ward Name / WardNumber)</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">കെട്ടിട നമ്പർ (ടി. സി നമ്പർ)</div>
+    <div class="info-colon">:</div>
+    <div class="info-value" id="property_number">(Property Number)</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">സർവ്വേ നമ്പർ</div>
+    <div class="info-colon">:</div>
+    <div class="info-value" id="survey_number">......</div>
+  </div>
+</div>
 
       <br/>
 

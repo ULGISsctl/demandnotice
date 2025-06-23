@@ -167,7 +167,7 @@
         owner_new: params.get("ownernew"),
         ward_name: params.get("ward"),
         ward_number: params.get("wardno"),
-        property_number: params.get("propertyno"),
+        property_number: params.get("id"),
         survey_number: params.get("survey")
       };
     }
@@ -202,7 +202,7 @@
       return `TMC/OWN/${year}-${month}/${random}`;
       
     window.onload = function () {
-      applyArcadeExpressions();
+      
       adjustBlankSpaces();
       populateFields();
     };

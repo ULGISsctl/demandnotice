@@ -35,14 +35,32 @@
       text-align: justify;
     }
 
+     .section2 {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #000;
+      padding-bottom: 3px;
+      margin-bottom: 20px;
+      border-top: 1px solid #000;
+      padding-top: 3px;
+      margin-top: 20px;
+    }
+
      .section1 {
       margin-top: 30px;
        
     }
-    
+     .underline-span {
+    display: inline-block;
+    min-width: 150px; /* Adjust width as needed */
+    border-bottom: 1px solid #000;
+    padding: 0 5px;
+    margin: 0 2px;
+  }
     
     .bold {
-      font-weight: bold;
+      text-align: justify;
+   
     }
     .underline {
       text-decoration: underline;
@@ -93,9 +111,9 @@
       </div>
 
 
-  <div class="section">
-    <p><span class="bold">നമ്പർ:</span> <span id="notice_number"></span></p>
-    <p><span class="bold">തീയതി:</span> <span id="notice_date"></span></p>
+  <div class="section2">
+    <p><span >നമ്പർ:</span> <span id="notice_number"></span></p>
+    <p><span >തീയതി:</span> <span id="notice_date"></span></p>
   </div>
 
   <h3 class="center underline">അറിയിപ്പ്</h3>
@@ -129,9 +147,9 @@
 
 <div class="section">
   <p>
-    തിരുവനന്തപുരം നഗരസഭയിലെ <span id="ward_name2"></span> വാർഡിൽ <span id="property_number2"></span> നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചുവരുന്നതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെടുന്നു.
-    എന്നാൽ കോർപ്പറേഷൻ രേഖകളിൽ മേൽപ്പറഞ്ഞ കെട്ടിടം <span id="owner_name"></span> എന്നയാളുടെ ഉടമസ്ഥാതയിലാണ് കാണുന്നത്.
-    ആയതിനാൽ ഇ അറിയിപ്പ് കൈപ്പറ്റി <strong>15 ദിവസത്തിനകം</strong> കേരള മുനിസിപ്പൽ ആക്ട് 240 -) o വകുപ്പ് പ്രകാരം
+    തിരുവനന്തപുരം നഗരസഭയിലെ <span id="ward_name2"  class="underline-span"></span> വാർഡിൽ <span id="property_number2"  class="underline-span"></span> നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചുവരുന്നതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെടുന്നു.
+    എന്നാൽ കോർപ്പറേഷൻ രേഖകളിൽ മേൽപ്പറഞ്ഞ കെട്ടിടം <span id="owner_name"  class="underline-span"></span> എന്നയാളുടെ ഉടമസ്ഥാതയിലാണ് കാണുന്നത്.
+    ആയതിനാൽ ഇ അറിയിപ്പ് കൈപ്പറ്റി 15 ദിവസത്തിനകം കേരള മുനിസിപ്പൽ ആക്ട് 240 -) o വകുപ്പ് പ്രകാരം
     കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നതിന് ആവശ്യമായ രേഖകൾ സഹിതം കെ സ്മാർട്ട് (K SMART) മുഖേന അപേക്ഷ സമർപ്പിക്കേണ്ടതാണ്.
   </p>
 </div>

@@ -141,13 +141,13 @@
   <div class="info-row">
     <div class="info-label">സർവ്വേ നമ്പർ</div>
     <div class="info-colon">:</div>
-    <div class="info-value" id="survey_number">......</div>
+    <div class="info-value" id="survey_number"></div>
   </div>
 </div>
 
 <div class="section">
   <p>
-    തിരുവനന്തപുരം നഗരസഭയിലെ <span id="ward_name2"  class="blank-space "></span> വാർഡിൽ <span id="property_number2"  class="blank-space"></span> നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചുവരുന്നതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെടുന്നു.
+    തിരുവനന്തപുരം നഗരസഭയിലെ <span id="ward_name"  class="blank-space "></span> വാർഡിൽ <span id="property_number"  class="blank-space"></span> നമ്പർ കെട്ടിടത്തിൽ നിലവിൽ താങ്കൾ താമസിച്ചുവരുന്നതായി അന്വേഷണത്തിൽ ബോധ്യപ്പെടുന്നു.
     എന്നാൽ കോർപ്പറേഷൻ രേഖകളിൽ മേൽപ്പറഞ്ഞ കെട്ടിടം <span id="owner_name"  class="blank-space "></span> എന്നയാളുടെ ഉടമസ്ഥാതയിലാണ് കാണുന്നത്.
     ആയതിനാൽ ഇ അറിയിപ്പ് കൈപ്പറ്റി 15 ദിവസത്തിനകം കേരള മുനിസിപ്പൽ ആക്ട് 240 -) o വകുപ്പ് പ്രകാരം
     കെട്ടിടത്തിന്റെ ഉടമസ്ഥാവകാശം മാറ്റുന്നതിന് ആവശ്യമായ രേഖകൾ സഹിതം കെ സ്മാർട്ട് (K SMART) മുഖേന അപേക്ഷ സമർപ്പിക്കേണ്ടതാണ്.
@@ -186,7 +186,16 @@
       document.getElementById("ward_name2").textContent = data.ward_name;
       document.getElementById("survey_number").textContent = data.survey_number;
     }
-  function adjustBlankSpaces() {
+ 
+   function generateNoticeNumber() {
+  const year = new Date().getFullYear();
+  const month = String(new Date().getMonth() + 1).padStart(2, '0');
+  const random = Math.floor(10000 + Math.random() * 90000);
+  return `TMC/OWN/${year}-${month}/${random}`;
+}
+
+
+     function adjustBlankSpaces() {
       const blankSpaces = document.querySelectorAll('.blank-space');
       blankSpaces.forEach(space => {
         const content = space.textContent.trim();
@@ -195,13 +204,6 @@
         }
       });
     }
-   function generateNoticeNumber() {
-  const year = new Date().getFullYear();
-  const month = String(new Date().getMonth() + 1).padStart(2, '0');
-  const random = Math.floor(10000 + Math.random() * 90000);
-  return `TMC/OWN/${year}-${month}/${random}`;
-}
-
 // Move this outside any function!
 window.onload = function () {
   populateFields();

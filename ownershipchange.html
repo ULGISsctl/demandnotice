@@ -171,22 +171,31 @@
         survey_number: params.get("survey")
       };
     }
+  function applyArcadeExpressions() {
+      const feature = getFeatureFromParams();
+      const noticeNo = generateNoticeNumber();
+      const noticeDate = new Date().toLocaleDateString('en-IN');
 
-    function populateFields() {
-      const data = getParams();
+      const owner = evaluateArcadeExpression(feature, "$feature.OWNER_NAME");
+      const ward = evaluateArcadeExpression(feature, "$feature.WARD_NAME");
+      const doorNo = "T" + evaluateArcadeExpression(feature, "$feature.DOOR_NO");
+      const surveyNo = evaluateArcadeExpression(feature, "$feature.SURVEY_NO");
 
-      document.getElementById("notice_number").textContent = data.notice_number;
-      document.getElementById("notice_date").textContent = data.notice_date;
-      document.getElementById("owner_name").textContent = data.owner_name;
-      document.getElementById("owner_new").textContent = data.owner_new;
-      document.getElementById("ward_name").textContent = data.ward_name;
-      document.getElementById("ward_number").textContent = data.ward_number;
-      document.getElementById("property_number").textContent = data.property_number;
-      document.getElementById("property_number2").textContent = data.property_number;
-      document.getElementById("ward_name2").textContent = data.ward_name;
-      document.getElementById("survey_number").textContent = data.survey_number;
+      document.getElementById("noticeNo").textContent = noticeNo;
+      document.getElementById("noticeDate").textContent = noticeDate;
+
+      document.getElementById("owner1").textContent = owner;
+      document.getElementById("owner2").textContent = owner;
+
+      document.getElementById("ward1").textContent = ward;
+      document.getElementById("ward2").textContent = ward;
+
+      document.getElementById("doorNo1").textContent = doorNo;
+      document.getElementById("doorNo2").textContent = doorNo;
+
+      document.getElementById("surveyNo1").textContent = surveyNo;
     }
- 
+
    function generateNoticeNumber() {
   const year = new Date().getFullYear();
   const month = String(new Date().getMonth() + 1).padStart(2, '0');
@@ -206,6 +215,7 @@
     }
 // Move this outside any function!
 window.onload = function () {
+  applyArcadeExpressions();
   populateFields();
   adjustBlankSpaces(); 
 };

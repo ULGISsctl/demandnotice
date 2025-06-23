@@ -212,19 +212,20 @@
       const doorNo = "T" + evaluateArcadeExpression(feature, "$feature.DOOR_NO");
       const surveyNo = evaluateArcadeExpression(feature, "$feature.SURVEY_NO");
 
-      document.getElementById("noticeNo").textContent = noticeNo;
-      document.getElementById("noticeDate").textContent = noticeDate;
+      document.getElementById("notice_number").textContent = noticeNo;
+document.getElementById("notice_date").textContent = noticeDate;
 
-      document.getElementById("owner1").textContent = owner;
-      document.getElementById("owner2").textContent = owner;
+document.getElementById("owner_new").textContent = owner;
+document.getElementById("owner2").textContent = owner;
 
-      document.getElementById("ward1").textContent = ward;
-      document.getElementById("ward2").textContent = ward;
+document.getElementById("ward1").textContent = ward;
+document.getElementById("ward2").textContent = ward;
 
-      document.getElementById("doorNo1").textContent = doorNo;
-      document.getElementById("doorNo2").textContent = doorNo;
+document.getElementById("doorNo1").textContent = doorNo;
+document.getElementById("doorNo2").textContent = doorNo;
 
-      document.getElementById("surveyNo1").textContent = surveyNo;
+document.getElementById("surveyNo1").textContent = surveyNo;
+
     }
 
    function generateNoticeNumber() {
@@ -247,7 +248,7 @@
 // Move this outside any function!
 window.onload = function () {
   applyArcadeExpressions();
-  populateFields();
+ 
   adjustBlankSpaces(); 
 };
 

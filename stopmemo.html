@@ -206,10 +206,9 @@ has commenced/completed the construction of a ..................................
     function getFeatureFromParams() {
       const params = new URLSearchParams(window.location.search);
      return {
-  WARD_NAME: params.get("ward") || "",
-  DOOR_NO: params.get("id") || "",
+ 
   OWNER_NAME: params.get("owner") || "",
-  SURVEY_NO: params.get("surveyNo") || "",
+
 };
     }
 

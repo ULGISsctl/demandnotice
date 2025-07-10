@@ -15,6 +15,13 @@
         margin: 2cm;
       }
     }
+      .blank-space {
+   display: inline-block;
+      border-bottom: 1px dotted #000;
+      min-width: 150px;
+      margin: 0 5px;
+
+  }
     
     body {
       font-family: "Times New Roman", serif;
@@ -143,7 +150,7 @@
     <p><strong>License and Approved plan called for reference -</strong></p>
     
     <div class="spaced-paragraph">
-      <p class="tab-indent"  style: "text-align:justify;">It has been reported to the undersigned that Sri/Smt. .....................................................................................
+      <p class="tab-indent"  style: "text-align:justify;">It has been reported to the undersigned that Sri/Smt. ......<span id="owner2"  class="blank-space "></span>.....................
 .....................................................................................................................................................................................
 has commenced/completed the construction of a ......................................................................................................
 ....................................................................................................................................................................................... .</p>
@@ -162,26 +169,101 @@ has commenced/completed the construction of a ..................................
   </div>
 </body>
   <script>
-  function generateNoticeNumber() {
-    // Generate a random notice number format: TMC/RRN/YYYY-MM/XXXXX
-    const year = new Date().getFullYear();
-    const month = String(new Date().getMonth() + 1).padStart(2, '0');
-    const random = Math.floor(10000 + Math.random() * 90000); // 5-digit number
-    return `TMC/RRN/${year}-${month}/${random}`;
-  }
+    function evaluateArcadeExpression(feature, expression) {
+      try {
+        if (!expression || !feature) return "";
+        if (expression.startsWith('$feature.')) {
+          const fieldName = expression.replace('$feature.', '').trim();
+          return feature[fieldName] || "";
+        }
+        if (expression.startsWith('IIF(')) {
+          const regex = /IIF\(\$feature\.(\w+)\s*==\s*['"](.*?)['"],\s*\$feature\.(\w+),\s*\$feature\.(\w+)\)/;
+          const match = expression.match(regex);
+          if (match) {
+            const [_, fieldName, compareValue, trueField, falseField] = match;
+            return feature[fieldName] === compareValue ? feature[trueField] : feature[falseField];
+          }
+        }
+        if (expression.includes('+')) {
+          const parts = expression.split('+');
+          return parts.map(part => {
+            part = part.trim();
+            if (part.startsWith('$feature.')) {
+              const fieldName = part.replace('$feature.', '').trim();
+              return feature[fieldName] || "";
+            } else {
+              return part.replace(/['"]/g, '');
+            }
+          }).join('');
+        }
+        return expression;
+      } catch (error) {
+        console.error("Error evaluating Arcade expression:", error);
+        return "";
+      }
+    }
 
-  function apply() {
-    const noticeNo = generateNoticeNumber();
-    const noticeDate = new Date().toLocaleDateString('en-IN');
+    function getFeatureFromParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        WARD_NAME: params.get("ward"),
+        DOOR_NO: params.get("id"),
+        OWNER_NAME: params.get("owner"),
+        SURVEY_NO: params.get("surveyNo"),
+      };
+    }
 
-    // Injecting values into the HTML
-    document.getElementById("noticeNo").textContent = noticeNo;
-    document.getElementById("noticeDate").textContent = noticeDate;
-  }
+  function applyArcadeExpressions() {
+      const feature = getFeatureFromParams();
+      const noticeNo = generateNoticeNumber();
+      const noticeDate = new Date().toLocaleDateString('en-IN');
 
-  window.onload = function () {
-    apply();
-  };
+      const owner = evaluateArcadeExpression(feature, "$feature.OWNER_NAME");
+      const ward = evaluateArcadeExpression(feature, "$feature.WARD_NAME");
+      const doorNo = "T" + evaluateArcadeExpression(feature, "$feature.DOOR_NO");
+      const surveyNo = evaluateArcadeExpression(feature, "$feature.SURVEY_NO");
+
+      document.getElementById("notice_number").textContent = noticeNo;
+document.getElementById("notice_date").textContent = noticeDate;
+
+document.getElementById("owner_new").textContent = owner;
+document.getElementById("owner2").textContent = owner;
+
+document.getElementById("ward1").textContent = ward;
+document.getElementById("ward2").textContent = ward;
+
+document.getElementById("doorNo1").textContent = doorNo;
+document.getElementById("doorNo2").textContent = doorNo;
+
+document.getElementById("surveyNo1").textContent = surveyNo;
+
+    }
+
+   function generateNoticeNumber() {
+  const year = new Date().getFullYear();
+  const month = String(new Date().getMonth() + 1).padStart(2, '0');
+  const random = Math.floor(10000 + Math.random() * 90000);
+  return `TMC/OWN/${year}-${month}/${random}`;
+}
+
+
+     function adjustBlankSpaces() {
+      const blankSpaces = document.querySelectorAll('.blank-space');
+      blankSpaces.forEach(space => {
+        const content = space.textContent.trim();
+        if (content) {
+          space.style.minWidth = content.length * 10 + 'px';
+        }
+      });
+    }
+// Move this outside any function!
+window.onload = function () {
+  applyArcadeExpressions();
+ 
+  adjustBlankSpaces(); 
+};
+
+  
 </script>
 
 

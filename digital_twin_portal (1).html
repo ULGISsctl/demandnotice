@@ -368,15 +368,8 @@
         </div>
 
         <div class="portal-grid">
-            <div class="portal-card" onclick="navigateToPortal('property')">
-                <div class="status-indicator"></div>
-                <div class="portal-icon">🏢</div>
-                <h3 class="portal-title">Property Portal</h3>
-                <p class="portal-description">Access comprehensive property information, tax amount information and Violation Notices for the Trivandrum region.</p>
-                <button class="portal-button">Access Portal</button>
-            </div>
 
-            <div class="portal-card" onclick="navigateToPortal('3d')">
+              <div class="portal-card" onclick="navigateToPortal('3d')">
                 <div class="status-indicator"></div>
                 <div class="portal-icon">🏗️</div>
                 <h3 class="portal-title">3D Visualization</h3>
@@ -391,6 +384,15 @@
                 <p class="portal-description">Seamlessly switch between 2D maps and 3D visualizations for comprehensive spatial analysis.</p>
                 <button class="portal-button">Open Portal</button>
             </div>
+            <div class="portal-card" onclick="navigateToPortal('property')">
+                <div class="status-indicator"></div>
+                <div class="portal-icon">🏢</div>
+                <h3 class="portal-title">Property Portal</h3>
+                <p class="portal-description">Access comprehensive property information, tax amount information and Violation Notices for the Trivandrum region.</p>
+                <button class="portal-button">Access Portal</button>
+            </div>
+
+          
 
             <div class="portal-card" onclick="navigateToPortal('utilities')">
                 <div class="status-indicator"></div>
@@ -473,7 +475,7 @@
                         break;
                     case '2d3d':
                         console.log('Navigating to 2D-3D Portal');
-                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=2d-3d';
+                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=2d-3dProperty';
                         break;
                     case 'utilities':
                         console.log('Navigating to Utilities Portal');

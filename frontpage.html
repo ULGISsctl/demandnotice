@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Twin Portal -Thiruvananthapuram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background Slideshow */
+        .slideshow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide.fade-out {
+            opacity: 0;
+        }
+
+        /* Background images */
+        .slide:nth-child(1) {
+            background-image: url('https://www.dtpcthiruvananthapuram.com/images/Trivandrum-video.webp?w=1920&h=1080&fit=crop&crop=center');
+        }
+        
+        .slide:nth-child(2) {
+            background-image: url('https://images.unsplash.com/photo-1615133005831-ef94ee2ceb16?w=1920&h=1080&fit=crop&crop=center');
+        }
+        
+        .slide:nth-child(3) {
+            background-image: url('https://t4.ftcdn.net/jpg/10/25/07/99/360_F_1025079947_pyyWJOWS9qQNpvYebX2xh9CZKAStLRmQ.jpg?w=1920&h=1080&fit=crop&crop=center');
+        }
+        
+        .slide:nth-child(4) {
+            background-image: url('https://images.unsplash.com/photo-1614090699960-b4c81be49f3c?w=1920&h=1080&fit=crop&crop=center');
+        }
+        
+        .slide:nth-child(5) {
+            background-image: url('https://cdn.pixabay.com/photo/2014/09/19/18/19/veli-452834_1280.jpg?w=1920&h=1080&fit=crop&crop=center');
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,123,255,0.4));
+            z-index: -1;
+        }
+
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: #000;
+             width: 100%;
+            height: 100%;
+        }
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,123,255,0.3));
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,123,255,0.3);
+        }
+
+      
+        .logos-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .organization-logo {
+            width: 100px;
+            height: 70px;
+           
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+           
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .main-title {
+            font-style: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            font-weight: 300;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        .portal-grid {
+            display:flex;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .portal-card {
+            background: rgba(255, 255, 255, 0.404);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            
+        }
+
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .portal-card:hover::before {
+            left: 100%;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,123,255,0.3);
+            border-color: rgba(0,123,255,0.5);
+        }
+
+        .portal-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .portal-card:hover .portal-icon {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,123,255,0.4);
+        }
+
+        .portal-title {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        .portal-description {
+            color: rgba(0,0,0);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 1.2rem;
+        }
+
+        .portal-button {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+        }
+
+        .portal-button:hover {
+            background: linear-gradient(135deg, #0056b3, #004085);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,123,255,0.4);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .portal-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .portal-card {
+                padding: 1.2rem;
+            }
+        }
+
+        .status-indicator {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 12px;
+            height: 12px;
+            background: #28a745;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Slideshow -->
+    <div class="slideshow-container">
+        <div class="slide active"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+   
+
+
+    <div class="overlay"></div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logos-container">
+                <div class="organization-logo">
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Seal_of_Thiruvananthapuram.png" style="width: 50px; height: 50px;">
+                </div>
+                   <h1 class="main-title">Corporation of Thiruvananthapuram</h1>
+                <div class="organization-logo">
+                  
+                     <img src="https://mdm.smarttvm.in/assets/images/smart-city-logo-new.png" style="width:100px; height: auto"> 
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="portal-grid">
+
+              <div class="portal-card" onclick="navigateToPortal('3d')">
+                <div class="status-indicator"></div>
+                <div class="portal-icon">🏗️</div>
+                <h3 class="portal-title">3D Visualization</h3>
+                <p class="portal-description">Explore immersive 3D models of city infrastructure, buildings, and urban planning.</p>
+                <button class="portal-button">Launch 3D View</button>
+            </div>
+
+            <div class="portal-card" onclick="navigateToPortal('2d3d')">
+                <div class="status-indicator"></div>
+                <div class="portal-icon">🗺️</div>
+                <h3 class="portal-title">2D-3D Portal</h3>
+                <p class="portal-description">Seamlessly switch between 2D maps and 3D visualizations for comprehensive spatial analysis.</p>
+                <button class="portal-button">Open Portal</button>
+            </div>
+            <div class="portal-card" onclick="navigateToPortal('property')">
+                <div class="status-indicator"></div>
+                <div class="portal-icon">🏢</div>
+                <h3 class="portal-title">Property Portal</h3>
+                <p class="portal-description">Access comprehensive property information, tax amount information and Violation Notices for the Trivandrum region.</p>
+                <button class="portal-button">Access Portal</button>
+            </div>
+
+          
+
+            <div class="portal-card" onclick="navigateToPortal('utilities')">
+                <div class="status-indicator"></div>
+                <div class="portal-icon">⚡</div>
+                <h3 class="portal-title">Utilities Portal</h3>
+                <p class="portal-description">Monitor and manage Thiruvananthapuram city's utilities including water, electricity and transport.</p>
+                <button class="portal-button">Access Utilities</button>
+            </div>
+        </div>
+    </div>
+    <!-- Slideshow Navigation -->
+    <div class="slideshow-nav">
+        <div class="nav-dot active" onclick="currentSlide(1)"></div>
+        <div class="nav-dot" onclick="currentSlide(2)"></div>
+        <div class="nav-dot" onclick="currentSlide(3)"></div>
+        <div class="nav-dot" onclick="currentSlide(4)"></div>
+        <div class="nav-dot" onclick="currentSlide(5)"></div>
+    </div>
+    <div class="footer">
+        <p>© 2025 Smart City Trivandrum Limited  | Developed by ULTS</p>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const navDots = document.querySelectorAll('.nav-dot');
+        const totalSlides = slides.length;
+        // Auto slideshow function
+        function showSlides() {
+            // Remove active class from all slides and nav dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            navDots.forEach(dot => dot.classList.remove('active'));
+            
+            // Increment slide index
+            slideIndex++;
+            if (slideIndex >= totalSlides) {
+                slideIndex = 0;
+            }
+            
+            // Show current slide and activate corresponding nav dot
+            slides[slideIndex].classList.add('active');
+            navDots[slideIndex].classList.add('active');
+        }
+
+        // Manual slide navigation
+        function currentSlide(n) {
+            slideIndex = n - 1;
+            slides.forEach(slide => slide.classList.remove('active'));
+            navDots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[slideIndex].classList.add('active');
+            navDots[slideIndex].classList.add('active');
+        }
+
+        // Start auto slideshow
+        setInterval(showSlides, 3000); // Change slide every 3 seconds
+
+        // Portal navigation function
+        function navigateToPortal(portalType) {
+            // Add loading animation
+            const card = event.currentTarget;
+            const button = card.querySelector('.portal-button');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Loading...';
+            button.style.background = 'linear-gradient(135deg, #6c757d, #495057)';
+            
+            // Simulate portal loading
+            setTimeout(() => {
+                switch(portalType) {
+                    case 'property':
+                        console.log('Navigating to Property Portal');
+                        // Navigate to the actual property portal
+                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=Property-portal';
+                        break;
+                    case '3d':
+                        console.log('Navigating to 3D Portal');
+                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=3D-portal';
+
+                        break;
+                    case '2d3d':
+                        console.log('Navigating to 2D-3D Portal');
+                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=2d-3dProperty';
+                        break;
+                    case 'utilities':
+                        console.log('Navigating to Utilities Portal');
+                        window.location.href ='https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=Utility-portal';
+                        break;
+                }
+                
+                // Reset button
+                button.textContent = originalText;
+                button.style.background = 'linear-gradient(135deg, #007bff, #0056b3)';
+            }, 1500);
+        }
+
+        // Add smooth scrolling and interaction effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover sound effect (optional)
+            const cards = document.querySelectorAll('.portal-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
+            });
+
+           
+
+            // Add particle effect (optional enhancement)
+            createParticles();
+        });
+
+        function createParticles() {
+            const particleCount = 30;
+            const particles = [];
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = '2px';
+                particle.style.height = '2px';
+                particle.style.background = 'rgba(255,255,255,0.1)';
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '1';
+                
+                document.body.appendChild(particle);
+                particles.push({
+                    element: particle,
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+
+            function animateParticles() {
+                particles.forEach(particle => {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+
+                    if (particle.x < 0 || particle.x > window.innerWidth) particle.vx *= -1;
+                    if (particle.y < 0 || particle.y > window.innerHeight) particle.vy *= -1;
+
+                    particle.element.style.left = particle.x + 'px';
+                    particle.element.style.top = particle.y + 'px';
+                });
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            animateParticles();
+        }
+
+        // Responsive video handling
+        window.addEventListener('resize', function() {
+            const video = document.querySelector('.video-background');
+            if (video) {
+                video.style.width = window.innerWidth + 'px';
+                video.style.height = window.innerHeight + 'px';
+            }
+        });
+    </script>
+</body>
+</html>

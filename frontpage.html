@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Digital Twin Portal - Thiruvananthapuram</title>
+    <title>Smart City Portal - Thiruvananthapuram</title>
     <style>
         * {
             margin: 0;
@@ -13,27 +12,83 @@
         }
 
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3b82f6;
-            --accent-blue: #60a5fa;
-            --dark-navy: #1e293b;
-            --light-gray: #f8fafc;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --success-green: #059669;
-            --border-light: rgba(255, 255, 255, 0.1);
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.6);
+            --primary-blue: #1a365d;
+            --secondary-blue: #2b6cb0;
+            --accent-blue: #3182ce;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --bg-white: #ffffff;
+            --bg-gray: #f7fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Background Slideshow */
-        .slideshow-container {
-            position: fixed;
-            top: 0;
-            left: 0;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-gray);
+        }
+
+        /* Header Section */
+        .header {
+            background: var(--bg-white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+        }
+
+        .logo img {
             width: 100%;
             height: 100%;
-            z-index: -2;
+            object-fit: contain;
+        }
+
+        .header-text {
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.25rem;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Slideshow Section */
+        .slideshow-section {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
         }
 
         .slide {
@@ -45,341 +100,333 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-           
-            transition: opacity 3s ease-in-out;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
         }
 
         .slide.active {
             opacity: 1;
         }
 
-        /* Background images */
         .slide:nth-child(1) {
-            background-image: url('https://www.dtpcthiruvananthapuram.com/images/Trivandrum-video.webp?w=1920&h=1080&fit=crop&crop=center');
+            background-image: url('https://www.dtpcthiruvananthapuram.com/images/Trivandrum-video.webp');
         }
         
         .slide:nth-child(2) {
-            background-image: url('https://images.unsplash.com/photo-1615133005831-ef94ee2ceb16?w=1920&h=1080&fit=crop&crop=center');
+            background-image: url('https://images.unsplash.com/photo-1615133005831-ef94ee2ceb16');
         }
         
         .slide:nth-child(3) {
-            background-image: url('https://t4.ftcdn.net/jpg/10/25/07/99/360_F_1025079947_pyyWJOWS9qQNpvYebX2xh9CZKAStLRmQ.jpg?w=1920&h=1080&fit=crop&crop=center');
-        }
-        
-        .slide:nth-child(4) {
-            background-image: url('https://images.unsplash.com/photo-1614090699960-b4c81be49f3c?w=1920&h=1080&fit=crop&crop=center');
-        }
-        
-        .slide:nth-child(5) {
-            background-image: url('https://cdn.pixabay.com/photo/2014/09/19/18/19/veli-452834_1280.jpg?w=1920&h=1080&fit=crop&crop=center');
+            background-image: url('https://t4.ftcdn.net/jpg/10/25/07/99/360_F_1025079947_pyyWJOWS9qQNpvYebX2xh9CZKAStLRmQ.jpg');
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', sans-serif;
-            overflow: hidden;
-           width: 100vw;
-  height: 100vh;
-  margin: auto;
-  padding: auto;
-           
-            font-weight: 400;
-            line-height: 1.6;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(30, 59, 138, 0.26) 0%, rgba(30, 41, 59, 0.356) 100%);
-            z-index: -1;
-        }
-  .slide {
+        .slideshow-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
+            background: linear-gradient(rgba(26, 54, 93, 0.6), rgba(26, 54, 93, 0.4));
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .slide.active {
-            opacity: 1;
-        }
-       
-        .container {
-            position: relative;
-            z-index: 2;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .slideshow-text {
+            text-align: center;
+            color: white;
             padding: 2rem;
-            max-width: 1400px;
+        }
+
+        .slideshow-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .slideshow-description {
+            font-size: 1.2rem;
+            max-width: 600px;
             margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        .header {
+        /* Portal Cards Section */
+        .portals-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
             text-align: center;
-            margin-bottom: 3.5rem;
-            animation: slideInFromTop 0.8s ease-out;
-        }
-
-        .logos-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .organization-logo {
-            width: 90px;
-            height: 90px;
-            
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-            transition: all 0.3s ease;
-        }
-
-        .organization-logo:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .main-title {
-            color: #ffffff;
-            font-size: 2.75rem;
+            font-size: 2rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-align: center;
-            letter-spacing: -0.025em;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
-            font-weight: 400;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            color: var(--primary-blue);
+            margin-bottom: 3rem;
         }
 
         .portal-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2.5rem;
-            max-width: 1100px;
-            width: 100%;
-            animation: slideInFromBottom 0.8s ease-out 0.2s both;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .portal-card {
-            
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
+            background: var(--bg-white);
+            border: 2px solid var(--border-color);
             padding: 2rem;
-            text-align: center;
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            min-height: 420px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow);
         }
 
-       
+        .portal-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
 
+        .portal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
 
         .portal-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-            border-radius: 12px;
+            width: 60px;
+            height: 60px;
+            background: var(--secondary-blue);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+            font-size: 1.5rem;
+            margin-right: 1rem;
         }
 
-       
         .portal-title {
-            color: #ffffff;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-            letter-spacing: -0.01em;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            color: var(--primary-blue);
         }
 
         .portal-description {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 0.95rem;
-            line-height: 1.6;
+            color: var(--text-secondary);
             margin-bottom: 1.5rem;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
         }
 
         .feature-list {
             list-style: none;
             margin-bottom: 2rem;
-            text-align: left;
         }
 
         .feature-list li {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.875rem;
-            margin-bottom: 0.6rem;
-            padding-left: 1.25rem;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
             position: relative;
-            line-height: 1.5;
+            color: var(--text-secondary);
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
         }
 
         .feature-list li::before {
-            content: '▪';
+            content: '✓';
             position: absolute;
             left: 0;
             color: var(--accent-blue);
             font-weight: bold;
-            font-size: 1rem;
         }
 
         .portal-button {
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            background: var(--secondary-blue);
             color: white;
             border: none;
-            padding: 0.875rem 2rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
-            letter-spacing: 0.025em;
-            margin-top: auto;
+            transition: background-color 0.3s ease;
+            width: 100%;
             font-family: inherit;
         }
 
         .portal-button:hover {
-            background: linear-gradient(135deg, #1e40af, #2563eb);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(30, 58, 138, 0.4);
+            background: var(--primary-blue);
         }
 
-        .portal-button:active {
-            transform: translateY(0);
-        }
-
-       
-
-
+        /* Footer */
         .footer {
-            position: fixed;
-            bottom: 5rem;
+            background: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Navigation dots for slideshow */
+        .slideshow-nav {
+            position: absolute;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.85rem;
-            text-align: center;
-            z-index: 3;
+            display: flex;
+            gap: 10px;
         }
 
-       
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-dot.active,
+        .nav-dot:hover {
+            background: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .main-title {
+                font-size: 1.5rem;
+            }
+
+            .slideshow-title {
+                font-size: 2rem;
+            }
+
+            .slideshow-description {
+                font-size: 1rem;
+            }
+
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portals-section {
+                padding: 2rem 1rem;
+            }
+
+            .portal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .portal-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Background Slideshow -->
-    <div class="slideshow-container">
-        <div class="slide active"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
-    </div>
-
-    <div class="overlay"></div>
-
-    <div class="container">
-        <div class="header">
-            <div class="logos-container">
-                <div class="organization-logo">
-                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Seal_of_Thiruvananthapuram.png" style="width: 50px; height: 50px;">
-                </div>
-                <h1 class="main-title">Corporation of Thiruvananthapuram</h1>
-                <div class="organization-logo">
-                     <img src="https://mdm.smarttvm.in/assets/images/smart-city-logo-new.png" style="width:100px; height: auto"> 
-                </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Seal_of_Thiruvananthapuram.png" alt="Thiruvananthapuram Logo">
             </div>
-            <p class="subtitle">Smart city digital twin web GIS portal</p>
+            <div class="header-text">
+                <h1 class="main-title">Corporation of Thiruvananthapuram</h1>
+                <p class="subtitle">Smart City Digital Portal</p>
+            </div>
+            <div class="logo">
+                <img src="https://mdm.smarttvm.in/assets/images/smart-city-logo-new.png" alt="Smart City Logo">
+            </div>
         </div>
+    </header>
 
+    <!-- Slideshow Section -->
+    <section class="slideshow-section">
+        <div class="slideshow-container">
+            <div class="slide active"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+        <div class="slideshow-overlay">
+            <div class="slideshow-text">
+                <h2 class="slideshow-title">Digital Twin Technology</h2>
+                <p class="slideshow-description">Empowering Thiruvananthapuram with advanced geospatial solutions and smart city infrastructure management</p>
+            </div>
+        </div>
+        <div class="slideshow-nav">
+            <div class="nav-dot active" onclick="currentSlide(1)"></div>
+            <div class="nav-dot" onclick="currentSlide(2)"></div>
+            <div class="nav-dot" onclick="currentSlide(3)"></div>
+        </div>
+    </section>
+
+    <!-- Portal Cards Section -->
+    <section class="portals-section">
+        <h2 class="section-title">Access Digital Services</h2>
+        
         <div class="portal-grid">
-            <!-- Property Portal with Enhanced Features -->
+            <!-- Property Management Portal -->
             <div class="portal-card" onclick="navigateToPortal('property')">
-                <div class="status-indicator"></div>
-                <div class="portal-icon">🏢</div>
-                <h3 class="portal-title">Property Management Portal</h3>
-                <p class="portal-description">Comprehensive property management with advanced analytics and violation tracking</p>
-                
+                <div class="portal-header">
+                    <div class="portal-icon">🏢</div>
+                    <h3 class="portal-title">Property Management Portal</h3>
+                </div>
+                <p class="portal-description">
+                    Comprehensive property management system with advanced analytics, violation tracking, and compliance monitoring for effective urban governance.
+                </p>
                 <ul class="feature-list">
-                    <li>Violation Detection & Notices</li>
+                    <li>Violation Detection & Notice Management</li>
                     <li>Area Difference Analysis</li>
-                    <li>Interactive Dashboard</li>
-                    <li>2D/3D Layer Switching</li>
-                    <li>Tax Information & Assessment</li>
+                    <li>Interactive Property Dashboard</li>
+                    <li>2D/3D Layer Visualization</li>
+                    <li>Tax Assessment & Information</li>
                     <li>Property Compliance Monitoring</li>
                 </ul>
-                
                 <button class="portal-button">Access Property Portal</button>
             </div>
 
-            <!-- General Web GIS Portal -->
+            <!-- Web GIS Portal -->
             <div class="portal-card" onclick="navigateToPortal('webgis')">
-                <div class="status-indicator"></div>
-                <div class="portal-icon">🗺️</div>
-                <h3 class="portal-title">Web GIS Portal</h3>
-                <p class="portal-description">Multi-layer geospatial visualization and analysis platform</p>
-                
+                <div class="portal-header">
+                    <div class="portal-icon">🗺️</div>
+                    <h3 class="portal-title">Web GIS Portal</h3>
+                </div>
+                <p class="portal-description">
+                    Multi-layer geospatial visualization and analysis platform providing comprehensive mapping solutions for urban planning and decision making.
+                </p>
                 <ul class="feature-list">
-                    <li>Administrative Boundaries</li>
-                    <li>Transportation Networks</li>
-                    <li>Land Use/Land Cover (LULC)</li>
-                    <li>Infrastructure Mapping</li>
-                    <li>Environmental Layers</li>
-                    <li>Demographic Visualization</li>
+                    <li>Administrative Boundary Mapping</li>
+                    <li>Transportation Network Analysis</li>
+                    <li>Land Use/Land Cover Visualization</li>
+                    <li>Infrastructure Asset Management</li>
+                    <li>Environmental Data Layers</li>
+                    <li>Demographic Information System</li>
                 </ul>
-                
                 <button class="portal-button">Launch Web GIS</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Slideshow Navigation -->
-    <div class="slideshow-nav">
-        <div class="nav-dot active" onclick="currentSlide(1)"></div>
-        <div class="nav-dot" onclick="currentSlide(2)"></div>
-        <div class="nav-dot" onclick="currentSlide(3)"></div>
-        <div class="nav-dot" onclick="currentSlide(4)"></div>
-        <div class="nav-dot" onclick="currentSlide(5)"></div>
-    </div>
-
-    <div class="footer">
-        <p>© 2025 Smart City Trivandrum Limited | Developed by ULTS</p>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Smart City Thiruvananthapuram Limited | Developed by ULTS</p>
+            <p>Empowering Digital Governance through Technology</p>
+        </div>
+    </footer>
 
     <script>
         let slideIndex = 0;
@@ -387,7 +434,6 @@
         const navDots = document.querySelectorAll('.nav-dot');
         const totalSlides = slides.length;
 
-        // Auto slideshow function
         function showSlides() {
             slides.forEach(slide => slide.classList.remove('active'));
             navDots.forEach(dot => dot.classList.remove('active'));
@@ -401,7 +447,6 @@
             navDots[slideIndex].classList.add('active');
         }
 
-        // Manual slide navigation
         function currentSlide(n) {
             slideIndex = n - 1;
             slides.forEach(slide => slide.classList.remove('active'));
@@ -411,58 +456,35 @@
             navDots[slideIndex].classList.add('active');
         }
 
-        // Start auto slideshow
-        setInterval(showSlides, 4000);
+        // Auto slideshow - changes every 5 seconds
+        setInterval(showSlides, 5000);
 
-        // Portal navigation function
         function navigateToPortal(portalType) {
             const card = event.currentTarget;
             const button = card.querySelector('.portal-button');
             const originalText = button.textContent;
             
-            // Add loading animation
+            // Loading state
             button.textContent = 'Loading...';
-            button.style.background = 'linear-gradient(135deg, #6c757d, #495057)';
-            card.style.transform = 'translateY(-15px) scale(1.02)';
+            button.style.background = '#718096';
             
             setTimeout(() => {
                 switch(portalType) {
                     case 'property':
-                        console.log('Navigating to Property Management Portal');
-                        // Enhanced property portal with violations and area differences
                         window.location.href = 'https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=33d990bd4f0044d2b2a61c902eaa9fe4&page=2d-3d-Property';
                         break;
                     case 'webgis':
-                        console.log('Navigating to Web GIS Portal');
-                        // General Web GIS portal with multiple layers
                         window.location.href = 'https://gis.smarttvm.in/portal/apps/experiencebuilder/experience/?id=fa18f186ad8c4ea7a45bb11bc33f0b1f';
                         break;
                 }
-                
-                // Reset button
-                button.textContent = originalText;
-                button.style.background = 'linear-gradient(135deg, #007bff, #00d4ff)';
-            }, 2000);
+            }, 1000);
         }
 
-        // Enhanced interactions
+        // Initialize slideshow
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.portal-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-
-           
+            slides[0].classList.add('active');
+            navDots[0].classList.add('active');
         });
-
-       
     </script>
 </body>
 </html>

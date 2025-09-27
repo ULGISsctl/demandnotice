@@ -425,13 +425,14 @@
         setInterval(showSlides, 5000);
 
         function navigateToPortal(portalType) {
-            const card = event.currentTarget;
-            const button = card.querySelector('.portal-button');
+            const button = event.currentTarget;
             const originalText = button.textContent;
+            const originalBackground = button.style.background;
             
             // Loading state
             button.textContent = 'Loading...';
             button.style.background = '#718096';
+            button.disabled = true;
             
             setTimeout(() => {
                 if (portalType === 'webgis') {
@@ -440,7 +441,8 @@
                 
                 // Reset button if navigation fails
                 button.textContent = originalText;
-                button.style.background = '';
+                button.style.background = originalBackground;
+                button.disabled = false;
             }, 1000);
         }
 

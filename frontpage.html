@@ -208,13 +208,34 @@
             flex-shrink: 0;
         }
 
+        .enter-button {
+            background: var(--secondary-blue);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+        }
+
+        .enter-button:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
         .footer-content {
             margin-top: auto;
-            padding: 1rem;
+            padding: 0.5rem;
             background: transparent;
             color: var(--text-secondary);
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             border-radius: 6px;
             flex-shrink: 0;
         }
@@ -287,8 +308,8 @@
             }
 
             .footer-content {
-                font-size: 0.75rem;
-                padding: 0.8rem;
+                font-size: 0.65rem;
+                padding: 0.4rem;
             }
         }
 
@@ -361,6 +382,11 @@
                 </p>
                 <strong>Key Features:</strong> Administrative Mapping • Transportation Analysis • Land Use Visualization • Infrastructure Management • Violation Detection • Property Dashboard • 2D/3D Layers • 
             </div>
+            
+            <button class="enter-button" onclick="navigateToPortal('webgis')">
+                Enter Portal
+            </button>
+            
             <div class="footer-content">
                 <p>&copy; 2025 Smart City Thiruvananthapuram Limited | Developed by ULTS </p>
             </div>

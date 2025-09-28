@@ -73,57 +73,69 @@
   </div>
 
   <script>
-    function evaluateArcadeExpression(feature, expression) {
-      try {
-        if (!expression || !feature) return "";
-        if (expression.startsWith('$feature.')) {
-          const fieldName = expression.replace('$feature.', '').trim();
-          return feature[fieldName] || "";
-        }
-        return expression;
-      } catch (error) {
-        console.error("Error evaluating Arcade expression:", error);
-        return "";
+  function cleanValue(value) {
+    if (value === null || value === undefined) return "";
+    if (value === "-1" || value === "-2") return "NR"; // treat -1 / -2 as NR
+    return value;
+  }
+
+  function evaluateArcadeExpression(feature, expression) {
+    try {
+      if (!expression || !feature) return "";
+      if (expression.startsWith('$feature.')) {
+        const fieldName = expression.replace('$feature.', '').trim();
+        return cleanValue(feature[fieldName]);
       }
+      return expression;
+    } catch (error) {
+      console.error("Error evaluating Arcade expression:", error);
+      return "";
     }
+  }
 
-    function getFeatureFromParams() {
-      const params = new URLSearchParams(window.location.search);
-      return {
-        ward_no: params.get("ward_no"),
-        ward_nm: params.get("ward_nm"),
-        old_pro_id: params.get("old_pro_id"),
-        new_pro_id: params.get("new_pro_id"),
-        ownr_nm: params.get("ownr_nm"),
-        ownr_mob: params.get("ownr_mob"),
-        year_const: params.get("year_const"),
-        flr_count: params.get("flr_count"),
-        tot_flr_ar: params.get("tot_flr_ar"),
-        ar_flrarea: params.get("ar_flrarea"),
-        com_stair: params.get("com_stair"),
-        com_st_ar: params.get("com_st_ar"),
-        pathway: params.get("pathway"),
-        estb_nm: params.get("estb_nm"),
-        photo_1: params.get("photo_1"),
-        photo_2: params.get("photo_2"),
-      };
-    }
+  function getFeatureFromParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      ward_no: params.get("ward_no"),
+      ward_nm: params.get("ward_nm"),
+      old_pro_id: params.get("old_pro_id"),
+      new_pro_id: params.get("new_pro_id"),
+      ownr_nm: params.get("ownr_nm"),
+      ownr_mob: params.get("ownr_mob"),
+      year_const: params.get("year_const"),
+      flr_count: params.get("flr_count"),
+      tot_flr_ar: params.get("tot_flr_ar"),
+      ar_flrarea: params.get("ar_flrarea"),
+      com_stair: params.get("com_stair"),
+      com_st_ar: params.get("com_st_ar"),
+      pathway: params.get("pathway"),
+      estb_nm: params.get("estb_nm"),
+      photo_1: params.get("photo_1"),
+      photo_2: params.get("photo_2"),
+    };
+  }
 
-    function applyArcadeExpressions() {
-      const feature = getFeatureFromParams();
-      Object.keys(feature).forEach(key => {
-        const el = document.getElementById(key);
-        if (el) {
-          if (el.tagName === "IMG") {
-            el.src = feature[key] || "";
+  function applyArcadeExpressions() {
+    const feature = getFeatureFromParams();
+    Object.keys(feature).forEach(key => {
+      const el = document.getElementById(key);
+      if (el) {
+        const val = cleanValue(feature[key]);
+        if (el.tagName === "IMG") {
+          if (val && val !== "NR") {
+            el.src = val;
           } else {
-            el.textContent = evaluateArcadeExpression(feature, "$feature." + key);
+            el.style.display = "none"; // hide image if invalid
           }
+        } else {
+          el.textContent = val;
         }
-      });
-    }
+      }
+    });
+  }
 
-    window.onload = applyArcadeExpressions;
-  </script>
+  window.onload = applyArcadeExpressions;
+</script>
+
 </body>
 </html>

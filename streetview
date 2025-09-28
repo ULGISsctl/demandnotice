@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SCTL GIMS Street Viewer</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css"/>
+  <style>
+    html,body {height:100%; margin:0;}
+    #panorama {width:100%; height:100vh; background:#000;}
+    #controls {
+      position:absolute; bottom:15px; left:50%;
+      transform:translateX(-50%);
+      display:flex; gap:15px;
+    }
+    button {
+      padding:8px 16px;
+      border:none;
+      border-radius:6px;
+      background:#0078d7;
+      color:white;
+      cursor:pointer;
+      font-size:14px;
+    }
+    button:disabled {background:gray; cursor:not-allowed;}
+    .msg {
+      color:white; text-align:center; padding-top:40vh; font-size:18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="panorama"></div>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
+  <script>
+    function getParam(name) {
+      const u = new URL(window.location.href);
+      return u.searchParams.get(name);
+    }
+
+    // Base path where all images are hosted
+    const basePath = "https://tscimage.ultsglobal.com/images/";
+
+    // Read list and index from query params
+    let list = (getParam('list') || '').split(',').map(s => s.trim()).filter(Boolean);
+    let index = parseInt(getParam('index') || '0', 10);
+
+    // Fallback: single ?img= param
+    if (list.length === 0) {
+      const img = getParam('img');
+      if (img) list = [decodeURIComponent(img)];
+    }
+
+    const viewerDiv = document.getElementById('panorama');
+    let viewer;
+
+    function loadPanorama(i) {
+      if (!list[i]) return;
+      viewerDiv.innerHTML = ''; // reset container
+      viewer = pannellum.viewer('panorama', {
+        "type": "equirectangular",
+        "panorama": basePath + list[i],
+        "autoLoad": true,
+        "showZoomCtrl": true,
+        "compass": true
+      });
+      index = i;
+      updateButtons();
+    }
+
+    function updateButtons() {
+      document.getElementById('prevBtn').disabled = (index <= 0);
+      document.getElementById('nextBtn').disabled = (index >= list.length-1);
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (index > 0) loadPanorama(index-1);
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (index < list.length-1) loadPanorama(index+1);
+    });
+
+    if (list.length > 0) {
+      loadPanorama(index);
+    } else {
+      viewerDiv.innerHTML = '<div class="msg">No image found</div>';
+    }
+  </script>
+</body>
+</html>

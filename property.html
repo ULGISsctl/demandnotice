@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Property Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f6f9;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background: #f0f0f0;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background: #fafafa;
+    }
+    img {
+      max-width: 150px;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Property Details</h2>
+    <table>
+      <tr><th>Ward Number</th><td id="ward_no"></td></tr>
+      <tr><th>Ward Name</th><td id="ward_nm"></td></tr>
+      <tr><th>Old Property ID</th><td id="old_pro_id"></td></tr>
+      <tr><th>New Property ID</th><td id="new_pro_id"></td></tr>
+      <tr><th>Owner Name</th><td id="ownr_nm"></td></tr>
+      <tr><th>Owner Mobile</th><td id="ownr_mob"></td></tr>
+      <tr><th>Year of Construction</th><td id="year_const"></td></tr>
+      <tr><th>Floor Count</th><td id="flr_count"></td></tr>
+      <tr><th>Total Floor Area</th><td id="tot_flr_ar"></td></tr>
+      <tr><th>Floor Area</th><td id="ar_flrarea"></td></tr>
+      <tr><th>Common Stair</th><td id="com_stair"></td></tr>
+      <tr><th>Common Stair Area</th><td id="com_st_ar"></td></tr>
+      <tr><th>Pathway</th><td id="pathway"></td></tr>
+      <tr><th>Establishment Name</th><td id="estb_nm"></td></tr>
+      <tr><th>Photo 1</th><td><img id="photo_1" src="" alt="Photo 1"></td></tr>
+      <tr><th>Photo 2</th><td><img id="photo_2" src="" alt="Photo 2"></td></tr>
+    </table>
+  </div>
+
+  <script>
+    function evaluateArcadeExpression(feature, expression) {
+      try {
+        if (!expression || !feature) return "";
+        if (expression.startsWith('$feature.')) {
+          const fieldName = expression.replace('$feature.', '').trim();
+          return feature[fieldName] || "";
+        }
+        return expression;
+      } catch (error) {
+        console.error("Error evaluating Arcade expression:", error);
+        return "";
+      }
+    }
+
+    function getFeatureFromParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        ward_no: params.get("ward_no"),
+        ward_nm: params.get("ward_nm"),
+        old_pro_id: params.get("old_pro_id"),
+        new_pro_id: params.get("new_pro_id"),
+        ownr_nm: params.get("ownr_nm"),
+        ownr_mob: params.get("ownr_mob"),
+        year_const: params.get("year_const"),
+        flr_count: params.get("flr_count"),
+        tot_flr_ar: params.get("tot_flr_ar"),
+        ar_flrarea: params.get("ar_flrarea"),
+        com_stair: params.get("com_stair"),
+        com_st_ar: params.get("com_st_ar"),
+        pathway: params.get("pathway"),
+        estb_nm: params.get("estb_nm"),
+        photo_1: params.get("photo_1"),
+        photo_2: params.get("photo_2"),
+      };
+    }
+
+    function applyArcadeExpressions() {
+      const feature = getFeatureFromParams();
+      Object.keys(feature).forEach(key => {
+        const el = document.getElementById(key);
+        if (el) {
+          if (el.tagName === "IMG") {
+            el.src = feature[key] || "";
+          } else {
+            el.textContent = evaluateArcadeExpression(feature, "$feature." + key);
+          }
+        }
+      });
+    }
+
+    window.onload = applyArcadeExpressions;
+  </script>
+</body>
+</html>
